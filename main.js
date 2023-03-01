@@ -4,7 +4,6 @@ let listaParinteElement = document.getElementById('tasks');
 
 //Event Listeners
 buttonElement.addEventListener('click', addTask);
-listaParinteElement.addEventListener('click', deleteTask);
 
 //Functions
 //Function Add task
@@ -55,6 +54,27 @@ function addTask(event) {
 
   listaParinteElement.appendChild(task_div);
   inputElement.value = "";
+
+  task_edit_div.addEventListener('click', editTask);
+  function editTask(e) {
+    if (task_edit_div.innerText.toLowerCase() == "edit") {
+      task_edit_div.innerText = "Save";
+      task_input_div.removeAttribute("readonly");
+      task_input_div.focus();
+    } else {
+      task_edit_div.innerText = "Edit";
+      task_input_div.setAttribute("readonly");
+    }
+  }
+
+
+
+  task_delete_div.addEventListener('click', deleteTask);
+  //Delete function
+  function deleteTask(e) {
+    listaParinteElement.removeChild(task_div);
+  }
+
 }
 
 
