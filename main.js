@@ -1,6 +1,8 @@
 let inputElement = document.getElementById('new-task-input');
 let buttonElement = document.getElementById('new-task-submit');
 let listaParinteElement = document.getElementById('tasks');
+const success = document.getElementById('success');
+const filledIn = document.getElementById('filledIn');
 
 //Event Listeners
 buttonElement.addEventListener('click', addTask);
@@ -12,13 +14,7 @@ function addTask(event) {
 
   const input = inputElement.value;
 
-  if (!input) {
-    alert("Please fill out the task!");
-    return;
-  }
-  else {
-    console.log("succes");
-  }
+
 
   const task_div = document.createElement("div");
   task_div.classList.add("task");
@@ -35,6 +31,7 @@ function addTask(event) {
   task_input_div.setAttribute("readonly", "readonly");
 
   task_content_div.appendChild(task_input_div);
+
 
   const task_actions_div = document.createElement("div");
   task_actions_div.classList.add("actions");
@@ -88,6 +85,25 @@ function addTask(event) {
   function deleteTask(e) {
     listaParinteElement.removeChild(task_div);
   }
+
+  // Message task
+  if (!input) {
+    //alert("Please fill out the task!");
+    //return;
+    filledIn.style.display = 'block';
+    listaParinteElement.removeChild(task_div);
+  }
+  else {
+    setTimeout(() => {
+      success.style.display = 'block';
+    }, 1000);
+
+  }
+
+  setTimeout(() => {
+    success.style.display = 'none';
+    filledIn.style.display = 'none';
+  }, 4000);
 
 }
 

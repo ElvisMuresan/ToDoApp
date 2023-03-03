@@ -154,3 +154,39 @@ main {
 .task .actions .edit {
   color: var(--yellow);
 }
+
+.success {
+  display: none;
+}
+
+#filledIn {
+  flex: 1 1 0%;
+  background-color: var(--darker);
+  padding: 0.5rem;
+  border-radius: 1rem;
+  margin-right: 1rem;
+  color: red;
+  font-size: 1.25rem;
+  display: none;
+}
+
+#filledIn::placeholder {
+  color: red;
+}
+
+#success {
+  all: unset;
+  flex: 1 1 0%;
+  background-color: var(--darker);
+  padding: 0.5rem;
+  border-radius: 1rem;
+  margin-right: 1rem;
+  color: red;
+  font-size: 1.25rem;
+  display: none;
+  width: 200px;
+  height: 30px;
+  position: absolute;
+  left: 3000;
+  top: 2200;
+}
