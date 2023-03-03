@@ -39,6 +39,10 @@ function addTask(event) {
   const task_actions_div = document.createElement("div");
   task_actions_div.classList.add("actions");
 
+  const task_checked_div = document.createElement("button");
+  task_checked_div.classList.add("checked");
+  task_checked_div.innerHTML = "Checked";
+
   const task_edit_div = document.createElement("button");
   task_edit_div.classList.add("edit");
   task_edit_div.innerHTML = "Edit";
@@ -47,13 +51,23 @@ function addTask(event) {
   task_delete_div.classList.add("delete");
   task_delete_div.innerHTML = "Delete";
 
+  task_actions_div.appendChild(task_checked_div);
   task_actions_div.appendChild(task_edit_div);
   task_actions_div.appendChild(task_delete_div);
 
+
   task_div.appendChild(task_actions_div);
 
-  listaParinteElement.appendChild(task_div);
+  listaParinteElement.appendChild(task_div); // Adauga task-ul
   inputElement.value = "";
+
+
+
+  task_checked_div.addEventListener('click', checkedTask);
+  //Checked function
+  function checkedTask(e) {
+    task_content_div.style.textDecoration = "line-through";
+  }
 
   task_edit_div.addEventListener('click', editTask);
   function editTask(e) {
@@ -63,7 +77,7 @@ function addTask(event) {
       task_input_div.focus();
     } else {
       task_edit_div.innerText = "Edit";
-      task_input_div.setAttribute("readonly");
+      task_input_div.setAttribute("readonly", "readonly");
     }
   }
 
