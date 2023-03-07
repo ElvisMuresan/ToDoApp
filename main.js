@@ -14,8 +14,6 @@ function addTask(event) {
 
   const input = inputElement.value;
 
-
-
   const task_div = document.createElement("div");
   task_div.classList.add("task");
 
@@ -63,7 +61,15 @@ function addTask(event) {
   task_checked_div.addEventListener('click', checkedTask);
   //Checked function
   function checkedTask(e) {
-    task_content_div.style.textDecoration = "line-through";
+    //task_content_div.style.textDecoration = "line-through";
+    if (task_checked_div.innerText.toLowerCase() == "checked") {
+      task_content_div.style.textDecoration = "line-through";
+      task_checked_div.innerText = "Unchecked";
+      task_input_div.focus();
+    } else {
+      task_checked_div.innerText = "Checked";
+      task_content_div.style.textDecoration = "none";
+    }
   }
 
   task_edit_div.addEventListener('click', editTask);
@@ -96,7 +102,7 @@ function addTask(event) {
   else {
     setTimeout(() => {
       success.style.display = 'block';
-    }, 1000);
+    }, 500);
 
   }
 

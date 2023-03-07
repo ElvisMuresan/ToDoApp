@@ -1,10 +1,11 @@
 :root {
   --dark: #2a2828;
   --darker: #100303;
-  --light: #eee;
+  --light: #ede8e8;
   --blue: #7CB9E8;
   --blueer: #00308F;
   --yellow: #c1d220;
+  --albastru: rgb(3, 149, 149);
 }
 
 * {
@@ -32,7 +33,7 @@ header h1 {
   font-size: 2.5rem;
   font-weight: 300;
   margin-bottom: 1rem;
-  color: bisque;
+  color: var(--albastru);
 }
 
 #new-task-form {
@@ -41,16 +42,18 @@ header h1 {
 
 #new-task-input {
   flex: 1 1 0%;
-  background-color: var(--darker);
+  background-color: var(--light);
   padding: 1rem;
   border-radius: 1rem;
   margin-right: 1rem;
-  color: rgb(3, 149, 149);
+  color: var(--albastru);
   font-size: 1.25rem;
+  opacity: 0.8;
 }
 
 #new-task-input::placeholder {
-  color: rgb(3, 149, 149);
+  color: var(--albastru);
+  ;
 }
 
 #new-task-submit {
@@ -59,7 +62,7 @@ header h1 {
   font-size: 1.25rem;
   font-weight: 700;
   cursor: pointer;
-  background-image: linear-gradient(to right, var(--blueer), var(--blue));
+  background-image: linear-gradient(to right, var(--albastru), var(--blue));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: 0.4s;
@@ -89,7 +92,7 @@ main {
   font-size: 1.5rem;
   font-weight: 300;
   margin-bottom: 1rem;
-  color: bisque;
+  color: var(--albastru);
 }
 
 #tasks .task {
@@ -105,7 +108,7 @@ main {
 
 #tasks .task .content .text {
   all: unset;
-  color: rgb(3, 197, 197);
+  color: var(--albastru);
   font-size: 1.125rem;
   width: 100%;
   display: block;
@@ -178,15 +181,18 @@ main {
   all: unset;
   flex: 1 1 0%;
   background-color: var(--darker);
-  padding: 0.5rem;
+  padding: 1rem;
   border-radius: 1rem;
   margin-right: 1rem;
-  color: red;
+  color: rgb(3, 149, 149);
   font-size: 1.25rem;
+  align-items: center;
   display: none;
-  width: 200px;
-  height: 30px;
-  position: absolute;
-  left: 3000;
-  top: 2200;
+  width: 100%;
+  align-content: center;
+
+}
+
+#success::placeholder {
+  color: rgb(3, 197, 197);
 }
