@@ -1,12 +1,20 @@
 // Am creat variabila si m-am folosit de DOM(document.getElementById) pentru ma folosi de inputul creat in HTML (dupa ID)
 let inputElement = document.getElementById('inputId');
 let buttonElement = document.getElementById('buttonId');
-
+let popup = document.getElementById('popup');
 //Practic e un div in care avem lista de to do-uri
 let listaParinteElement = document.getElementById('listaParinteId');
 
-const success = document.getElementById('success');
-const filledIn = document.getElementById('filledIn');
+// const success = document.getElementById('success');
+// const filledIn = document.getElementById('filledIn');
+
+
+// function openPopup() {
+//   popup.classList.add("open-popup");
+// }
+// function closePopup() {
+//   popup.classList.remove("open-popup");
+// }
 
 //Event Listeners.  Crearea evenimentului cand apasam buttonElement si functioa addToDo
 buttonElement.addEventListener('click', addToDo);
@@ -78,7 +86,40 @@ function addToDo(event) {
   listaParinteElement.appendChild(task_div); // Adauga task-ul
   inputElement.value = ""; // ne curata labelul dupa ce adaugam un toDo
 
+  const task_message_div = document.createElement("div");
+  task_message_div.classList.add("message");
+  const task_filledIn_div = document.createElement("p");
+  task_filledIn_div.classList.add("filledIn");
+  task_filledIn_div.setAttribute("id", "filledIn");
+  task_filledIn_div.innerText = "Please insert a task!";
 
+  const task_succes_div = document.createElement("p");
+  task_succes_div.classList.add("success");
+  task_succes_div.setAttribute("id", "success");
+  task_succes_div.innerText = "To do succesfully added!";
+
+  task_message_div.appendChild(task_filledIn_div);
+  task_message_div.appendChild(task_succes_div);
+
+  listaParinteElement.appendChild(task_message_div);
+
+  if (!input) {
+    //alert("Please fill out the task!");
+    //return;
+    task_filledIn_div.style.display = 'block';
+    listaParinteElement.removeChild(task_div);
+  }
+  else {
+    setTimeout(() => {
+      task_succes_div.style.display = 'block';
+    }, 500);
+
+  }
+
+  setTimeout(() => {
+    task_succes_div.style.display = 'none';
+    task_filledIn_div.style.display = 'none';
+  }, 4000);
 
   task_checked_div.addEventListener('click', checkedTask);
   //Checked function
@@ -124,29 +165,14 @@ function addToDo(event) {
     listaParinteElement.removeChild(task_div);
   }
 
+
+
   /* Message task. Aici avem un if in care daca input nu are continut
  adaugam div-ul filled id care este pus manual in html si eliminam
  din lista Parinte task_div care reprezinta tot label-ul. Altfel
  set un timeout in care afisam div-ul succes in care avem mesajul
  de succes. Apoi dupa 4 secunde eliminam cele doua div-uri. Ele 
  exista dar nu le mai afisam pe ecran*/
-  if (!input) {
-    //alert("Please fill out the task!");
-    //return;
-    filledIn.style.display = 'block';
-    listaParinteElement.removeChild(task_div);
-  }
-  else {
-    setTimeout(() => {
-      success.style.display = 'block';
-    }, 500);
-
-  }
-
-  setTimeout(() => {
-    success.style.display = 'none';
-    filledIn.style.display = 'none';
-  }, 4000);
 
 }
 

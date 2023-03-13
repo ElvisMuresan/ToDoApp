@@ -158,14 +158,14 @@ main {
   color: var(--yellow);
 }
 
-.success {
-  display: none;
-}
 
 #filledIn {
   flex: 1 1 0%;
   background-color: var(--darker);
   padding: 0.5rem;
+  position: fixed;
+  bottom: 0;
+  right: 0;
   border-radius: 1rem;
   margin-right: 1rem;
   color: red;
@@ -173,26 +173,71 @@ main {
   display: none;
 }
 
-#filledIn::placeholder {
-  color: red;
-}
 
 #success {
-  all: unset;
   flex: 1 1 0%;
   background-color: var(--darker);
-  padding: 1rem;
+  padding: 0.5rem;
+  position: fixed;
+  bottom: 0;
+  right: 0;
   border-radius: 1rem;
+  color: #00308F;
   margin-right: 1rem;
-  color: rgb(3, 149, 149);
   font-size: 1.25rem;
-  align-items: center;
   display: none;
-  width: 100%;
-  align-content: center;
 
 }
 
 #success::placeholder {
   color: rgb(3, 197, 197);
+}
+
+.popup {
+  width: 400px;
+  background: #fff;
+  border-radius: 6px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  text-align: center;
+  padding: 0 30px 30px;
+  color: #333;
+  visibility: hidden;
+  transition: transform 0.4s, top 0.4s;
+}
+
+.open-popup {
+  visibility: visible;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+
+}
+
+.popup img {
+  width: 100px;
+  margin-top: -50px;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.popup h2 {
+  font-size: 38px;
+  font-weight: 500;
+  margin: 30px 0 10px;
+}
+
+.popup button {
+  width: 100%;
+  margin-top: 50px;
+  padding: 10px 0;
+  background: #6fd649;
+  color: #fff;
+  border: 0;
+  outline: none;
+  font-size: 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
 }

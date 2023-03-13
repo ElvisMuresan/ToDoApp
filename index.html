@@ -17,18 +17,18 @@
     <form id="new-task-form">
       <input type="text" id="inputId" placeholder="What do you want to do in 2023?">
       <button type="submit" id="buttonId">Add task</button>
+      <!-- <div class="popup" id="popup">
+        <img src="img/404-tick.png" alt="">
+        <h2>Thank You!</h2>
+        <p>Your to do has beed successfully added. Thanks!</p>
+        <button type="button" onclick="closePopup()">OK</button>
+      </div> -->
     </form>
   </header>
 
   <main>
 
-
-
     <section class="task-list">
-
-      <div class="message">
-        <input class="filledIn" id="filledIn" placeholder="Please insert a task!">
-      </div>
 
       <h2>To do:</h2>
 
@@ -36,18 +36,24 @@
 
         <!-- <div class="task">
           <div class="content">
-            <input type="text" class="text" readonly>
+            <input type="text" class="text" readonly
           </div>
           <div class="actions">
-            <button class="checked">Done</button>
+            <button class="checked"></button>
             <button class="edit">Edit</button>
             <button class="delete">Delete</button>
           </div>
         </div> -->
+
+        <!-- <div class="message">
+          <p class="success" id="success">To do succesfully added! </p>
+          <p class="filledIn" id="filledIn">Please insert a task!</p> -->
+      </div>
     </section>
 
-    <div class="message">
-      <input class="success" id="success" placeholder="Task succesfully added">
+
+
+
 
   </main>
 
