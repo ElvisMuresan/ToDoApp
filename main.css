@@ -158,6 +158,20 @@ main {
   color: var(--yellow);
 }
 
+.notificationBox {
+  flex: 1 1 0%;
+  background-color: var(--darker);
+  padding: 0.5rem;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  border-radius: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  display: none;
+}
+
 
 #filledIn {
   flex: 1 1 0%;
@@ -186,7 +200,6 @@ main {
   margin-right: 1rem;
   font-size: 1.25rem;
   display: none;
-
 }
 
 #success::placeholder {
