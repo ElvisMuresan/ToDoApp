@@ -2,16 +2,7 @@ let bodyElement = document.body;
 let inputElement = document.getElementById("inputId");
 let addTodoElement = document.getElementById("buttonId");
 let listaParinteElement = document.getElementById("listaParinteId");
-let notificationElement = document.createElement("div");
-
-/**
- * Notification initialization
- */
-function initializeNotification() {
-  notificationElement.classList.add("notificationBox");
-  bodyElement.appendChild(notificationElement);
-}
-initializeNotification();
+let notificationElement = document.getElementById("notification");
 
 /**
  * Show notification
