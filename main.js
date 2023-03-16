@@ -1,4 +1,4 @@
-// Am creat variabila si m-am folosit de DOM(document.getElementById) pentru ma folosi de inputul creat in HTML (dupa ID)
+
 let inputElement = document.getElementById('inputId');
 let buttonElement = document.getElementById('buttonId');
 let popup = document.getElementById('popup');
