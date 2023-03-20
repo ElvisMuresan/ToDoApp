@@ -102,6 +102,7 @@ const todoInputElement = document.createElement("input");
     confirmationPopUp.classList.add("PopUp-open");
     confirmButton.addEventListener("click", () => {
       listaParinteElement.removeChild(todoElement);
+      //todoElement.style.display = "none";
       confirmationPopUp.classList.remove("PopUp-open");
     }); 
 });
