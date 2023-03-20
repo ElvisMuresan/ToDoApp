@@ -3,6 +3,8 @@ let inputElement = document.getElementById("inputId");
 let addTodoElement = document.getElementById("buttonId");
 let listaParinteElement = document.getElementById("listaParinteId");
 let notificationElement = document.getElementById("notification");
+let confirmationPopUp = document.getElementById("confirmationDialog");
+let confirmButton = document.getElementById("PopUp-confirm");
 
 /**
  * Show notification
@@ -26,16 +28,31 @@ function showNotification(inputValue) {
   setTimeout(() => (notificationElement.style.display = "none"), 4000);
 }
 
+// Cancel function
+function Cancel() {
+  confirmationPopUp.classList.remove("PopUp-open");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  document
+  .getElementById("confirmationDialog")
+  .addEventListener("click", Cancel);
+  document
+  .querySelector(".PopUp")
+  .addEventListener("click", (e) => e.stopPropagation());
+});
+
 /**
  * Creates todo item
  */
 function createTodo(inputValue) {
   // add task element
   let todoElement = document.createElement("div");
+const todoInputElement = document.createElement("input");
   todoElement.classList.add("task");
 
   // input
-  const todoInputElement = document.createElement("input");
+  
   todoInputElement.classList.add("text");
   todoInputElement.type = "text"; 
   todoInputElement.value = inputValue;
@@ -49,16 +66,13 @@ function createTodo(inputValue) {
   // buttons
   
   // create the checkbox element 
-  const checkbox = document.createElement("input");
+  const todoCheckButtonElement = document.createElement("input");
+  todoCheckButtonElement.type = 'checkbox';
+  const todoCheckIconElement = document.createElement("i");
+  todoCheckIconElement.className = "fas fa-check";
 
-  // set the type to checkbox
-  checkbox.type = 'checkbox';
-
-  const checkboxFondAwesome = document.createElement("i");
-  checkboxFondAwesome.className = "far fa-square";
-
-  checkbox.addEventListener("click", () => {
-    if(checkbox.checked) {
+  todoCheckButtonElement.addEventListener("click", () => {
+    if(todoCheckButtonElement.checked) {
       todoContentElement.style.textDecoration = "line-through";
     } else {
       todoContentElement.style.textDecoration = "none";
@@ -80,22 +94,25 @@ function createTodo(inputValue) {
     }
    });
 
-
    //Delete icon
   const todoDeleteButtonElement = document.createElement("button");
   const todoDeleteIconElement = document.createElement("i");
   todoDeleteIconElement.className = "fas fa-trash";
   todoDeleteButtonElement.addEventListener("click", () => {
-    listaParinteElement.removeChild(todoElement);
-  });
+    confirmationPopUp.classList.add("PopUp-open");
+    confirmButton.addEventListener("click", () => {
+      listaParinteElement.removeChild(todoElement);
+      confirmationPopUp.classList.remove("PopUp-open");
+    }); 
+});
 
   // actions
   const todoActionsElement = document.createElement("div");
   todoActionsElement.classList.add("actions");
-  checkbox.appendChild(checkboxFondAwesome);
+  todoCheckButtonElement.appendChild(todoCheckIconElement);
   todoEditButtonElement.appendChild(todoEditIconElement);
   todoDeleteButtonElement.appendChild(todoDeleteIconElement);
-  todoActionsElement.appendChild(checkbox);
+  todoActionsElement.appendChild(todoCheckButtonElement);
   todoActionsElement.appendChild(todoEditButtonElement);
   todoActionsElement.appendChild(todoDeleteButtonElement);
 
@@ -116,9 +133,9 @@ addTodoElement.addEventListener("click", (event) => {
   createTodo(inputElement.value);
 
   const link = document.createElement("link");
-link.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css";
-link.rel = "stylesheet";
-document.head.appendChild(link);
+  link.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css";
+  link.rel = "stylesheet";
+  document.head.appendChild(link);
 
   inputElement.value = "";
 });

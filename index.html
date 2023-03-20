@@ -16,12 +16,6 @@
     <form id="new-task-form">
       <input type="text" id="inputId" placeholder="What do you want to do in 2023?">
       <button type="submit" id="buttonId">Add task</button>
-      <!-- <div class="popup" id="popup">
-        <img src="img/404-tick.png" alt="">
-        <h2>Thank You!</h2>
-        <p>Your to do has beed successfully added. Thanks!</p>
-        <button type="button" onclick="closePopup()">OK</button>
-      </div> -->
     </form>
   </header>
 
@@ -32,6 +26,26 @@
       <div id="listaParinteId"></div>
     </section>
   </main>
+
+
+  <div id="confirmationDialog" class="confirmationDialog">
+    <div class="PopUp">
+      <section>
+        <header class="PopUp-header">
+          <span onclick="Cancel()">&times;</span>
+          <h2>Are you sure you want to delete?</h2>
+        </header>
+        <!-- <section class="PopUp-content">
+          <p>Please be aware that this action cannot be undone</p>
+        </section> -->
+        <footer class="PopUp-footer">
+          <button class="PopUp-cancel" onclick="Cancel()">Cancel</button>
+          <button id="PopUp-confirm" class="PopUp-confirm">Confirm</button>
+        </footer>
+      </section>
+    </div>
+  </div>
+
   <div id="notification" class="notificationBox" />
 
   <script src="main.js"></script>
