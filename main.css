@@ -119,7 +119,10 @@ main {
 #listaParinteId .task .actions {
   all: unset;
   display: flex;
-  margin: 0 -0.5rem;
+}
+
+#listaParinteId .actions {
+ margin: 0 40rem;
 }
 
 .task .actions button {
@@ -327,4 +330,18 @@ main {
   border-radius: 3px;
   margin-left: 0.5em;
   cursor: pointer;
+ }
+
+ .content{
+  all: unset;
+  display: flex;
+  margin-left: -23em;
+  
+ }
+
+ .task input {
+  margin-right: 15px;
+  font-size:2.5rem;
+  transform: scale(1.7);
+  padding-left: 0px;
  }

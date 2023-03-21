@@ -52,7 +52,6 @@ const todoInputElement = document.createElement("input");
   todoElement.classList.add("task");
 
   // input
-  
   todoInputElement.classList.add("text");
   todoInputElement.type = "text"; 
   todoInputElement.value = inputValue;
@@ -63,13 +62,12 @@ const todoInputElement = document.createElement("input");
   todoContentElement.classList.add("content");
   todoContentElement.appendChild(todoInputElement);
 
-  // buttons
-  
   // create the checkbox element 
   const todoCheckButtonElement = document.createElement("input");
   todoCheckButtonElement.type = 'checkbox';
   const todoCheckIconElement = document.createElement("i");
   todoCheckIconElement.className = "fas fa-check";
+
 
   todoCheckButtonElement.addEventListener("click", () => {
     if(todoCheckButtonElement.checked) {
@@ -113,7 +111,8 @@ const todoInputElement = document.createElement("input");
   todoCheckButtonElement.appendChild(todoCheckIconElement);
   todoEditButtonElement.appendChild(todoEditIconElement);
   todoDeleteButtonElement.appendChild(todoDeleteIconElement);
-  todoActionsElement.appendChild(todoCheckButtonElement);
+  todoElement.appendChild(todoCheckButtonElement);
+  //todoActionsElement.appendChild(todoCheckButtonElement);
   todoActionsElement.appendChild(todoEditButtonElement);
   todoActionsElement.appendChild(todoDeleteButtonElement);
 
