@@ -29,11 +29,11 @@ function showNotification(inputValue) {
 }
 
 // Cancel function
-function Cancel() {
+  function Cancel() {
   confirmationPopUp.classList.remove("PopUp-open");
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", () => {
   document
   .getElementById("confirmationDialog")
   .addEventListener("click", Cancel);
@@ -45,13 +45,13 @@ document.addEventListener("DOMContentLoaded", () => {
 /**
  * Creates todo item
  */
-function createTodo(inputValue) {
+function createTodo(inputValue, isNewTodo) {
   // add task element
   let todoElement = document.createElement("div");
-const todoInputElement = document.createElement("input");
   todoElement.classList.add("task");
 
   // input
+  let todoInputElement = document.createElement("input");
   todoInputElement.classList.add("text");
   todoInputElement.type = "text"; 
   todoInputElement.value = inputValue;
@@ -67,7 +67,6 @@ const todoInputElement = document.createElement("input");
   todoCheckButtonElement.type = 'checkbox';
   const todoCheckIconElement = document.createElement("i");
   todoCheckIconElement.className = "fas fa-check";
-
 
   todoCheckButtonElement.addEventListener("click", () => {
     if(todoCheckButtonElement.checked) {
@@ -111,31 +110,46 @@ const todoInputElement = document.createElement("input");
   todoCheckButtonElement.appendChild(todoCheckIconElement);
   todoEditButtonElement.appendChild(todoEditIconElement);
   todoDeleteButtonElement.appendChild(todoDeleteIconElement);
-  todoElement.appendChild(todoCheckButtonElement);
   //todoActionsElement.appendChild(todoCheckButtonElement);
   todoActionsElement.appendChild(todoEditButtonElement);
   todoActionsElement.appendChild(todoDeleteButtonElement);
 
+  todoElement.appendChild(todoCheckButtonElement);
   todoElement.appendChild(todoContentElement);
   todoElement.appendChild(todoActionsElement);
 
   listaParinteElement.appendChild(todoElement);
+
+  // Store the toDos in local storage if isNewTodo
+  if(isNewTodo) {
+    const storedTodos = JSON.parse(localStorage.getItem("todos")) || [];
+    storedTodos.push(inputValue);
+    localStorage.setItem("todos", JSON.stringify(storedTodos));
+  }
 }
 
 // Event de adaugare todo
 addTodoElement.addEventListener("click", (event) => {
   event.preventDefault();
 
-  showNotification(inputElement.value);
+  showNotification(inputElement.value, false);
 
   if (!inputElement.value) return;
 
-  createTodo(inputElement.value);
-
+  createTodo(inputElement.value, true);
   const link = document.createElement("link");
   link.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css";
   link.rel = "stylesheet";
   document.head.appendChild(link);
-
+  
   inputElement.value = "";
 });
+
+  // Load all todos from local storage on page load
+  const storedTodos = JSON.parse(localStorage.getItem("todos")) || [];
+  storedTodos.forEach((todo) => {
+    createTodo(todo, false);
+  });
+  
+
+
