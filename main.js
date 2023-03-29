@@ -6,13 +6,21 @@ let notificationElement = document.getElementById("notification");
 let confirmationPopUp = document.getElementById("confirmationDialog");
 let confirmButton = document.getElementById("PopUp-confirm");
 
+// Display date
+function displayDate(){
+  let date = new Date()
+  date = date.toString().split(" ")
+  date = date[1] + " " + date[2] + " " + date[3] 
+  document.querySelector("#date").innerHTML = date 
+}
+
 /**
  * Show notification
  */
 
 function showNotification(inputValue) {
   let notificationConfig = {
-    style: "display: block; color: blue",
+    style: "display: block; color: rgb(128, 230, 230)",
     text: "To do succesfully added!",
   };
 
@@ -28,7 +36,7 @@ function showNotification(inputValue) {
   setTimeout(() => (notificationElement.style.display = "none"), 4000);
 }
 
-// Cancel function
+// Cancel function when it's called, removes the class PopUp-open
   function Cancel() {
   confirmationPopUp.classList.remove("PopUp-open");
 }
@@ -88,8 +96,15 @@ function createTodo(inputValue, isNewTodo) {
      } else {
        todoEditButtonElement.innerHTML = '<i class="fas fa-edit"></i>';
        todoInputElement.setAttribute("readonly", "");
+
+       // update stored todos
+      const storedTodos = JSON.parse(localStorage.getItem("todos")) || [];
+      const todoIndex = storedTodos.indexOf(inputValue);
+      storedTodos[todoIndex] = todoInputElement.value;
+      localStorage.setItem("todos", JSON.stringify(storedTodos));
     }
    });
+  
 
    //Delete icon
   const todoDeleteButtonElement = document.createElement("button");
@@ -101,6 +116,12 @@ function createTodo(inputValue, isNewTodo) {
       listaParinteElement.removeChild(todoElement);
       //todoElement.style.display = "none";
       confirmationPopUp.classList.remove("PopUp-open");
+
+      // remove from stored todos
+      const storedTodos = JSON.parse(localStorage.getItem("todos")) || [];
+      const todoIndex = storedTodos.indexOf(inputValue);
+      storedTodos.splice(todoIndex, 1);
+      localStorage.setItem("todos", JSON.stringify(storedTodos));
     }); 
 });
 
@@ -147,9 +168,13 @@ addTodoElement.addEventListener("click", (event) => {
 
   // Load all todos from local storage on page load
   const storedTodos = JSON.parse(localStorage.getItem("todos")) || [];
-  storedTodos.forEach((todo) => {
-    createTodo(todo, false);
+  storedTodos.forEach((inputValue) => {
+  createTodo(inputValue, false);
   });
+
+  window.onload = function() {
+    displayDate()
+  };
   
 
 
