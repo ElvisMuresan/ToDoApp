@@ -8,6 +8,7 @@
   <title>Task List 2023</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="main.css">
 </head>
 
@@ -16,7 +17,7 @@
     <h1>To do list on: <span id="date"></span></h1>
     <form id="new-task-form">
       <input type="text" id="inputId" placeholder="What do you want to do in this month?">
-      <button type="submit" id="buttonId">Add task</button>
+      <button type="submit" id="addToDo">Add task</button>
     </form>
   </header>
 
@@ -24,28 +25,26 @@
 
     <section class="task-list">
       <h2>To do's:</h2>
-      <div id="listaParinteId"></div>
+      <div id="listaParinteId" class="toDoList"></div>
     </section>
   </main>
 
 
-  <div id="confirmationDialog" class="confirmationDialog">
+  <!-- <div id="confirmationDialog" class="confirmationDialog">
     <div class="PopUp">
       <section>
         <header class="PopUp-header">
           <span onclick="Cancel()">&times;</span>
           <h2>Are you sure you want to delete?</h2>
         </header>
-        <!-- <section class="PopUp-content">
-          <p>Please be aware that this action cannot be undone</p>
-        </section> -->
+      
         <footer class="PopUp-footer">
           <button class="PopUp-cancel" onclick="Cancel()">Cancel</button>
           <button id="PopUp-confirm" class="PopUp-confirm">Confirm</button>
         </footer>
       </section>
     </div>
-  </div>
+  </div> -->
 
   <div id="notification" class="notificationBox" />
 
@@ -53,3 +52,4 @@
 
 </body>
 </html>
+
