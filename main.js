@@ -56,6 +56,7 @@ function showNotification(inputValue) {
 function createTodo(inputValue, isNewTodo) {
   // add task element
   let todoElement = document.createElement("div");
+  console.log("createTodoElement:", todoElement);
   todoElement.classList.add("task");
 
   // input
@@ -113,7 +114,9 @@ function createTodo(inputValue, isNewTodo) {
   todoDeleteButtonElement.addEventListener("click", () => {
     confirmationPopUp.classList.add("PopUp-open");
     confirmButton.addEventListener("click", () => {
+      console.log("todoElement:", todoElement);
       listaParinteElement.removeChild(todoElement);
+      console.log("inputValue:", inputValue);
       //todoElement.style.display = "none";
       confirmationPopUp.classList.remove("PopUp-open");
 
@@ -158,10 +161,10 @@ addTodoElement.addEventListener("click", (event) => {
   if (!inputElement.value) return;
 
   createTodo(inputElement.value, true);
-  const link = document.createElement("link");
-  link.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css";
-  link.rel = "stylesheet";
-  document.head.appendChild(link);
+  // const link = document.createElement("link");
+  // link.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css";
+  // link.rel = "stylesheet";
+  // document.head.appendChild(link);
   
   inputElement.value = "";
 });
