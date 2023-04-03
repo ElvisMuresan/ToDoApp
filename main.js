@@ -12,7 +12,7 @@ function displayToDos() {
     for(let i = 0; i < storedTodos.length; i++) {
         toDos += `<div class="toDo">
                     <div class="content">
-                        <input type="checkbox">
+                        <input type="checkbox" <i></i>>
                         <textarea disabled>${storedTodos[i]}</textarea>
                         <div class="actions">
                             <i class="fas fa-edit editBtn"></i>
@@ -20,17 +20,17 @@ function displayToDos() {
                         </div>
                     </div>
                     <div class="editContent">
-                        <button class="saveEdit">Save</button>
-                        <button class="cancelEdit">Cancel</button>
+                        <button class="saveEditBtn">Save</button>
+                        <button class="cancelEditBtn">Cancel</button>
                     </div>
                 </div>`
     }
     document.querySelector(".toDoList").innerHTML = toDos
-    //activateCheckListeners()
-    //activateEditListeners()
-    //activateSaveListeners()
-    //activateCancelListeners()
-    activateDeleteListeners()
+     activateCheckListeners()
+     activateEditListeners()
+     activateSaveListeners()
+     activateCancelListeners()
+     activateDeleteListeners()
 }
 
 function activateDeleteListeners() {
@@ -47,9 +47,43 @@ function activateEditListeners() {
     editBtn.forEach((eB, i) => {
       eB.addEventListener("click", () => { 
         editContent[i].style.display = "block"
-        content[i].disabled = false })
+        content[i].disabled = false
+        content[i].focus()
+         })
+         
     })
   }
+
+  function activateSaveListeners() {
+    const saveEditBtn = document.querySelectorAll(".saveEditBtn")
+    const content = document.querySelectorAll(".content textarea")
+    saveEditBtn.forEach((sB, i) => {
+        sB.addEventListener("click", () => {
+            updateToDo(content[i].value, i)
+        })
+    })
+  }
+
+  function activateCancelListeners() {
+    const cancelEditBtn = document.querySelectorAll(".cancelEditBtn")
+    const editContent = document.querySelectorAll(".editContent")
+    const content = document.querySelectorAll(".content textarea")
+    cancelEditBtn.forEach((cb, i) => {
+        cb.addEventListener("click", () => {
+            editContent[i].style.display = "none"
+            content[i].disabled = true
+        })
+    })
+  }
+
+  function activateCheckListeners() {
+    const checkbox = document.querySelectorAll(".content input")
+    checkbox.forEach((cB, i) => {
+        cB.addEventListener("click",() => { 
+              checkToDo(i) });
+    });
+    }
+
 
 // Create the ToDos in local Storage
 function createToDo(ToDo) {
@@ -60,10 +94,22 @@ function createToDo(ToDo) {
 
 function deleteToDo(i) {
     storedTodos.splice(i, 1)
-    localStorage.setItem('ToDos', JSON.stringify(storedTodos))
+    localStorage.setItem('toDos', JSON.stringify(storedTodos))
     location.reload()
 
  }
+
+ function updateToDo(text, i) {
+    storedTodos[i] = text
+    localStorage.setItem('toDos', JSON.stringify(storedTodos));
+    location.reload()
+ }
+
+ function checkToDo(i) {
+    storedTodos[i] = "Completed: " + storedTodos[i];
+    localStorage.setItem('toDos', JSON.stringify(storedTodos));
+    location.reload();
+}
 
 // Display date
 function displayDate(){
@@ -72,6 +118,8 @@ function displayDate(){
   date = date[1] + " " + date[2] + " " + date[3] 
   document.querySelector("#date").innerHTML = date 
 }
+
+
 
 window.onload = function() {
     displayDate();
