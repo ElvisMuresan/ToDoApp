@@ -12,8 +12,8 @@ function displayToDos() {
     for(let i = 0; i < storedTodos.length; i++) {
         toDos += `<div class="toDo">
                     <div class="content">
-                        <input type="checkbox" <i></i>>
-                        <textarea disabled>${storedTodos[i]}</textarea>
+                        <input type="checkbox">
+                        <textarea  disabled>${storedTodos[i]}</textarea>
                         <div class="actions">
                             <i class="fas fa-edit editBtn"></i>
                             <i class=" fas fa-trash deleteBtn"></i>
@@ -78,12 +78,48 @@ function activateEditListeners() {
 
   function activateCheckListeners() {
     const checkbox = document.querySelectorAll(".content input")
+    const content = document.querySelectorAll(".content textarea")
     checkbox.forEach((cB, i) => {
         cB.addEventListener("click",() => { 
-              checkToDo(i) });
+            if(cB.checked) {
+                content[i].style.textDecoration = "line-through";
+                console.log("content[i]:", content[i].value)
+                console.log("cb.checked:", cB.checked.value)
+            }
+            else {
+                content[i].style.textDecoration = "none";
+            }
+              checkToDo(i, cB.checked) });
     });
     }
 
+
+function checkToDo(i) {
+    console.log("storedToDo:", storedTodos[i])
+    storedTodos.push()
+    if(storedTodos[i].checked) {
+        storedTodos[i].style.textDecoration = "line-through";
+    }
+    else {
+        storedTodos[i].style.textDecoration = "none";
+    }
+    localStorage.setItem('toDos', JSON.stringify(storedTodos));
+    }
+
+// function checkToDo() {
+//     const storedTodos = JSON.parse(localStorage.getItem('toDos')) || [];
+//     const checkboxList = document.querySelectorAll(".content input");
+  
+//     storedTodos.forEach((todo, i) => {
+//       if (todo.completed) {
+//         checkboxList[i].checked = true;
+//         checkboxList[i].parentNode.querySelector("textarea").style.textDecoration = "line-through";
+//       } else {
+//         checkboxList[i].checked = false;
+//         checkboxList[i].parentNode.querySelector("textarea").style.textDecoration = "none";
+//       }
+//     });
+//   }
 
 // Create the ToDos in local Storage
 function createToDo(ToDo) {
@@ -105,11 +141,7 @@ function deleteToDo(i) {
     location.reload()
  }
 
- function checkToDo(i) {
-    storedTodos[i] = "Completed: " + storedTodos[i];
-    localStorage.setItem('toDos', JSON.stringify(storedTodos));
-    location.reload();
-}
+ 
 
 // Display date
 function displayDate(){
