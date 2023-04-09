@@ -31,6 +31,7 @@ function displayToDos() {
      activateSaveListeners()
      activateCancelListeners()
      activateDeleteListeners()
+     //activateNotificationListeners()
 }
 
 function activateDeleteListeners() {
@@ -89,22 +90,23 @@ function activateEditListeners() {
             else {
                 content[i].style.textDecoration = "none";
             }
-              checkToDo(i, cB.checked) });
+              //checkToDo(i, cB.checked) 
+            });
     });
     }
 
 
-function checkToDo(i) {
-    console.log("storedToDo:", storedTodos[i])
-    storedTodos.push()
-    if(storedTodos[i].checked) {
-        storedTodos[i].style.textDecoration = "line-through";
-    }
-    else {
-        storedTodos[i].style.textDecoration = "none";
-    }
-    localStorage.setItem('toDos', JSON.stringify(storedTodos));
-    }
+// function checkToDo(i) {
+//     console.log("storedToDo:", storedTodos[i])
+//     storedTodos.push()
+//     if(storedTodos[i].checked) {
+//         storedTodos[i].style.textDecoration = "line-through";
+//     }
+//     else {
+//         storedTodos[i].style.textDecoration = "none";
+//     }
+//     localStorage.setItem('toDos', JSON.stringify(storedTodos));
+//     }
 
 // function checkToDo() {
 //     const storedTodos = JSON.parse(localStorage.getItem('toDos')) || [];
