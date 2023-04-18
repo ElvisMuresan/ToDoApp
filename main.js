@@ -1,11 +1,52 @@
-const storedTodos = JSON.parse(localStorage.getItem("toDos")) || [];
 
-console.log(storedTodos);
+//let notificationElement = document.getElementById("notification");
+let confirmationPopUp = document.getElementById("confirmationDialog");
+let confirmButton = document.getElementById("PopUp-confirm");
+const storedTodos = JSON.parse(localStorage.getItem("toDos")) || [];
 
 document.querySelector("#addToDo").addEventListener("click", () => {
     const ToDo = document.querySelector("#inputId");
     createToDo(ToDo);
+    // showNotification(ToDo);
+    // if (!ToDo.value) return;
+    
 })
+
+/**
+ * Show notification
+ */
+
+// function showNotification(ToDo) {
+//     let notificationConfig = {
+//       style: "display: block; color: rgb(128, 230, 230)",
+//       text: "To do succesfully added!",
+//     };
+  
+//     if (!ToDo.value) {
+//       notificationConfig = {
+//         style: "display: block; color: red",
+//         text: "Please insert a task!",
+//       };
+//     }
+  
+//     notificationElement.style = notificationConfig.style;
+//     notificationElement.innerText = notificationConfig.text;
+//     setTimeout(() => (notificationElement.style.display = "none"), 4000);
+//   }
+
+// Cancel function when it's called, removes the class PopUp-open
+function Cancel() {
+    confirmationPopUp.classList.remove("PopUp-open");
+  }
+  
+    document.addEventListener("DOMContentLoaded", () => {
+    document
+    .getElementById("confirmationDialog")
+    .addEventListener("click", Cancel);
+    document
+    .querySelector(".PopUp")
+    .addEventListener("click", (e) => e.stopPropagation());
+  });
 
 function displayToDos() {
     let toDos = ""
@@ -34,10 +75,18 @@ function displayToDos() {
      //activateNotificationListeners()
 }
 
+
+
 function activateDeleteListeners() {
     let deleteBtn = document.querySelectorAll(".deleteBtn")
     deleteBtn.forEach((dB, i) => {
-        dB.addEventListener("click", () => { deleteToDo(i) })
+        dB.addEventListener("click", () => { 
+            confirmationPopUp.classList.add("PopUp-open");
+            confirmButton.addEventListener("click", () => {
+                deleteToDo(i);
+                confirmationPopUp.classList.remove("PopUp-open"); 
+        }); 
+        })
     })
 }
 
@@ -47,8 +96,8 @@ function activateEditListeners() {
     const content = document.querySelectorAll(".content textarea")
     editBtn.forEach((eB, i) => {
       eB.addEventListener("click", () => { 
-        editContent[i].style.display = "block"
-        content[i].disabled = false
+        editContent[i].style.display = "block";
+        content[i].disabled = false;
         content[i].focus()
          })
          
@@ -159,3 +208,4 @@ window.onload = function() {
     displayDate();
     displayToDos();
   };
+  

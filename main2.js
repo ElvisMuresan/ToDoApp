@@ -114,12 +114,9 @@ function createTodo(inputValue, isNewTodo) {
   todoDeleteButtonElement.addEventListener("click", () => {
     confirmationPopUp.classList.add("PopUp-open");
     confirmButton.addEventListener("click", () => {
-      console.log("todoElement:", todoElement);
       listaParinteElement.removeChild(todoElement);
-      console.log("inputValue:", inputValue);
       //todoElement.style.display = "none";
       confirmationPopUp.classList.remove("PopUp-open");
-
       // remove from stored todos
       const storedTodos = JSON.parse(localStorage.getItem("todos")) || [];
       const todoIndex = storedTodos.indexOf(inputValue);
