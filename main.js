@@ -2,6 +2,7 @@
 //let notificationElement = document.getElementById("notification");
 let confirmationPopUp = document.getElementById("confirmationDialog");
 let confirmButton = document.getElementById("PopUp-confirm");
+let confirmDeleteHeader = document.getElementById("confirmDeleteHeader");
 const storedTodos = JSON.parse(localStorage.getItem("toDos")) || [];
 
 document.querySelector("#addToDo").addEventListener("click", () => {
@@ -81,6 +82,7 @@ function activateDeleteListeners() {
     let deleteBtn = document.querySelectorAll(".deleteBtn")
     deleteBtn.forEach((dB, i) => {
         dB.addEventListener("click", () => { 
+            confirmDeleteHeader.innerText = `Are you sure you want to delete "${storedTodos[i]}"?`;
             confirmationPopUp.classList.add("PopUp-open");
             confirmButton.addEventListener("click", () => {
                 deleteToDo(i);

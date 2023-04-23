@@ -1,7 +1,162 @@
 
+:root {
+  --dark: #2a2828;
+  --darker: #100303;
+  --light: #ede8e8;
+  --blue: #7CB9E8;
+  --blueer: #00308F;
+  --yellow: #c1d220;
+  --albastru: rgb(128, 230, 230);
+  --background: rgba(48, 64, 64, 1.0); 
+  --background1: rgba(0, 0, 0, 1.0);
+  --background2: rgba(216, 224, 220, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+  font-family: 'Shadows Into Light', cursive;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--background);
+  background: -webkit-radial-gradient(center, var(--background) 0%, var(--background1) 100%);
+  background: -moz-radial-gradient(center, var(--background) 0%, var(--background1) 100%);
+  background: radial-gradient(ellipse at center, var(--background) 0%, var(--background1) 100%);
+  
+}
+
+header {
+  padding: 3rem 1rem;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+
+}
+
+header h1 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin-bottom: 3rem;
+  color: var(--albastru);
+}
+
+#new-task-form {
+  display: flex;
+}
+
+#inputId {
+  flex: 1 1 0%;
+  background-color: var(--background2);
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-right: 1rem;
+  color: var(--albastru);
+  font-size: 1.25rem;
+  opacity: 0.8;
+}
+
+#inputId::placeholder {
+  color: var(--albastru);
+  ;
+}
+
+#addToDo {
+  all: unset;
+  color: var(--blue);
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  background-image: linear-gradient(to right, var(--albastru), var(--blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.4s;
+}
+
+#addToDo:hover {
+  opacity: 0.9;
+}
+
+#addToDo:active {
+  opacity: 0.6;
+}
+
+main {
+  all: unset;
+  flex: 1 1 0%;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+task-list {
+  padding: 1rem;
+}
+
+.task-list h2 {
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+  color: var(--albastru);
+}
+
+/* #listaParinteId .toDo {
+  all: unset;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--background2);
+  opacity: 0.7;
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+} */
+
+#listaParinteId .toDo .content {
+  all: unset;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--background2);
+  opacity: 0.7;
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
+.content input {
+  margin-right: 15px;
+  font-size: 2.5rem;
+  transform: scale(1.7);
+  padding-left: 0px;
+}
+
+.content textarea {
+    all: unset;
+    color: var(--albastru);
+    font-size: 1.125rem;
+    width: 100%;
+    display: block;
+    transition: 0.4s;
+}
+
+
+
+
+
+
+
+
+
+
+
+
  .editContent {
   display: none;
  }
+
  .notificationBox {
   flex: 1 1 0%;
   background-color: var(--darker);
@@ -15,3 +170,77 @@
   font-size: 1.25rem;
   display: none;
 }
+
+/* Pop-up */
+
+.confirmationDialog {
+  z-index: 9999;
+  position: fixed;
+  left: 0;
+  top: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.5);
+   display: none;
+   align-items: center;
+   justify-content: center;
+ }
+
+ .PopUp-open {
+  display: flex;
+ }
+
+ .PopUp {
+  max-width: 700px;
+  max-height: 400px;
+  background-color: rgba(245, 238, 238, 0.938);
+  border-radius: 3px;
+ }
+
+ .PopUp-header {
+  background-color: none;
+  display: flex;
+  flex-direction: column;
+ }
+
+ .PopUp-header h2 {
+  margin: 1em;
+ }
+
+ .PopUp-header span {
+  align-self: flex-end;
+  cursor: pointer;
+  padding-right: 0.3em;
+ }
+
+ .PopUp-content {
+  padding: 1em;
+ }
+
+ .PopUp-footer {
+  padding: 1em;
+  display: flex;
+  justify-content: flex-end;
+ }
+
+ .PopUp-cancel {
+  text-transform: uppercase;
+  padding: 0.5em 1em;
+  border: none;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+  margin-left: 0.5em;
+  cursor: default;
+ }
+
+ .PopUp-confirm {
+  text-transform: uppercase;
+  padding: 0.5em 1em;
+  border: none;
+  color: white;
+  background-color: tomato;
+  border-radius: 3px;
+  margin-left: 0.5em;
+  cursor: pointer;
+ }
