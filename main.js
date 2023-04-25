@@ -3,37 +3,14 @@
 let confirmationPopUp = document.getElementById("confirmationDialog");
 let confirmButton = document.getElementById("PopUp-confirm");
 let confirmDeleteHeader = document.getElementById("confirmDeleteHeader");
-const storedTodos = JSON.parse(localStorage.getItem("toDos")) || [];
+let notificationElement = document.getElementById("notification");
+let ToDo = document.querySelector("#inputId");
+let storedTodos = JSON.parse(localStorage.getItem("toDos")) || [];
 
 document.querySelector("#addToDo").addEventListener("click", () => {
-    const ToDo = document.querySelector("#inputId");
+    event.preventDefault(); 
     createToDo(ToDo);
-    // showNotification(ToDo);
-    // if (!ToDo.value) return;
-    
 })
-
-/**
- * Show notification
- */
-
-// function showNotification(ToDo) {
-//     let notificationConfig = {
-//       style: "display: block; color: rgb(128, 230, 230)",
-//       text: "To do succesfully added!",
-//     };
-  
-//     if (!ToDo.value) {
-//       notificationConfig = {
-//         style: "display: block; color: red",
-//         text: "Please insert a task!",
-//       };
-//     }
-  
-//     notificationElement.style = notificationConfig.style;
-//     notificationElement.innerText = notificationConfig.text;
-//     setTimeout(() => (notificationElement.style.display = "none"), 4000);
-//   }
 
 // Cancel function when it's called, removes the class PopUp-open
 function Cancel() {
@@ -57,8 +34,8 @@ function displayToDos() {
                         <input type="checkbox">
                         <textarea  disabled>${storedTodos[i]}</textarea>
                         <div class="actions">
-                            <i class="fas fa-edit editBtn"></i>
-                            <i class=" fas fa-trash deleteBtn"></i>
+                            <button><i class="fas fa-edit editBtn"></i></button>
+                            <button><i class=" fas fa-trash deleteBtn"></i></button>
                         </div>
                     </div>
                     <div class="editContent">
@@ -74,8 +51,31 @@ function displayToDos() {
      activateCancelListeners()
      activateDeleteListeners()
      //activateNotificationListeners()
+     showNotification(ToDo.value)
+    if (!ToDo.value) return;
 }
 
+/**
+ * Show notification
+ */
+
+function showNotification(ToDo) {
+    let notificationConfig = {
+      style: "display: block; color: rgb(128, 230, 230)",
+      text: "To do succesfully added!",
+    };
+  
+    if (!ToDo.value) {
+      notificationConfig = {
+        style: "display: block; color: red",
+        text: "Please insert a task!",
+      };
+    }
+  
+    notificationElement.style = notificationConfig.style;
+    notificationElement.innerText = notificationConfig.text;
+    setTimeout(() => (notificationElement.style.display = "none"), 4000);
+  }
 
 
 function activateDeleteListeners() {
@@ -210,4 +210,5 @@ window.onload = function() {
     displayDate();
     displayToDos();
   };
+  
   

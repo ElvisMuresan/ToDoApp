@@ -115,7 +115,7 @@ task-list {
   margin-bottom: 1rem;
 } */
 
-#listaParinteId .toDo .content {
+#listaParinteId .content {
   all: unset;
   display: flex;
   justify-content: space-between;
@@ -126,6 +126,7 @@ task-list {
   margin-bottom: 1rem;
 }
 
+
 .content input {
   margin-right: 15px;
   font-size: 2.5rem;
@@ -134,16 +135,32 @@ task-list {
 }
 
 .content textarea {
-    all: unset;
-    color: var(--albastru);
-    font-size: 1.125rem;
-    width: 100%;
-    display: block;
-    transition: 0.4s;
+  all: unset;
+  display: block;
+  margin-left: -23em;
+  color: var(--albastru);
+  font-size: 1.125rem;
+    /* width: 100%; */
 }
 
+#listaParinteId .content .actions {
+  all: unset;
+  display: flex;
+}
 
+#listaParinteId .actions {
+  margin: 0 40rem;
+}
 
+.toDo .actions button {
+  all: unset;
+  cursor: pointer;
+  margin: 0 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: 0.4s;
+}
 
 
 
