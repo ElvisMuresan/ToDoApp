@@ -1,5 +1,3 @@
-
-//let notificationElement = document.getElementById("notification");
 let confirmationPopUp = document.getElementById("confirmationDialog");
 let confirmButton = document.getElementById("PopUp-confirm");
 let confirmDeleteHeader = document.getElementById("confirmDeleteHeader");
@@ -27,13 +25,15 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function displayToDos() {
-  let toDos = ""
+  let toDos = "";
   for (let i = 0; i < storedTodos.length; i++) {
-    toDos += `<div class="toDo">
+    toDos += `<li class="toDo">
                     <div class="content">
                         <input type="checkbox">
                         <textarea  disabled>${storedTodos[i]}</textarea>
                         <div class="actions">
+                            <button><i class=" fa fa-arrow-up upBtn"></i></button>
+                            <button><i class=" fa fa-arrow-down downBtn"></i></  button>
                             <button><i class="fas fa-edit editBtn"></i></button>
                             <button><i class=" fas fa-trash deleteBtn"></i></button>
                         </div>
@@ -42,14 +42,16 @@ function displayToDos() {
                         <button class="saveEditBtn">Save</button>
                         <button class="cancelEditBtn">Cancel</button>
                     </div>
-                </div>`
+                </li>`
   }
-  document.querySelector(".toDoList").innerHTML = toDos
-  activateCheckListeners()
-  activateEditListeners()
-  activateSaveListeners()
-  activateCancelListeners()
-  activateDeleteListeners()
+  document.querySelector(".toDoList").innerHTML = `<ol>${toDos}</ol>`;
+  activateCheckListeners();
+  activateEditListeners();
+  activateSaveListeners();
+  activateCancelListeners();
+  activateDeleteListeners();
+  activateUpListeners();
+  activateDownListeners();
   //activateNotificationListeners()
 }
 
@@ -75,6 +77,53 @@ function showNotification(inputValue) {
   setTimeout(() => (notificationElement.style.display = "none"), 4000);
 }
 
+// Create the ToDos
+function createToDo(toDo) {
+
+  // showNotification
+  showNotification(toDo.value);
+
+  // validate input
+  if(toDo.value === "") {
+    // return if no input value 
+    return;
+  }
+
+  // store in local storage
+  storedTodos.push(toDo.value);
+  localStorage.setItem('toDos', JSON.stringify(storedTodos));
+  let toDoDisplay = "";
+  // display toDo on screen
+  let counter = 1;
+    toDoDisplay = `<li class="toDo">
+                          <div class="content">
+                          <span class="counter">${counter}</span>
+                            <input type="checkbox">
+                            <textarea  disabled>${toDo.value}</textarea>
+                            <div class="actions">
+                              <button><i class=" fa fa-arrow-up upBtn"></i></button>
+                              <button><i class=" fa fa-arrow-down downBtn"></i></button>
+                              <button><i class="fas fa-edit editBtn"></i></button>
+                              <button><i class=" fas fa-trash deleteBtn"></i></button>
+                            </div>
+                          </div>
+                          <div class="editContent">
+                            <button class="saveEditBtn">Save</button>
+                            <button class="cancelEditBtn">Cancel</button>
+                          </div>
+                        </li>`
+  document.querySelector(".toDoList").innerHTML += `<ol>${toDoDisplay}</ol>`;
+  counter++;
+  activateCheckListeners();
+  activateEditListeners();
+  activateSaveListeners();
+  activateCancelListeners();
+  activateDeleteListeners();
+  activateUpListeners();
+  activateDownListeners();
+  // clean input field
+  toDo.value = ""; 
+}
 
 function activateDeleteListeners() {
   let deleteBtn = document.querySelectorAll(".deleteBtn")
@@ -133,80 +182,43 @@ function activateCheckListeners() {
     cB.addEventListener("click", () => {
       if (cB.checked) {
         content[i].style.textDecoration = "line-through";
-        console.log("content[i]:", content[i].value)
-        console.log("cb.checked:", cB.checked.value)
       }
       else {
         content[i].style.textDecoration = "none";
       }
-      //checkToDo(i, cB.checked) 
-    });
-  });
+      checkedToDo(cB.checked, i);
+    })
+  })
 }
 
+function activateUpListeners() {
+  let upBtn = document.querySelectorAll(".upBtn")
+  upBtn.forEach((uB,i) => {
+    uB.addEventListener("click", () => {
+      if( i > 0) {
+        let temp = storedTodos[i];
+        storedTodos[i] = storedTodos [ i - 1];
+        storedTodos[i - 1] = temp;
+        localStorage.setItem('toDos', JSON.stringify(storedTodos))
+        location.reload();
+      }
+    })
+  })
+}
 
-// function checkToDo(i) {
-//     console.log("storedToDo:", storedTodos[i])
-//     storedTodos.push()
-//     if(storedTodos[i].checked) {
-//         storedTodos[i].style.textDecoration = "line-through";
-//     }
-//     else {
-//         storedTodos[i].style.textDecoration = "none";
-//     }
-//     localStorage.setItem('toDos', JSON.stringify(storedTodos));
-//     }
-
-// function checkToDo() {
-//     const storedTodos = JSON.parse(localStorage.getItem('toDos')) || [];
-//     const checkboxList = document.querySelectorAll(".content input");
-
-//     storedTodos.forEach((todo, i) => {
-//       if (todo.completed) {
-//         checkboxList[i].checked = true;
-//         checkboxList[i].parentNode.querySelector("textarea").style.textDecoration = "line-through";
-//       } else {
-//         checkboxList[i].checked = false;
-//         checkboxList[i].parentNode.querySelector("textarea").style.textDecoration = "none";
-//       }
-//     });
-//   }
-
-// Create the ToDos
-function createToDo(toDo) {
-
-  // showNotification
-  showNotification(toDo.value);
-
-  // validate input
-  if(toDo.value === "") {
-    // return if no input value 
-    return;
-  }
-
-  // store in local storage
-  storedTodos.push(toDo.value);
-  localStorage.setItem('toDos', JSON.stringify(storedTodos));
-
-  // display toDo on screen
-   const toDoDisplay = `<div class="toDo">
-                    <div class="content">
-                        <input type="checkbox">
-                        <textarea  disabled>${toDo.value}</textarea>
-                        <div class="actions">
-                            <button><i class="fas fa-edit editBtn"></i></button>
-                            <button><i class=" fas fa-trash deleteBtn"></i></button>
-                        </div>
-                    </div>
-                    <div class="editContent">
-                        <button class="saveEditBtn">Save</button>
-                        <button class="cancelEditBtn">Cancel</button>
-                    </div>
-                </div>`
-  document.querySelector(".toDoList").innerHTML += toDoDisplay
-
-  // clean input field
-  toDo.value = ""; 
+function activateDownListeners() {
+  let downBtn = document.querySelectorAll(".downBtn")
+  downBtn.forEach((dB,i) => {
+    dB.addEventListener("click", () => {
+      if( i >= 0 && i < storedTodos.length - 1) {
+        let temp = storedTodos[i];
+        storedTodos[i] = storedTodos [ i + 1];
+        storedTodos[i + 1] = temp;
+        localStorage.setItem('toDos', JSON.stringify(storedTodos))
+        location.reload();
+      }
+    })
+  })
 }
 
 function deleteToDo(i) {
@@ -222,7 +234,10 @@ function updateToDo(text, i) {
   location.reload();
 }
 
-
+function checkedToDo(completed,  i) {
+  storedTodos[i] = completed
+  localStorage.setItem('toDos', JSON.stringify(storedTodos));
+}
 
 // Display date
 function displayDate() {
