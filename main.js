@@ -62,7 +62,6 @@ function displayToDos() {
   activateUpListeners();
   activateDownListeners();
   activateCountListeners();
-  //activateNotificationListeners()
 }
 
 /**
