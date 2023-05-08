@@ -1,9 +1,14 @@
-let confirmationPopUp = document.getElementById("confirmationDialog");
-let confirmButton = document.getElementById("PopUp-confirm");
-let confirmDeleteHeader = document.getElementById("confirmDeleteHeader");
-let notificationElement = document.getElementById("notification");
-let toDo = document.querySelector("#inputId");
+const confirmationPopUp = document.getElementById("confirmationDialog");
+const confirmButton = document.getElementById("PopUp-confirm");
+const confirmDeleteHeader = document.getElementById("confirmDeleteHeader");
+const notificationElement = document.getElementById("notification");
+const totalTasks = document.getElementById("total-tasks");
+const completedTasks = document.getElementById("completed-tasks");
+const remainingTasks = document.getElementById("remaining-tasks");
+const toDo = document.querySelector("#inputId");
 let storedTodos = JSON.parse(localStorage.getItem("toDos")) || [];
+let counter = storedTodos.length + 1;
+let counterr = 1; 
 
 document.querySelector("#addToDo").addEventListener("click", () => {
   event.preventDefault();
@@ -27,9 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
 function displayToDos() {
   let toDos = "";
   for (let i = 0; i < storedTodos.length; i++) {
-    toDos += `<li class="toDo">
+    toDos += `<div class="toDo">
                     <div class="content">
-                        <input type="checkbox">
+                        <span class="counter">${counterr}</span>
+                        <input type="checkbox" class="checkbox">
                         <textarea  disabled>${storedTodos[i]}</textarea>
                         <div class="actions">
                             <button><i class=" fa fa-arrow-up upBtn"></i></button>
@@ -42,9 +48,12 @@ function displayToDos() {
                         <button class="saveEditBtn">Save</button>
                         <button class="cancelEditBtn">Cancel</button>
                     </div>
-                </li>`
+                </div>`
+      counterr++;
   }
-  document.querySelector(".toDoList").innerHTML = `<ol>${toDos}</ol>`;
+  document.querySelector(".toDoList").innerHTML = toDos;
+  
+  console.log("counterr:", counterr);
   activateCheckListeners();
   activateEditListeners();
   activateSaveListeners();
@@ -52,6 +61,7 @@ function displayToDos() {
   activateDeleteListeners();
   activateUpListeners();
   activateDownListeners();
+  activateCountListeners();
   //activateNotificationListeners()
 }
 
@@ -92,13 +102,14 @@ function createToDo(toDo) {
   // store in local storage
   storedTodos.push(toDo.value);
   localStorage.setItem('toDos', JSON.stringify(storedTodos));
-  let toDoDisplay = "";
+  
+
   // display toDo on screen
-  let counter = 1;
-    toDoDisplay = `<li class="toDo">
+  let toDoDisplay = "";
+    toDoDisplay = `<div class="toDo">
                           <div class="content">
                           <span class="counter">${counter}</span>
-                            <input type="checkbox">
+                            <input type="checkbox" class="checkbox">
                             <textarea  disabled>${toDo.value}</textarea>
                             <div class="actions">
                               <button><i class=" fa fa-arrow-up upBtn"></i></button>
@@ -111,8 +122,8 @@ function createToDo(toDo) {
                             <button class="saveEditBtn">Save</button>
                             <button class="cancelEditBtn">Cancel</button>
                           </div>
-                        </li>`
-  document.querySelector(".toDoList").innerHTML += `<ol>${toDoDisplay}</ol>`;
+                        </div>`
+  document.querySelector(".toDoList").innerHTML += toDoDisplay;
   counter++;
   activateCheckListeners();
   activateEditListeners();
@@ -121,6 +132,7 @@ function createToDo(toDo) {
   activateDeleteListeners();
   activateUpListeners();
   activateDownListeners();
+  activateCountListeners();
   // clean input field
   toDo.value = ""; 
 }
@@ -219,6 +231,14 @@ function activateDownListeners() {
       }
     })
   })
+}
+
+function activateCountListeners() {
+  //const remainingTasksArray = storedTodos.filter(toDo => !toDo.querySelector('.checkbox').checked).length;
+  
+  totalTasks.textContent = storedTodos.length;
+  //completedTasks.textContent = 
+  //remainingTasks.textContent = storedTodos.length - completedTasks;
 }
 
 function deleteToDo(i) {
