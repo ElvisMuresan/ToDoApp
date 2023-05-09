@@ -8,12 +8,12 @@ const remainingTasks = document.getElementById("remaining-tasks");
 const toDo = document.querySelector("#inputId");
 let storedTodos = JSON.parse(localStorage.getItem("toDos")) || [];
 let counter = storedTodos.length + 1;
-let counterr = 1; 
+let counterr = 1;
 
 document.querySelector("#addToDo").addEventListener("click", () => {
   event.preventDefault();
   createToDo(toDo);
-})
+});
 
 // Cancel function when it's called, removes the class PopUp-open
 function Cancel() {
@@ -48,12 +48,10 @@ function displayToDos() {
                         <button class="saveEditBtn">Save</button>
                         <button class="cancelEditBtn">Cancel</button>
                     </div>
-                </div>`
-      counterr++;
+                </div>`;
+    counterr++;
   }
   document.querySelector(".toDoList").innerHTML = toDos;
-  
-  console.log("counterr:", counterr);
   activateCheckListeners();
   activateEditListeners();
   activateSaveListeners();
@@ -88,24 +86,22 @@ function showNotification(inputValue) {
 
 // Create the ToDos
 function createToDo(toDo) {
-
   // showNotification
   showNotification(toDo.value);
 
   // validate input
-  if(toDo.value === "") {
-    // return if no input value 
+  if (toDo.value === "") {
+    // return if no input value
     return;
   }
 
   // store in local storage
   storedTodos.push(toDo.value);
-  localStorage.setItem('toDos', JSON.stringify(storedTodos));
-  
+  localStorage.setItem("toDos", JSON.stringify(storedTodos));
 
   // display toDo on screen
   let toDoDisplay = "";
-    toDoDisplay = `<div class="toDo">
+  toDoDisplay = `<div class="toDo">
                           <div class="content">
                           <span class="counter">${counter}</span>
                             <input type="checkbox" class="checkbox">
@@ -121,7 +117,7 @@ function createToDo(toDo) {
                             <button class="saveEditBtn">Save</button>
                             <button class="cancelEditBtn">Cancel</button>
                           </div>
-                        </div>`
+                        </div>`;
   document.querySelector(".toDoList").innerHTML += toDoDisplay;
   counter++;
   activateCheckListeners();
@@ -133,11 +129,11 @@ function createToDo(toDo) {
   activateDownListeners();
   activateCountListeners();
   // clean input field
-  toDo.value = ""; 
+  toDo.value = "";
 }
 
 function activateDeleteListeners() {
-  let deleteBtn = document.querySelectorAll(".deleteBtn")
+  let deleteBtn = document.querySelectorAll(".deleteBtn");
   deleteBtn.forEach((dB, i) => {
     dB.addEventListener("click", () => {
       confirmDeleteHeader.innerText = `Are you sure you want to delete "${storedTodos[i]}"?`;
@@ -146,130 +142,135 @@ function activateDeleteListeners() {
         deleteToDo(i);
         confirmationPopUp.classList.remove("PopUp-open");
       });
-    })
-  })
+    });
+  });
 }
 
 function activateEditListeners() {
-  let editBtn = document.querySelectorAll(".editBtn")
-  let editContent = document.querySelectorAll(".editContent")
-  let content = document.querySelectorAll(".content textarea")
+  let editBtn = document.querySelectorAll(".editBtn");
+  let editContent = document.querySelectorAll(".editContent");
+  let content = document.querySelectorAll(".content textarea");
   editBtn.forEach((eB, i) => {
     eB.addEventListener("click", () => {
       editContent[i].style.display = "block";
       content[i].disabled = false;
       content[i].focus();
-    })
-
-  })
+    });
+  });
 }
 
 function activateSaveListeners() {
-  let saveEditBtn = document.querySelectorAll(".saveEditBtn")
-  let content = document.querySelectorAll(".content textarea")
+  let saveEditBtn = document.querySelectorAll(".saveEditBtn");
+  let content = document.querySelectorAll(".content textarea");
   saveEditBtn.forEach((sB, i) => {
     sB.addEventListener("click", () => {
-      updateToDo(content[i].value, i)
-    })
-  })
+      updateToDo(content[i].value, i);
+    });
+  });
 }
 
 function activateCancelListeners() {
-  let cancelEditBtn = document.querySelectorAll(".cancelEditBtn")
-  let editContent = document.querySelectorAll(".editContent")
-  let content = document.querySelectorAll(".content textarea")
+  let cancelEditBtn = document.querySelectorAll(".cancelEditBtn");
+  let editContent = document.querySelectorAll(".editContent");
+  let content = document.querySelectorAll(".content textarea");
   cancelEditBtn.forEach((cb, i) => {
     cb.addEventListener("click", () => {
-      editContent[i].style.display = "none"
-      content[i].disabled = true
-    })
-  })
+      editContent[i].style.display = "none";
+      content[i].disabled = true;
+    });
+  });
 }
 
 function activateCheckListeners() {
-  let checkbox = document.querySelectorAll(".content input")
-  let content = document.querySelectorAll(".content textarea")
+  let checkbox = document.querySelectorAll(".content input");
+  let content = document.querySelectorAll(".content textarea");
   checkbox.forEach((cB, i) => {
     cB.addEventListener("click", () => {
       if (cB.checked) {
         content[i].style.textDecoration = "line-through";
-      }
-      else {
+      } else {
         content[i].style.textDecoration = "none";
       }
-      checkedToDo(cB.checked, i);
-    })
-  })
+      checkedToDo(content[i].value, i);
+    });
+  });
 }
 
 function activateUpListeners() {
-  let upBtn = document.querySelectorAll(".upBtn")
-  upBtn.forEach((uB,i) => {
+  let upBtn = document.querySelectorAll(".upBtn");
+  upBtn.forEach((uB, i) => {
     uB.addEventListener("click", () => {
-      if( i > 0) {
+      if (i > 0) {
         let temp = storedTodos[i];
-        storedTodos[i] = storedTodos [ i - 1];
+        storedTodos[i] = storedTodos[i - 1];
         storedTodos[i - 1] = temp;
-        localStorage.setItem('toDos', JSON.stringify(storedTodos))
+        localStorage.setItem("toDos", JSON.stringify(storedTodos));
         location.reload();
       }
-    })
-  })
+    });
+  });
 }
 
 function activateDownListeners() {
-  let downBtn = document.querySelectorAll(".downBtn")
-  downBtn.forEach((dB,i) => {
+  let downBtn = document.querySelectorAll(".downBtn");
+  downBtn.forEach((dB, i) => {
     dB.addEventListener("click", () => {
-      if( i >= 0 && i < storedTodos.length - 1) {
+      if (i >= 0 && i < storedTodos.length - 1) {
         let temp = storedTodos[i];
-        storedTodos[i] = storedTodos [ i + 1];
+        storedTodos[i] = storedTodos[i + 1];
         storedTodos[i + 1] = temp;
-        localStorage.setItem('toDos', JSON.stringify(storedTodos))
+        localStorage.setItem("toDos", JSON.stringify(storedTodos));
         location.reload();
       }
-    })
-  })
+    });
+  });
 }
 
 function activateCountListeners() {
-  //const remainingTasksArray = storedTodos.filter(toDo => !toDo.querySelector('.checkbox').checked).length;
-  
+  let checkbox = document.querySelectorAll(".content input");
+  let content = document.querySelectorAll(".content textarea");
+  let contorTest = 0;
+  checkbox.forEach((cB, i) => {
+    cB.addEventListener("click", () => {
+      if (cB.checked) {
+        contorTest++;
+      } else {
+        contorTest--;
+      }
+      completedTasks.textContent = contorTest;
+      remainingTasks.textContent = storedTodos.length - contorTest;
+    });
+  });
+
   totalTasks.textContent = storedTodos.length;
-  //completedTasks.textContent = 
-  //remainingTasks.textContent = storedTodos.length - completedTasks;
 }
 
 function deleteToDo(i) {
-  storedTodos.splice(i, 1)
-  localStorage.setItem('toDos', JSON.stringify(storedTodos))
+  storedTodos.splice(i, 1);
+  localStorage.setItem("toDos", JSON.stringify(storedTodos));
   location.reload();
-
 }
 
 function updateToDo(text, i) {
-  storedTodos[i] = text
-  localStorage.setItem('toDos', JSON.stringify(storedTodos));
+  storedTodos[i] = text;
+  localStorage.setItem("toDos", JSON.stringify(storedTodos));
   location.reload();
 }
 
-function checkedToDo(completed,  i) {
-  storedTodos[i] = completed
-  localStorage.setItem('toDos', JSON.stringify(storedTodos));
+function checkedToDo(text, i) {
+  storedTodos[i] = text;
+  localStorage.setItem("toDos", JSON.stringify(storedTodos));
 }
 
 // Display date
 function displayDate() {
-  let date = new Date()
-  date = date.toString().split(" ")
-  date = date[1] + " " + date[2] + " " + date[3]
-  document.querySelector("#date").innerHTML = date
+  let date = new Date();
+  date = date.toString().split(" ");
+  date = date[1] + " " + date[2] + " " + date[3];
+  document.querySelector("#date").innerHTML = date;
 }
-
-
 
 window.onload = function () {
   displayDate();
   displayToDos();
 };
-
