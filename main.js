@@ -33,7 +33,6 @@ function displayToDos() {
   let toDos = "";
   for (let i = 0; i < storedTodos.length; i++) {
     toDos += `<div class="toDo">
-                    <div class="content">
                         <span class="counter">${counterr}</span>
                         <input type="checkbox" class="checkbox">
                         <textarea  disabled>${storedTodos[i]}</textarea>
@@ -43,7 +42,6 @@ function displayToDos() {
                             <button><i class="fas fa-edit editBtn"></i></button>
                             <button><i class=" fas fa-trash deleteBtn"></i></button>
                         </div>
-                    </div>
                     <div class="editContent">
                         <button class="saveEditBtn">Save</button>
                         <button class="cancelEditBtn">Cancel</button>
@@ -102,7 +100,6 @@ function createToDo(toDo) {
   // display toDo on screen
   let toDoDisplay = "";
   toDoDisplay = `<div class="toDo">
-                          <div class="content">
                           <span class="counter">${counter}</span>
                             <input type="checkbox" class="checkbox">
                             <textarea  disabled>${toDo.value}</textarea>
@@ -112,7 +109,6 @@ function createToDo(toDo) {
                               <button><i class="fas fa-edit editBtn"></i></button>
                               <button><i class=" fas fa-trash deleteBtn"></i></button>
                             </div>
-                          </div>
                           <div class="editContent">
                             <button class="saveEditBtn">Save</button>
                             <button class="cancelEditBtn">Cancel</button>
@@ -149,10 +145,11 @@ function activateDeleteListeners() {
 function activateEditListeners() {
   let editBtn = document.querySelectorAll(".editBtn");
   let editContent = document.querySelectorAll(".editContent");
-  let content = document.querySelectorAll(".content textarea");
+  let content = document.querySelectorAll(".toDo textarea");
   editBtn.forEach((eB, i) => {
     eB.addEventListener("click", () => {
       editContent[i].style.display = "block";
+      //editBtn.innerText = "Save";
       content[i].disabled = false;
       content[i].focus();
     });
@@ -161,7 +158,7 @@ function activateEditListeners() {
 
 function activateSaveListeners() {
   let saveEditBtn = document.querySelectorAll(".saveEditBtn");
-  let content = document.querySelectorAll(".content textarea");
+  let content = document.querySelectorAll(".toDo textarea");
   saveEditBtn.forEach((sB, i) => {
     sB.addEventListener("click", () => {
       updateToDo(content[i].value, i);
@@ -172,7 +169,7 @@ function activateSaveListeners() {
 function activateCancelListeners() {
   let cancelEditBtn = document.querySelectorAll(".cancelEditBtn");
   let editContent = document.querySelectorAll(".editContent");
-  let content = document.querySelectorAll(".content textarea");
+  let content = document.querySelectorAll(".toDo textarea");
   cancelEditBtn.forEach((cb, i) => {
     cb.addEventListener("click", () => {
       editContent[i].style.display = "none";
@@ -182,8 +179,8 @@ function activateCancelListeners() {
 }
 
 function activateCheckListeners() {
-  let checkbox = document.querySelectorAll(".content input");
-  let content = document.querySelectorAll(".content textarea");
+  let checkbox = document.querySelectorAll(".toDo input");
+  let content = document.querySelectorAll(".toDo textarea");
   checkbox.forEach((cB, i) => {
     cB.addEventListener("click", () => {
       if (cB.checked) {
@@ -227,8 +224,8 @@ function activateDownListeners() {
 }
 
 function activateCountListeners() {
-  let checkbox = document.querySelectorAll(".content input");
-  let content = document.querySelectorAll(".content textarea");
+  let checkbox = document.querySelectorAll(".toDo input");
+  let content = document.querySelectorAll(".toDo textarea");
   let contorTest = 0;
   checkbox.forEach((cB, i) => {
     cB.addEventListener("click", () => {
