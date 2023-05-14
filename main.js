@@ -18,6 +18,7 @@ document.querySelector("#addToDo").addEventListener("click", () => {
 // Cancel function when it's called, removes the class PopUp-open
 function Cancel() {
   confirmationPopUp.classList.remove("PopUp-open");
+  location.reload();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -44,16 +45,16 @@ function displayToDos() {
                         </div>
                     <div class="editContent">
                         <button class="saveEditBtn">Save</button>
-                        <button class="cancelEditBtn">Cancel</button>
                     </div>
                 </div>`;
     counterr++;
+    console.log(i);
   }
   document.querySelector(".toDoList").innerHTML = toDos;
   activateCheckListeners();
   activateEditListeners();
   activateSaveListeners();
-  activateCancelListeners();
+  //activateCancelListeners();
   activateDeleteListeners();
   activateUpListeners();
   activateDownListeners();
@@ -111,7 +112,6 @@ function createToDo(toDo) {
                             </div>
                           <div class="editContent">
                             <button class="saveEditBtn">Save</button>
-                            <button class="cancelEditBtn">Cancel</button>
                           </div>
                         </div>`;
   document.querySelector(".toDoList").innerHTML += toDoDisplay;
@@ -119,7 +119,7 @@ function createToDo(toDo) {
   activateCheckListeners();
   activateEditListeners();
   activateSaveListeners();
-  activateCancelListeners();
+  //activateCancelListeners();
   activateDeleteListeners();
   activateUpListeners();
   activateDownListeners();
@@ -149,9 +149,12 @@ function activateEditListeners() {
   editBtn.forEach((eB, i) => {
     eB.addEventListener("click", () => {
       editContent[i].style.display = "block";
-      //editBtn.innerText = "Save";
       content[i].disabled = false;
       content[i].focus();
+      content[i].setSelectionRange(
+        content[i].value.length,
+        content[i].value.length
+      );
     });
   });
 }
@@ -166,17 +169,17 @@ function activateSaveListeners() {
   });
 }
 
-function activateCancelListeners() {
-  let cancelEditBtn = document.querySelectorAll(".cancelEditBtn");
-  let editContent = document.querySelectorAll(".editContent");
-  let content = document.querySelectorAll(".toDo textarea");
-  cancelEditBtn.forEach((cb, i) => {
-    cb.addEventListener("click", () => {
-      editContent[i].style.display = "none";
-      content[i].disabled = true;
-    });
-  });
-}
+// function activateCancelListeners() {
+//   let cancelEditBtn = document.querySelectorAll(".cancelEditBtn");
+//   let editContent = document.querySelectorAll(".editContent");
+//   let content = document.querySelectorAll(".toDo textarea");
+//   cancelEditBtn.forEach((cb, i) => {
+//     cb.addEventListener("click", () => {
+//       editContent[i].style.display = "none";
+//       content[i].disabled = true;
+//     });
+//   });
+// }
 
 function activateCheckListeners() {
   let checkbox = document.querySelectorAll(".toDo input");
@@ -203,6 +206,14 @@ function activateUpListeners() {
         storedTodos[i - 1] = temp;
         localStorage.setItem("toDos", JSON.stringify(storedTodos));
         location.reload();
+      } else {
+        let notificationConfig = {
+          style: "display: block; color: red",
+          text: "You canot move up the first to do",
+        };
+        notificationElement.style = notificationConfig.style;
+        notificationElement.innerText = notificationConfig.text;
+        setTimeout(() => (notificationElement.style.display = "none"), 4000);
       }
     });
   });
@@ -218,6 +229,14 @@ function activateDownListeners() {
         storedTodos[i + 1] = temp;
         localStorage.setItem("toDos", JSON.stringify(storedTodos));
         location.reload();
+      } else {
+        let notificationConfig = {
+          style: "display: block; color: red",
+          text: "You canot move down the last to do",
+        };
+        notificationElement.style = notificationConfig.style;
+        notificationElement.innerText = notificationConfig.text;
+        setTimeout(() => (notificationElement.style.display = "none"), 4000);
       }
     });
   });
