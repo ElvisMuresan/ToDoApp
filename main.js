@@ -48,7 +48,6 @@ function displayToDos() {
                     </div>
                 </div>`;
     counterr++;
-    console.log(i);
   }
   document.querySelector(".toDoList").innerHTML = toDos;
   activateCheckListeners();
@@ -161,10 +160,13 @@ function activateEditListeners() {
 
 function activateSaveListeners() {
   let saveEditBtn = document.querySelectorAll(".saveEditBtn");
+  let editContent = document.querySelectorAll(".editContent");
   let content = document.querySelectorAll(".toDo textarea");
   saveEditBtn.forEach((sB, i) => {
     sB.addEventListener("click", () => {
       updateToDo(content[i].value, i);
+      editContent[i].style.display = "none";
+      content[i].disabled = true;
     });
   });
 }
@@ -213,7 +215,7 @@ function activateUpListeners() {
         };
         notificationElement.style = notificationConfig.style;
         notificationElement.innerText = notificationConfig.text;
-        setTimeout(() => (notificationElement.style.display = "none"), 4000);
+        setTimeout(() => (notificationElement.style.display = "none"), 6000);
       }
     });
   });
@@ -270,7 +272,7 @@ function deleteToDo(i) {
 function updateToDo(text, i) {
   storedTodos[i] = text;
   localStorage.setItem("toDos", JSON.stringify(storedTodos));
-  location.reload();
+  //location.reload();
 }
 
 function checkedToDo(text, i) {
