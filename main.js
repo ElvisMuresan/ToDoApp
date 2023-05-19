@@ -7,8 +7,8 @@ const completedTasks = document.getElementById("completed-tasks");
 const remainingTasks = document.getElementById("remaining-tasks");
 const toDo = document.querySelector("#inputId");
 let storedTodos = JSON.parse(localStorage.getItem("toDos")) || [];
-let counter = storedTodos.length + 1;
-let counterr = 1;
+let counterDisplayToDo = storedTodos.length + 1;
+let counterStoredTodos = 1;
 
 document.querySelector("#addToDo").addEventListener("click", () => {
   event.preventDefault();
@@ -18,7 +18,6 @@ document.querySelector("#addToDo").addEventListener("click", () => {
 // Cancel function when it's called, removes the class PopUp-open
 function Cancel() {
   confirmationPopUp.classList.remove("PopUp-open");
-  location.reload();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -34,7 +33,7 @@ function displayToDos() {
   let toDos = "";
   for (let i = 0; i < storedTodos.length; i++) {
     toDos += `<div class="toDo">
-                        <span class="counter">${counterr}</span>
+                        <span class="counter">${counterStoredTodos + i}</span>
                         <input type="checkbox" class="checkbox">
                         <textarea  disabled>${storedTodos[i]}</textarea>
                         <div class="actions">
@@ -47,8 +46,8 @@ function displayToDos() {
                         <button class="saveEditBtn">Save</button>
                     </div>
                 </div>`;
-    counterr++;
   }
+
   document.querySelector(".toDoList").innerHTML = toDos;
   activateCheckListeners();
   activateEditListeners();
@@ -100,7 +99,7 @@ function createToDo(toDo) {
   // display toDo on screen
   let toDoDisplay = "";
   toDoDisplay = `<div class="toDo">
-                          <span class="counter">${counter}</span>
+                          <span class="counter">${counterDisplayToDo}</span>
                             <input type="checkbox" class="checkbox">
                             <textarea  disabled>${toDo.value}</textarea>
                             <div class="actions">
@@ -114,7 +113,7 @@ function createToDo(toDo) {
                           </div>
                         </div>`;
   document.querySelector(".toDoList").innerHTML += toDoDisplay;
-  counter++;
+  counterDisplayToDo++;
   activateCheckListeners();
   activateEditListeners();
   activateSaveListeners();
@@ -123,6 +122,7 @@ function createToDo(toDo) {
   activateUpListeners();
   activateDownListeners();
   activateCountListeners();
+
   // clean input field
   toDo.value = "";
 }
@@ -135,6 +135,7 @@ function activateDeleteListeners() {
       confirmationPopUp.classList.add("PopUp-open");
       confirmButton.addEventListener("click", () => {
         deleteToDo(i);
+        console.log(i);
         confirmationPopUp.classList.remove("PopUp-open");
       });
     });
@@ -159,6 +160,7 @@ function activateEditListeners() {
 }
 
 function activateSaveListeners() {
+  let editBtn = document.querySelectorAll(".editBtn");
   let saveEditBtn = document.querySelectorAll(".saveEditBtn");
   let editContent = document.querySelectorAll(".editContent");
   let content = document.querySelectorAll(".toDo textarea");
@@ -203,15 +205,15 @@ function activateUpListeners() {
   upBtn.forEach((uB, i) => {
     uB.addEventListener("click", () => {
       if (i > 0) {
-        let temp = storedTodos[i];
+        let contentUp = storedTodos[i];
         storedTodos[i] = storedTodos[i - 1];
-        storedTodos[i - 1] = temp;
+        storedTodos[i - 1] = contentUp;
         localStorage.setItem("toDos", JSON.stringify(storedTodos));
-        location.reload();
+        displayToDos();
       } else {
         let notificationConfig = {
           style: "display: block; color: red",
-          text: "You canot move up the first to do",
+          text: "Cannot be moved up!",
         };
         notificationElement.style = notificationConfig.style;
         notificationElement.innerText = notificationConfig.text;
@@ -225,20 +227,20 @@ function activateDownListeners() {
   let downBtn = document.querySelectorAll(".downBtn");
   downBtn.forEach((dB, i) => {
     dB.addEventListener("click", () => {
-      if (i >= 0 && i < storedTodos.length - 1) {
-        let temp = storedTodos[i];
+      if (i < storedTodos.length - 1) {
+        let contentDown = storedTodos[i];
         storedTodos[i] = storedTodos[i + 1];
-        storedTodos[i + 1] = temp;
+        storedTodos[i + 1] = contentDown;
         localStorage.setItem("toDos", JSON.stringify(storedTodos));
-        location.reload();
+        displayToDos();
       } else {
         let notificationConfig = {
           style: "display: block; color: red",
-          text: "You canot move down the last to do",
+          text: "Cannot be moved done!",
         };
         notificationElement.style = notificationConfig.style;
         notificationElement.innerText = notificationConfig.text;
-        setTimeout(() => (notificationElement.style.display = "none"), 4000);
+        setTimeout(() => (notificationElement.style.display = "none"), 6000);
       }
     });
   });
@@ -246,7 +248,6 @@ function activateDownListeners() {
 
 function activateCountListeners() {
   let checkbox = document.querySelectorAll(".toDo input");
-  let content = document.querySelectorAll(".toDo textarea");
   let contorTest = 0;
   checkbox.forEach((cB, i) => {
     cB.addEventListener("click", () => {
@@ -259,20 +260,20 @@ function activateCountListeners() {
       remainingTasks.textContent = storedTodos.length - contorTest;
     });
   });
-
+  remainingTasks.textContent = storedTodos.length;
   totalTasks.textContent = storedTodos.length;
 }
 
 function deleteToDo(i) {
   storedTodos.splice(i, 1);
   localStorage.setItem("toDos", JSON.stringify(storedTodos));
-  location.reload();
+  counterDisplayToDo = storedTodos.length + 1;
+  displayToDos();
 }
 
 function updateToDo(text, i) {
   storedTodos[i] = text;
   localStorage.setItem("toDos", JSON.stringify(storedTodos));
-  //location.reload();
 }
 
 function checkedToDo(text, i) {
