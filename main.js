@@ -9,6 +9,7 @@ const toDo = document.querySelector("#inputId");
 let storedTodos = JSON.parse(localStorage.getItem("toDos")) || [];
 let counterDisplayToDo = storedTodos.length + 1;
 let counterStoredTodos = 1;
+let indexToDoToDelete = undefined;
 
 document.querySelector("#addToDo").addEventListener("click", () => {
   event.preventDefault();
@@ -131,16 +132,17 @@ function activateDeleteListeners() {
   let deleteBtn = document.querySelectorAll(".deleteBtn");
   deleteBtn.forEach((dB, i) => {
     dB.addEventListener("click", () => {
+      indexToDoToDelete = i;
       confirmDeleteHeader.innerText = `Are you sure you want to delete "${storedTodos[i]}"?`;
       confirmationPopUp.classList.add("PopUp-open");
-      confirmButton.addEventListener("click", () => {
-        deleteToDo(i);
-        console.log(i);
-        confirmationPopUp.classList.remove("PopUp-open");
-      });
     });
   });
 }
+
+confirmButton.addEventListener("click", () => {
+  deleteToDo(indexToDoToDelete);
+  confirmationPopUp.classList.remove("PopUp-open");
+});
 
 function activateEditListeners() {
   let editBtn = document.querySelectorAll(".editBtn");
@@ -265,6 +267,7 @@ function activateCountListeners() {
 }
 
 function deleteToDo(i) {
+  console.log("callDeleteToDo:", i);
   storedTodos.splice(i, 1);
   localStorage.setItem("toDos", JSON.stringify(storedTodos));
   counterDisplayToDo = storedTodos.length + 1;
@@ -278,7 +281,18 @@ function updateToDo(text, i) {
 
 function checkedToDo(text, i) {
   storedTodos[i] = text;
-  localStorage.setItem("toDos", JSON.stringify(storedTodos));
+  console.log("storedToDos", storedTodos);
+
+  // 	["emanuel","fdfsfsdf","aaaaa","fdsfsdfsd"]
+  // ["true.emanuel","fdfsfsdf","aaaaa","fdsfsdfsd"]
+  // 	[ { "text": "emanuel", "state": "checked"}, {"text": fdfsfsdf state: checked},aaaaa {state: checked},fdsfsdfsd {state: checked}}]
+  let dataToStore = [
+    { text: content[i], checked: true },
+    { text: "blabla", checked: true },
+    { text: "elvis", checked: false },
+    { text: "emanuel222", checked: false },
+  ];
+  localStorage.setItem("toDos", JSON.stringify(dataToStore));
 }
 
 // Display date
@@ -287,6 +301,7 @@ function displayDate() {
   date = date.toString().split(" ");
   date = date[1] + " " + date[2] + " " + date[3];
   document.querySelector("#date").innerHTML = date;
+  //date.getDate() + " " + date.getMonth() + 1 + " " + date.getFullYear();
 }
 
 window.onload = function () {
