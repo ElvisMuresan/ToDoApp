@@ -9,6 +9,8 @@
   --background: rgba(48, 64, 64, 1);
   --background1: rgba(0, 0, 0, 1);
   --background2: rgba(216, 224, 220, 0.3);
+  --red: #b41105;
+  --redeer: #fa1403;
 }
 
 * {
@@ -79,6 +81,7 @@ header h1 {
   font-size: 1.25rem;
   font-weight: 700;
   cursor: pointer;
+  margin-right: 1rem;
   background-image: linear-gradient(to right, var(--albastru), var(--blue));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -90,6 +93,26 @@ header h1 {
 }
 
 #addToDo:active {
+  opacity: 0.6;
+}
+
+#clearToDo {
+  all: unset;
+  color: var(--blue);
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  background-image: linear-gradient(to right, var(--redeer), var(--red));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.4s;
+}
+
+#clearToDo:hover {
+  opacity: 0.9;
+}
+
+#clearToDo:active {
   opacity: 0.6;
 }
 
@@ -191,9 +214,11 @@ main {
   display: none;
 }
 
-.saveEditBtn {
+.saveEditBtn,
+.cancelEditBtn {
   all: unset;
   cursor: pointer;
+  display: inline-block;
   margin: 0 0.5rem;
   font-size: 1.125rem;
   font-weight: 700;

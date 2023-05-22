@@ -1,6 +1,8 @@
 const confirmationPopUp = document.getElementById("confirmationDialog");
 const confirmButton = document.getElementById("PopUp-confirm");
+const confirmDeleteAll = document.getElementById("PopUp-deleteAll");
 const confirmDeleteHeader = document.getElementById("confirmDeleteHeader");
+const confirmDeleteMessage = document.getElementById("confirmDeleteMessage");
 const notificationElement = document.getElementById("notification");
 const totalTasks = document.getElementById("total-tasks");
 const completedTasks = document.getElementById("completed-tasks");
@@ -14,6 +16,11 @@ let indexToDoToDelete = undefined;
 document.querySelector("#addToDo").addEventListener("click", () => {
   event.preventDefault();
   createToDo(toDo);
+});
+
+document.querySelector("#clearToDo").addEventListener("click", () => {
+  event.preventDefault();
+  deleteAllToDoListeners();
 });
 
 // Cancel function when it's called, removes the class PopUp-open
@@ -45,6 +52,7 @@ function displayToDos() {
                         </div>
                     <div class="editContent">
                         <button class="saveEditBtn">Save</button>
+                        <button class="cancelEditBtn">Cancel</button>
                     </div>
                 </div>`;
   }
@@ -53,7 +61,7 @@ function displayToDos() {
   activateCheckListeners();
   activateEditListeners();
   activateSaveListeners();
-  //activateCancelListeners();
+  activateCancelListeners();
   activateDeleteListeners();
   activateUpListeners();
   activateDownListeners();
@@ -111,6 +119,7 @@ function createToDo(toDo) {
                             </div>
                           <div class="editContent">
                             <button class="saveEditBtn">Save</button>
+                            <button class="cancelEditBtn">Cancel</button>
                           </div>
                         </div>`;
   document.querySelector(".toDoList").innerHTML += toDoDisplay;
@@ -118,7 +127,7 @@ function createToDo(toDo) {
   activateCheckListeners();
   activateEditListeners();
   activateSaveListeners();
-  //activateCancelListeners();
+  activateCancelListeners();
   activateDeleteListeners();
   activateUpListeners();
   activateDownListeners();
@@ -126,6 +135,17 @@ function createToDo(toDo) {
 
   // clean input field
   toDo.value = "";
+}
+
+function deleteAllToDoListeners() {
+  let clearBtn = document.querySelectorAll(".clearToDo");
+  clearBtn.forEach((cT, i) => {
+    cT.addEventListener("click", () => {
+      confirmDeleteHeader.innerText = `Are you sure you want to delete all?`;
+      confirmDeleteMessage.innerText = `Once you delete all the items, there is no going back. Please be certain.`;
+      confirmationPopUp.classList.add("PopUp-open");
+    });
+  });
 }
 
 function activateDeleteListeners() {
@@ -141,6 +161,10 @@ function activateDeleteListeners() {
 
 confirmButton.addEventListener("click", () => {
   deleteToDo(indexToDoToDelete);
+  confirmationPopUp.classList.remove("PopUp-open");
+});
+confirmDeleteAll.addEventListener("click", () => {
+  deleteAllToDo();
   confirmationPopUp.classList.remove("PopUp-open");
 });
 
@@ -175,17 +199,18 @@ function activateSaveListeners() {
   });
 }
 
-// function activateCancelListeners() {
-//   let cancelEditBtn = document.querySelectorAll(".cancelEditBtn");
-//   let editContent = document.querySelectorAll(".editContent");
-//   let content = document.querySelectorAll(".toDo textarea");
-//   cancelEditBtn.forEach((cb, i) => {
-//     cb.addEventListener("click", () => {
-//       editContent[i].style.display = "none";
-//       content[i].disabled = true;
-//     });
-//   });
-// }
+function activateCancelListeners() {
+  let cancelEditBtn = document.querySelectorAll(".cancelEditBtn");
+  let editContent = document.querySelectorAll(".editContent");
+  let content = document.querySelectorAll(".toDo textarea");
+  cancelEditBtn.forEach((cb, i) => {
+    cb.addEventListener("click", () => {
+      displayToDos();
+      editContent[i].style.display = "none";
+      content[i].disabled = true;
+    });
+  });
+}
 
 function activateCheckListeners() {
   let checkbox = document.querySelectorAll(".toDo input");
@@ -274,6 +299,13 @@ function deleteToDo(i) {
   displayToDos();
 }
 
+function deleteAllToDo(i) {
+  storedTodos.splice(i, storedTodos.length);
+  localStorage.setItem("toDos", JSON.stringify(storedTodos));
+  counterDisplayToDo = storedTodos.length + 1;
+  displayToDos();
+}
+
 function updateToDo(text, i) {
   storedTodos[i] = text;
   localStorage.setItem("toDos", JSON.stringify(storedTodos));
@@ -282,17 +314,18 @@ function updateToDo(text, i) {
 function checkedToDo(text, i) {
   storedTodos[i] = text;
   console.log("storedToDos", storedTodos);
+  localStorage.setItem("toDos", JSON.stringify(storedTodos));
 
   // 	["emanuel","fdfsfsdf","aaaaa","fdsfsdfsd"]
   // ["true.emanuel","fdfsfsdf","aaaaa","fdsfsdfsd"]
   // 	[ { "text": "emanuel", "state": "checked"}, {"text": fdfsfsdf state: checked},aaaaa {state: checked},fdsfsdfsd {state: checked}}]
-  let dataToStore = [
-    { text: content[i], checked: true },
-    { text: "blabla", checked: true },
-    { text: "elvis", checked: false },
-    { text: "emanuel222", checked: false },
-  ];
-  localStorage.setItem("toDos", JSON.stringify(dataToStore));
+  // let dataToStore = [
+  //   { text: content[i], checked: true },
+  //   { text: "blabla", checked: true },
+  //   { text: "elvis", checked: false },
+  //   { text: "emanuel222", checked: false },
+  // ];
+  // localStorage.setItem("toDos", JSON.stringify(dataToStore));
 }
 
 // Display date
