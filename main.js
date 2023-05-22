@@ -174,11 +174,15 @@ confirmDeleteAll.addEventListener("click", () => {
 });
 
 function activateEditListeners() {
+  let deleteBtn = document.querySelectorAll(".deleteBtn");
   let editBtn = document.querySelectorAll(".editBtn");
   let editContent = document.querySelectorAll(".editContent");
   let content = document.querySelectorAll(".toDo textarea");
   editBtn.forEach((eB, i) => {
     eB.addEventListener("click", () => {
+      deleteBtn.forEach((dB) => {
+        dB.disabled = true;
+      });
       editContent[i].style.display = "block";
       content[i].disabled = false;
       content[i].focus();
