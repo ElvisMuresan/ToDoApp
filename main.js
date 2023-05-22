@@ -138,14 +138,19 @@ function createToDo(toDo) {
 }
 
 function deleteAllToDoListeners() {
-  let clearBtn = document.querySelectorAll(".clearToDo");
-  clearBtn.forEach((cT, i) => {
-    cT.addEventListener("click", () => {
-      confirmDeleteHeader.innerText = `Are you sure you want to delete all?`;
-      confirmDeleteMessage.innerText = `Once you delete all the items, there is no going back. Please be certain.`;
-      confirmationPopUp.classList.add("PopUp-open");
-    });
-  });
+  if (storedTodos.length === 0) {
+    let notificationConfig = {
+      style: "display: block; color: red",
+      text: "The toDo list is empty. Please insert a toDo!",
+    };
+    notificationElement.style = notificationConfig.style;
+    notificationElement.innerText = notificationConfig.text;
+    setTimeout(() => (notificationElement.style.display = "none"), 6000);
+  } else {
+    confirmDeleteHeader.innerText = `Are you sure you want to delete all?`;
+    confirmDeleteMessage.innerText = `Once you delete all the items, there is no going back. Please be certain.`;
+    confirmationPopUp.classList.add("PopUp-open");
+  }
 }
 
 function activateDeleteListeners() {
