@@ -353,3 +353,9 @@ ul {
   border-radius: 0rem;
   font-weight: 800;
 }
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}

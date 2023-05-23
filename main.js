@@ -7,7 +7,10 @@ const notificationElement = document.getElementById("notification");
 const totalTasks = document.getElementById("total-tasks");
 const completedTasks = document.getElementById("completed-tasks");
 const remainingTasks = document.getElementById("remaining-tasks");
+let clearToDos = document.getElementById("clearToDo");
+let addTask = document.getElementById("addToDo");
 const toDo = document.querySelector("#inputId");
+
 let storedTodos = JSON.parse(localStorage.getItem("toDos")) || [];
 let counterDisplayToDo = storedTodos.length + 1;
 let counterStoredTodos = 1;
@@ -174,15 +177,17 @@ confirmDeleteAll.addEventListener("click", () => {
 });
 
 function activateEditListeners() {
+  let checkbox = document.querySelectorAll(".toDo input");
   let deleteBtn = document.querySelectorAll(".deleteBtn");
+  let upBtn = document.querySelectorAll(".upBtn");
+  let downBtn = document.querySelectorAll(".downBtn");
   let editBtn = document.querySelectorAll(".editBtn");
   let editContent = document.querySelectorAll(".editContent");
   let content = document.querySelectorAll(".toDo textarea");
   editBtn.forEach((eB, i) => {
     eB.addEventListener("click", () => {
-      deleteBtn.forEach((dB) => {
-        dB.disabled = true;
-      });
+      clearToDos.disabled = true;
+      addTask.disabled = true;
       editContent[i].style.display = "block";
       content[i].disabled = false;
       content[i].focus();
@@ -190,12 +195,30 @@ function activateEditListeners() {
         content[i].value.length,
         content[i].value.length
       );
+      //clearToDos.classList.add("disabled");
+      //addTask.classList.add("disabled");
+      checkbox.forEach((cB) => {
+        cB.classList.add("disabled");
+      });
+      deleteBtn.forEach((dB) => {
+        dB.classList.add("disabled");
+      });
+      upBtn.forEach((uB) => {
+        uB.classList.add("disabled");
+      });
+      downBtn.forEach((dB) => {
+        dB.classList.add("disabled");
+      });
     });
   });
 }
 
 function activateSaveListeners() {
   let editBtn = document.querySelectorAll(".editBtn");
+  let checkbox = document.querySelectorAll(".toDo input");
+  let deleteBtn = document.querySelectorAll(".deleteBtn");
+  let upBtn = document.querySelectorAll(".upBtn");
+  let downBtn = document.querySelectorAll(".downBtn");
   let saveEditBtn = document.querySelectorAll(".saveEditBtn");
   let editContent = document.querySelectorAll(".editContent");
   let content = document.querySelectorAll(".toDo textarea");
@@ -204,6 +227,22 @@ function activateSaveListeners() {
       updateToDo(content[i].value, i);
       editContent[i].style.display = "none";
       content[i].disabled = true;
+      clearToDos.disabled = false;
+      addTask.disabled = false;
+      //clearToDos.classList.remove("disabled");
+      //addTask.classList.remove("disabled");
+      checkbox.forEach((cB) => {
+        cB.classList.remove("disabled");
+      });
+      deleteBtn.forEach((dB) => {
+        dB.classList.remove("disabled");
+      });
+      upBtn.forEach((uB) => {
+        uB.classList.remove("disabled");
+      });
+      downBtn.forEach((dB) => {
+        dB.classList.remove("disabled");
+      });
     });
   });
 }
@@ -217,6 +256,8 @@ function activateCancelListeners() {
       displayToDos();
       editContent[i].style.display = "none";
       content[i].disabled = true;
+      clearToDos.disabled = false;
+      addTask.disabled = false;
     });
   });
 }
