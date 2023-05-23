@@ -191,7 +191,7 @@ function activateEditListeners() {
       actions.removeChild(removeEdit);
       clearToDos.disabled = true;
       addTask.disabled = true;
-      editContent[i].style.display = "block";
+      editContent[i].style.display = "flex";
       content[i].disabled = false;
       content[i].focus();
       content[i].setSelectionRange(
