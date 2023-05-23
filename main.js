@@ -47,10 +47,10 @@ function displayToDos() {
                         <span class="counter">${counterStoredTodos + i}</span>
                         <input type="checkbox" class="checkbox">
                         <textarea  disabled>${storedTodos[i]}</textarea>
-                        <div class="actions">
+                        <div id="actions" class="actions">
                             <button><i class=" fa fa-arrow-up upBtn"></i></button>
                             <button><i class=" fa fa-arrow-down downBtn"></i></  button>
-                            <button><i class="fas fa-edit editBtn"></i></button>
+                            <button id="removeEdit" ><i class="fas fa-edit editBtn"></i></button>
                             <button><i class=" fas fa-trash deleteBtn"></i></button>
                         </div>
                     <div class="editContent">
@@ -114,10 +114,10 @@ function createToDo(toDo) {
                           <span class="counter">${counterDisplayToDo}</span>
                             <input type="checkbox" class="checkbox">
                             <textarea  disabled>${toDo.value}</textarea>
-                            <div class="actions">
+                            <div id="actions" class="actions">
                               <button><i class=" fa fa-arrow-up upBtn"></i></button>
                               <button><i class=" fa fa-arrow-down downBtn"></i></button>
-                              <button><i class="fas fa-edit editBtn"></i></button>
+                              <button id="removeEdit"><i class="fas fa-edit editBtn"></i></button>
                               <button><i class=" fas fa-trash deleteBtn"></i></button>
                             </div>
                           <div class="editContent">
@@ -177,6 +177,8 @@ confirmDeleteAll.addEventListener("click", () => {
 });
 
 function activateEditListeners() {
+  let actions = document.getElementById("actions");
+  let removeEdit = document.getElementById("removeEdit");
   let checkbox = document.querySelectorAll(".toDo input");
   let deleteBtn = document.querySelectorAll(".deleteBtn");
   let upBtn = document.querySelectorAll(".upBtn");
@@ -186,6 +188,7 @@ function activateEditListeners() {
   let content = document.querySelectorAll(".toDo textarea");
   editBtn.forEach((eB, i) => {
     eB.addEventListener("click", () => {
+      actions.removeChild(removeEdit);
       clearToDos.disabled = true;
       addTask.disabled = true;
       editContent[i].style.display = "block";
@@ -200,6 +203,9 @@ function activateEditListeners() {
       checkbox.forEach((cB) => {
         cB.classList.add("disabled");
       });
+      editBtn.forEach((eB) => {
+        eB.classList.add("disabled");
+      });
       deleteBtn.forEach((dB) => {
         dB.classList.add("disabled");
       });
@@ -209,6 +215,7 @@ function activateEditListeners() {
       downBtn.forEach((dB) => {
         dB.classList.add("disabled");
       });
+      //eB.style.visibility = "hidden";
     });
   });
 }
@@ -225,14 +232,21 @@ function activateSaveListeners() {
   saveEditBtn.forEach((sB, i) => {
     sB.addEventListener("click", () => {
       updateToDo(content[i].value, i);
+      displayToDos();
       editContent[i].style.display = "none";
       content[i].disabled = true;
       clearToDos.disabled = false;
       addTask.disabled = false;
       //clearToDos.classList.remove("disabled");
       //addTask.classList.remove("disabled");
+      editBtn.forEach((eB) => {
+        //eB.style.visibility = "visible";
+      });
       checkbox.forEach((cB) => {
         cB.classList.remove("disabled");
+      });
+      editBtn.forEach((eB) => {
+        eB.classList.remove("disabled");
       });
       deleteBtn.forEach((dB) => {
         dB.classList.remove("disabled");

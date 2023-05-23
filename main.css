@@ -359,3 +359,7 @@ ul {
   pointer-events: none;
   cursor: not-allowed;
 }
+
+.editBtn {
+  visibility: visible;
+}
