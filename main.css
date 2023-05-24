@@ -363,3 +363,7 @@ ul {
 .editBtn {
   visibility: visible;
 }
+
+.completed {
+  text-decoration: line-through;
+}
