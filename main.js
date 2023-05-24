@@ -11,6 +11,7 @@ let clearToDos = document.getElementById("clearToDo");
 let addTask = document.getElementById("addToDo");
 const toDo = document.querySelector("#inputId");
 let counterStoredTodos = 1;
+let completedCount = 0;
 let indexToDoToDelete = undefined;
 let storedTodos = JSON.parse(localStorage.getItem("toDos")) || [];
 let counterDisplayToDo = storedTodos.length + 1;
@@ -249,21 +250,21 @@ function activateDownListeners() {
 
 function activateCountListeners() {
   let checkbox = document.querySelectorAll(".toDo input");
-  let contorTest = 0;
   checkbox.forEach((cB, i) => {
     cB.addEventListener("click", () => {
-      if (cB.checked) {
-        contorTest++;
+      if (cB.checked && storedTodos[i].checked) {
+        completedCount++;
       } else {
-        contorTest--;
+        completedCount--;
       }
-      completedTasks.textContent = contorTest;
-      remainingTasks.textContent = storedTodos.length - contorTest;
+      completedTasks.textContent = completedCount;
+      remainingTasks.textContent = storedTodos.length - completedCount;
     });
   });
-  remainingTasks.textContent = storedTodos.length;
+  //remainingTasks.textContent = storedTodos.length;
   totalTasks.textContent = storedTodos.length;
 }
+
 function deleteToDo(i) {
   console.log("callDeleteToDo:", i);
   storedTodos.splice(i, 1);
@@ -325,7 +326,7 @@ function displayToDos() {
                     </div>
                 </div>`;
   }
-
+  completedTasks.textContent = completedCount;
   document.querySelector(".toDoList").innerHTML = toDos;
   activateCheckListeners();
   activateEditListeners();
