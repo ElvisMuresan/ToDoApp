@@ -30,14 +30,18 @@
     </header>
 
     <main>
-      <form id="new-task-form">
-        <input
-          type="text"
-          id="inputId"
-          placeholder="What do you want to do in this month?"
-        />
-        <button type="submit" id="addToDo">Add task</button>
-        <button type="submit" id="clearToDo" class="clearToDo">
+      <form id="new-task-form" class="card add">
+        <div class="txt-container">
+          <input
+            type="text"
+            id="inputId"
+            placeholder="What do you want to do in this month?"
+          />
+        </div>
+        <button type="submit" id="addToDo" class="cb-container">
+          Add task
+        </button>
+        <button type="submit" id="clearToDo" class="cb-container">
           Clear all
         </button>
       </form>
@@ -60,10 +64,7 @@
         </div>
       </section>
 
-      <section class="task-list">
-        <h2>To do's:</h2>
-        <div id="listaParinteId" class="toDoList"></div>
-      </section>
+      <ul id="listaParinteId" class="toDoList"></ul>
     </main>
 
     <div id="confirmationDialog" class="confirmationDialog">

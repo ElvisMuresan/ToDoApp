@@ -105,7 +105,7 @@ header.card h1 {
   font-size: calc(var(--base-font) * 2);
 }
 
-#addToDo {
+.cb-container {
   all: unset;
   color: var(--blue);
   font-size: 1.25rem;
@@ -118,27 +118,59 @@ header.card h1 {
   transition: 0.4s;
 }
 
-#addToDo:hover {
+#cb-container:hover {
   opacity: 0.9;
 }
 
-#addToDo:active {
+#cb-container:active {
   opacity: 0.6;
 }
 
-#new-task-form {
+.add {
   margin: 4rem 0 2.5rem 0;
   border-radius: 0.5rem;
+}
+
+.add .cb-container {
+  transition: background 0.3s ease;
+}
+
+.add .txt-container {
   flex: 1;
 }
 
-#inputId {
+.add .txt-container #inputId {
   width: 100%;
   padding: 0.7rem 0;
   color: var(--clr-gb-1);
 }
 
-#inputId::placeholder {
+.add .txt-container #inputId::placeholder {
   color: var(--clr-gb-5);
   font-weight: var(--fw-normal);
+}
+
+.toDoList > * {
+  transition: 0.4s ease;
+}
+
+.toDoList .toDo {
+  cursor: move;
+}
+
+.toDoList .toDo:first-child {
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.toDoList > * + * {
+  border-top: 0.2rem solid var(--clr-gb-6);
+}
+
+textarea {
+  flex: 1;
+  color: var(--clr-gb-2);
+}
+
+textarea:hover {
+  color: var(--clr-gb-1);
 }
