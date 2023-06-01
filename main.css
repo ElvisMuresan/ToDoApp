@@ -366,7 +366,7 @@ main {
   justify-content: flex-end;
 }
 
-.PopUp-cancelAll {
+.PopUp-cancel {
   text-transform: uppercase;
   padding: 0.5em 1em;
   border: none;

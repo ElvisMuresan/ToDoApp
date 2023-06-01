@@ -45,6 +45,7 @@ document.querySelector("#clearToDo").addEventListener("click", () => {
 // Cancel function when it's called, removes the class PopUp-open
 function Cancel() {
   confirmationPopUp.classList.remove("PopUp-open");
+  confirmationPopUpAll.classList.remove("PopUpAll-open");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -56,14 +57,10 @@ document.addEventListener("DOMContentLoaded", () => {
     .addEventListener("click", (e) => e.stopPropagation());
 });
 
-function CancelAll() {
-  confirmationPopUpAll.classList.remove("PopUpAll-open");
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("confirmationDialogAll")
-    .addEventListener("click", CancelAll);
+    .addEventListener("click", Cancel);
   document
     .querySelector(".PopUpAll")
     .addEventListener("click", (e) => e.stopPropagation());
@@ -212,10 +209,8 @@ function activateCheckListeners() {
     cB.addEventListener("click", () => {
       if (cB.checked) {
         content[i].style.textDecoration = "line-through";
-        //content[i].classList.add("completed");
       } else {
         content[i].style.textDecoration = "none";
-        //content[i].classList.remove("completed");
       }
       checkedToDo(cB.checked, i);
     });
@@ -309,17 +304,6 @@ function checkedToDo(checked, i) {
   storedTodos[i].checked = checked;
   console.log("storedToDos", storedTodos);
   localStorage.setItem("toDos", JSON.stringify(storedTodos));
-
-  // 	["emanuel","fdfsfsdf","aaaaa","fdsfsdfsd"]
-  // ["true.emanuel","fdfsfsdf","aaaaa","fdsfsdfsd"]
-  // 	[ { "text": "emanuel", "state": "checked"}, {"text": fdfsfsdf state: checked},aaaaa {state: checked},fdsfsdfsd {state: checked}}]
-  // let dataToStore = [
-  //   { text: content[i], checked: true },
-  //   { text: "blabla", checked: true },
-  //   { text: "elvis", checked: false },
-  //   { text: "emanuel222", checked: false },
-  // ];
-  // localStorage.setItem("toDos", JSON.stringify(dataToStore));
 }
 
 function displayToDos() {
