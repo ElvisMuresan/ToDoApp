@@ -1,3 +1,4 @@
+// get elements
 const confirmationPopUp = document.getElementById("confirmationDialog");
 const confirmationPopUpAll = document.getElementById("confirmationDialogAll");
 const confirmButton = document.getElementById("PopUp-confirm");
@@ -14,23 +15,16 @@ const notificationElement = document.getElementById("notification");
 const totalTasks = document.getElementById("total-tasks");
 const completedTasks = document.getElementById("completed-tasks");
 const remainingTasks = document.getElementById("remaining-tasks");
+const toDo = document.querySelector("#inputId");
+
+// globals
 let clearToDos = document.getElementById("clearToDo");
 let addTask = document.getElementById("addToDo");
-const toDo = document.querySelector("#inputId");
 let counterStoredTodos = 1;
 let completedCount = 0;
 let indexToDoToDelete = undefined;
 let storedTodos = JSON.parse(localStorage.getItem("toDos")) || [];
 let counterDisplayToDo = storedTodos.length + 1;
-
-if (storedTodos && storedTodos.length > 0) {
-  storedTodos = storedTodos.map((todo) => {
-    if (!todo.hasOwnProperty("checked")) {
-      todo.checked = false;
-    }
-    return todo;
-  });
-}
 
 document.querySelector("#addToDo").addEventListener("click", () => {
   event.preventDefault();
@@ -158,7 +152,7 @@ function activateSaveListeners() {
   saveEditBtn.forEach((sB, i) => {
     sB.addEventListener("click", () => {
       updateToDo(content[i].value, i);
-      displayToDos();
+      renderToDos();
       editContent[i].style.display = "none";
       content[i].disabled = true;
       clearToDos.disabled = false;
@@ -193,7 +187,7 @@ function activateCancelListeners() {
   let content = document.querySelectorAll(".toDo textarea");
   cancelEditBtn.forEach((cb, i) => {
     cb.addEventListener("click", () => {
-      displayToDos();
+      renderToDos();
       editContent[i].style.display = "none";
       content[i].disabled = true;
       clearToDos.disabled = false;
@@ -226,7 +220,7 @@ function activateUpListeners() {
         storedTodos[i] = storedTodos[i - 1];
         storedTodos[i - 1] = contentUp;
         localStorage.setItem("toDos", JSON.stringify(storedTodos));
-        displayToDos();
+        renderToDos();
       } else {
         let notificationConfig = {
           style: "display: block; color: red",
@@ -249,7 +243,7 @@ function activateDownListeners() {
         storedTodos[i] = storedTodos[i + 1];
         storedTodos[i + 1] = contentDown;
         localStorage.setItem("toDos", JSON.stringify(storedTodos));
-        displayToDos();
+        renderToDos();
       } else {
         let notificationConfig = {
           style: "display: block; color: red",
@@ -285,14 +279,14 @@ function deleteToDo(i) {
   storedTodos.splice(i, 1);
   localStorage.setItem("toDos", JSON.stringify(storedTodos));
   counterDisplayToDo = storedTodos.length + 1;
-  displayToDos();
+  renderToDos();
 }
 
 function deleteAllToDo(i) {
   storedTodos.splice(i, storedTodos.length);
   localStorage.setItem("toDos", JSON.stringify(storedTodos));
   counterDisplayToDo = storedTodos.length + 1;
-  displayToDos();
+  renderToDos();
 }
 
 function updateToDo(text, i) {
@@ -302,11 +296,29 @@ function updateToDo(text, i) {
 
 function checkedToDo(checked, i) {
   storedTodos[i].checked = checked;
-  console.log("storedToDos", storedTodos);
   localStorage.setItem("toDos", JSON.stringify(storedTodos));
+  initializeCounter();
 }
 
-function displayToDos() {
+function renderToDo(toDoCounter, todoChecked, todoTextDecoration, todoText) {
+  return `<div class="toDo">
+            <span class="counter">${toDoCounter}</span>
+            <input type="checkbox" class="checkbox" ${todoChecked}>
+            <textarea  disabled style="text-decoration: ${todoTextDecoration};">${todoText}</textarea>
+            <div id="actions" class="actions">
+              <button><i class=" fa fa-arrow-up upBtn"></i></button>
+              <button><i class=" fa fa-arrow-down downBtn"></i></  button>
+              <button id="removeEdit" ><i class="fas fa-edit editBtn"></i></button>
+              <button><i class=" fas fa-trash deleteBtn"></i></button>
+            </div>
+            <div class="editContent">
+              <button class="saveEditBtn">Save</button>
+              <button class="cancelEditBtn">Cancel</button>
+            </div>
+        </div>`;
+}
+
+function renderToDos() {
   let toDos = "";
   for (let i = 0; i < storedTodos.length; i++) {
     const todo = storedTodos[i];
@@ -333,7 +345,6 @@ function initializeListeners() {
   activateDeleteListeners();
   activateUpListeners();
   activateDownListeners();
-  activateCountListeners();
 }
 
 function initializeCounter() {
@@ -346,28 +357,9 @@ function initializeCounter() {
   totalTasks.textContent = storedTodos.length;
 }
 
-function renderToDo(toDoCounter, todoChecked, todoTextDecoration, todoText) {
-  return `<div class="toDo">
-                        <span class="counter">${toDoCounter}</span>
-                        <input type="checkbox" class="checkbox" ${todoChecked}>
-                        <textarea  disabled style="text-decoration: ${todoTextDecoration};">${todoText}</textarea>
-                        <div id="actions" class="actions">
-                            <button><i class=" fa fa-arrow-up upBtn"></i></button>
-                            <button><i class=" fa fa-arrow-down downBtn"></i></  button>
-                            <button id="removeEdit" ><i class="fas fa-edit editBtn"></i></button>
-                            <button><i class=" fas fa-trash deleteBtn"></i></button>
-                        </div>
-                    <div class="editContent">
-                        <button class="saveEditBtn">Save</button>
-                        <button class="cancelEditBtn">Cancel</button>
-                    </div>
-                </div>`;
-}
-
 /**
  * Show notification
  */
-
 function showNotification(inputValue) {
   let notificationConfig = {
     style: "display: block; color: rgb(128, 230, 230)",
@@ -404,7 +396,7 @@ function createToDo(toDo) {
 
   //counterDisplayToDo++;
 
-  displayToDos();
+  renderToDos();
   // clean input field
   toDo.value = "";
 }
@@ -420,5 +412,5 @@ function displayDate() {
 
 window.onload = function () {
   displayDate();
-  displayToDos();
+  renderToDos();
 };
