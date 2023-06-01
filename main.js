@@ -1,8 +1,15 @@
 const confirmationPopUp = document.getElementById("confirmationDialog");
+const confirmationPopUpAll = document.getElementById("confirmationDialogAll");
 const confirmButton = document.getElementById("PopUp-confirm");
 const confirmDeleteAll = document.getElementById("PopUp-deleteAll");
 const confirmDeleteHeader = document.getElementById("confirmDeleteHeader");
+const confirmDeleteHeaderAll = document.getElementById(
+  "confirmDeleteHeaderAll"
+);
 const confirmDeleteMessage = document.getElementById("confirmDeleteMessage");
+const confirmDeleteMessageAll = document.getElementById(
+  "confirmDeleteMessageAll"
+);
 const notificationElement = document.getElementById("notification");
 const totalTasks = document.getElementById("total-tasks");
 const completedTasks = document.getElementById("completed-tasks");
@@ -49,6 +56,19 @@ document.addEventListener("DOMContentLoaded", () => {
     .addEventListener("click", (e) => e.stopPropagation());
 });
 
+function CancelAll() {
+  confirmationPopUpAll.classList.remove("PopUpAll-open");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  document
+    .getElementById("confirmationDialogAll")
+    .addEventListener("click", CancelAll);
+  document
+    .querySelector(".PopUpAll")
+    .addEventListener("click", (e) => e.stopPropagation());
+});
+
 function deleteAllToDoListeners() {
   if (storedTodos.length === 0) {
     let notificationConfig = {
@@ -59,9 +79,9 @@ function deleteAllToDoListeners() {
     notificationElement.innerText = notificationConfig.text;
     setTimeout(() => (notificationElement.style.display = "none"), 6000);
   } else {
-    confirmDeleteHeader.innerText = `Are you sure you want to delete all?`;
-    confirmDeleteMessage.innerText = `Once you delete all the items, there is no going back. Please be certain.`;
-    confirmationPopUp.classList.add("PopUp-open");
+    confirmDeleteHeaderAll.innerText = `Are you sure you want to delete all?`;
+    confirmDeleteMessageAll.innerText = `Once you delete all the items, there is no going back. Please be certain.`;
+    confirmationPopUpAll.classList.add("PopUpAll-open");
   }
 }
 
@@ -70,7 +90,7 @@ function activateDeleteListeners() {
   deleteBtn.forEach((dB, i) => {
     dB.addEventListener("click", () => {
       indexToDoToDelete = i;
-      confirmDeleteHeader.innerText = `Are you sure you want to delete "${storedTodos[i]}"?`;
+      confirmDeleteHeader.innerText = `Are you sure you want to delete "${storedTodos[i].text}"?`;
       confirmationPopUp.classList.add("PopUp-open");
     });
   });
@@ -82,7 +102,7 @@ confirmButton.addEventListener("click", () => {
 });
 confirmDeleteAll.addEventListener("click", () => {
   deleteAllToDo();
-  confirmationPopUp.classList.remove("PopUp-open");
+  confirmationPopUpAll.classList.remove("PopUpAll-open");
 });
 
 function activateEditListeners() {

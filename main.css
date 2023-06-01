@@ -314,6 +314,80 @@ main {
   cursor: pointer;
 }
 
+/* Pop-up ALL */
+
+.confirmationDialogAll {
+  z-index: 9999;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.PopUpAll-open {
+  display: flex;
+}
+
+.PopUpAll {
+  max-width: 700px;
+  max-height: 400px;
+  background-color: rgba(245, 238, 238, 0.938);
+  border-radius: 3px;
+}
+
+.PopUp-headerAll {
+  background-color: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.PopUp-headerAll h2 {
+  margin: 1em;
+}
+
+.PopUp-headerAll span {
+  align-self: flex-end;
+  cursor: pointer;
+  padding-right: 0.3em;
+}
+
+/* .PopUp-content {
+  padding: 1em;
+} */
+
+.PopUp-footerAll {
+  padding: 1em;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.PopUp-cancelAll {
+  text-transform: uppercase;
+  padding: 0.5em 1em;
+  border: none;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+  margin-left: 0.5em;
+  cursor: default;
+}
+
+.PopUp-deleteAll {
+  text-transform: uppercase;
+  padding: 0.5em 1em;
+  border: none;
+  color: white;
+  background-color: tomato;
+  border-radius: 3px;
+  margin-left: 0.5em;
+  cursor: pointer;
+}
+
 .container {
   padding: 0 1.5rem;
 }
