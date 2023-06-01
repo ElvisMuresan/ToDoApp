@@ -264,8 +264,8 @@ function activateDownListeners() {
 }
 
 function activateCountListeners() {
-  let checkbox = document.querySelectorAll(".toDo input");
-  checkbox.forEach((cB, i) => {
+  let checkboxes = document.querySelectorAll(".toDo input");
+  checkboxes.forEach((cB, i) => {
     cB.addEventListener("click", () => {
       if (cB.checked && storedTodos[i].checked) {
         completedCount++;
@@ -312,12 +312,45 @@ function displayToDos() {
     const todo = storedTodos[i];
     const isChecked = todo.checked ? "checked" : "";
     const textDecoration = todo.checked ? "line-through" : "none";
-    toDos += `<div class="toDo">
-                        <span class="counter">${counterStoredTodos + i}</span>
-                        <input type="checkbox" class="checkbox" ${isChecked}>
-                        <textarea  disabled style="text-decoration: ${textDecoration};">${
+    toDos += renderToDo(
+      counterStoredTodos + i,
+      isChecked,
+      textDecoration,
       storedTodos[i].text
-    }</textarea>
+    );
+  }
+  completedTasks.textContent = completedCount;
+  document.querySelector(".toDoList").innerHTML = toDos;
+  initializeListeners();
+  initializeCounter();
+}
+
+function initializeListeners() {
+  activateCheckListeners();
+  activateEditListeners();
+  activateSaveListeners();
+  activateCancelListeners();
+  activateDeleteListeners();
+  activateUpListeners();
+  activateDownListeners();
+  activateCountListeners();
+}
+
+function initializeCounter() {
+  completedTasks.textContent = storedTodos.filter(
+    (todo) => todo.checked
+  ).length;
+  remainingTasks.textContent = storedTodos.filter(
+    (todo) => !todo.checked
+  ).length;
+  totalTasks.textContent = storedTodos.length;
+}
+
+function renderToDo(toDoCounter, todoChecked, todoTextDecoration, todoText) {
+  return `<div class="toDo">
+                        <span class="counter">${toDoCounter}</span>
+                        <input type="checkbox" class="checkbox" ${todoChecked}>
+                        <textarea  disabled style="text-decoration: ${todoTextDecoration};">${todoText}</textarea>
                         <div id="actions" class="actions">
                             <button><i class=" fa fa-arrow-up upBtn"></i></button>
                             <button><i class=" fa fa-arrow-down downBtn"></i></  button>
@@ -329,17 +362,6 @@ function displayToDos() {
                         <button class="cancelEditBtn">Cancel</button>
                     </div>
                 </div>`;
-  }
-  completedTasks.textContent = completedCount;
-  document.querySelector(".toDoList").innerHTML = toDos;
-  activateCheckListeners();
-  activateEditListeners();
-  activateSaveListeners();
-  activateCancelListeners();
-  activateDeleteListeners();
-  activateUpListeners();
-  activateDownListeners();
-  activateCountListeners();
 }
 
 /**
@@ -380,34 +402,9 @@ function createToDo(toDo) {
   storedTodos.push({ text: toDo.value, checked: false });
   localStorage.setItem("toDos", JSON.stringify(storedTodos));
 
-  // display toDo on screen
-  let toDoDisplay = "";
-  toDoDisplay = `<div class="toDo">
-                          <span class="counter">${counterDisplayToDo}</span>
-                            <input type="checkbox" class="checkbox">
-                            <textarea  disabled>${toDo.value}</textarea>
-                            <div id="actions" class="actions">
-                              <button><i class=" fa fa-arrow-up upBtn"></i></button>
-                              <button><i class=" fa fa-arrow-down downBtn"></i></button>
-                              <button id="removeEdit"><i class="fas fa-edit editBtn"></i></button>
-                              <button><i class=" fas fa-trash deleteBtn"></i></button>
-                            </div>
-                          <div class="editContent">
-                            <button class="saveEditBtn">Save</button>
-                            <button class="cancelEditBtn">Cancel</button>
-                          </div>
-                        </div>`;
-  document.querySelector(".toDoList").innerHTML += toDoDisplay;
-  counterDisplayToDo++;
-  activateCheckListeners();
-  activateEditListeners();
-  activateSaveListeners();
-  activateCancelListeners();
-  activateDeleteListeners();
-  activateUpListeners();
-  activateDownListeners();
-  activateCountListeners();
+  //counterDisplayToDo++;
 
+  displayToDos();
   // clean input field
   toDo.value = "";
 }
