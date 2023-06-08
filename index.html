@@ -25,45 +25,45 @@
   </head>
 
   <body>
-    <header>
-      <h1>To do list on: <span id="date"></span></h1>
-      <form id="new-task-form">
-        <input
-          type="text"
-          id="inputId"
-          placeholder="What do you want to do in this month?"
-        />
-        <button type="submit" id="addToDo">Add task</button>
-        <button type="submit" id="clearToDo" class="clearToDo">
-          Clear all
-        </button>
-      </form>
+    <header class="card">
+      <h1>TODO: <span id="date"></span></h1>
     </header>
 
     <main>
-      <section class="task-list">
-        <div class="container" id="main-content">
-          <ul class="stats">
-            <li>
-              <span>Remaining</span>
-              <span id="remaining-tasks">0</span>
-            </li>
-            <li>
-              <span>Completed</span>
-              <span id="completed-tasks">0</span>
-            </li>
-            <li>
-              <span>Total</span>
-              <span id="total-tasks">0</span>
-            </li>
-          </ul>
+      <form id="new-task-form" class="card add">
+        <div class="txt-container">
+          <input
+            type="text"
+            id="inputId"
+            placeholder="What do you want to do in this month?"
+          />
         </div>
-      </section>
+        <button type="submit" id="addToDo" class="cb-container">
+          Add task
+        </button>
+      </form>
 
-      <section class="task-list">
-        <h2>To do's:</h2>
-        <div id="listaParinteId" class="toDoList"></div>
-      </section>
+      <div id="listaParinteId" class="toDoList"></div>
+
+      <div class="card stat">
+        <ul class="stats">
+          <li>
+            <span>Remaining:</span>
+            <span id="remaining-tasks">0</span>
+          </li>
+          <li>
+            <span>Completed:</span>
+            <span id="completed-tasks">0</span>
+          </li>
+          <li>
+            <span>Total:</span>
+            <span id="total-tasks">0</span>
+          </li>
+        </ul>
+        <button type="submit" id="clearToDo" class="cb-container">
+          Clear all
+        </button>
+      </div>
     </main>
 
     <div id="confirmationDialog" class="confirmationDialog">

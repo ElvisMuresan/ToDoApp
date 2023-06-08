@@ -1,23 +1,4 @@
 :root {
-  --ff-sans: "Josefin Sans", sans-serif;
-  --base-font: 1.6rem;
-  --fw-normal: 400;
-  --fw-bold: 700;
-  --img-bg: url("../images/bg-desktop-dark.jpg");
-  --clr-primary: hsl(0, 0%, 98%);
-  --clr-white: hsl(0, 0%, 100%);
-  --clr-page-bg: hsl(235, 21%, 11%);
-  --clr-card-bg: hsl(235, 24%, 19%);
-  --clr-blue: hsl(220, 98%, 61%);
-  --clr-green: hsl(192, 100%, 67%);
-  --clr-pink: hsl(280, 87%, 65%);
-  --clr-gb-1: hsl(236, 33%, 92%);
-  --clr-gb-2: hsl(234, 39%, 75%);
-  --clr-gb-3: hsl(234, 11%, 52%);
-  --clr-gb-4: hsl(237, 12%, 36%);
-  --clr-gb-5: hsl(233, 14%, 35%);
-  --clr-gb-6: hsl(235, 19%, 24%);
-  --clr-box-shadow: hsl(0, 0%, 0%, 0.1);
   --dark: #2a2828;
   --darker: #100303;
   --light: #ede8e8;
@@ -32,161 +13,135 @@
   --redeer: #fa1403;
 }
 
-/* RESETS */
-
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
-}
-
-html {
-  font-size: 62.5%;
-  position: relative;
-}
-
-html,
-body {
-  min-height: 100%;
-}
-
-ul {
-  list-style: none;
-}
-
-img {
-  user-select: none;
+  margin: 0;
+  /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+  font-family: "Shadows Into Light", cursive;
 }
 
 body {
-  font: var(--fw-normal) var(--base-font) var(--ff-sans);
-  background: var(--clr-page-bg) var(--img-bg) no-repeat 0% 0% / 100vw 30rem;
-  padding-top: 8rem;
-  width: min(85%, 54rem);
-  margin: auto;
-}
-
-input,
-button {
-  font: inherit;
-  border: 0;
-  background: transparent;
-}
-
-button {
   display: flex;
-  user-select: none;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--background);
+  background: -webkit-radial-gradient(
+    center,
+    var(--background) 0%,
+    var(--background1) 100%
+  );
+  background: -moz-radial-gradient(
+    center,
+    var(--background) 0%,
+    var(--background1) 100%
+  );
+  background: radial-gradient(
+    ellipse at center,
+    var(--background) 0%,
+    var(--background1) 100%
+  );
 }
 
-input:focus,
-button:focus {
-  outline: 0;
+header {
+  padding: 3rem 1rem;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
 }
 
-.card {
-  background-color: var(--clr-card-bg);
+header h1 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin-bottom: 3rem;
+  color: var(--albastru);
+}
+
+#new-task-form {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.9rem 2rem;
-  gap: 2rem;
 }
 
-header.card {
-  background: transparent;
-  padding: 0;
-  align-items: flex-start;
+#inputId {
+  flex: 1 1 0%;
+  background-color: var(--background2);
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-right: 1rem;
+  color: var(--albastru);
+  font-size: 1.25rem;
+  opacity: 0.8;
 }
 
-header.card h1 {
-  color: var(--clr-white);
-  letter-spacing: 1.3rem;
-  font-weight: 700;
-  font-size: calc(var(--base-font) * 2);
+#inputId::placeholder {
+  color: var(--albastru);
 }
 
-.cb-container {
+#addToDo {
   all: unset;
   color: var(--blue);
-  font-size: 2rem;
+  font-size: 1.25rem;
   font-weight: 700;
   cursor: pointer;
   margin-right: 1rem;
-  background-image: linear-gradient(to right, var(--clr-gb-2), var(--clr-gb-2));
+  background-image: linear-gradient(to right, var(--albastru), var(--blue));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: 0.4s;
 }
 
-.cb-container:hover {
-  background-image: linear-gradient(to right, var(--clr-gb-1), var(--clr-gb-1));
+#addToDo:hover {
+  opacity: 0.9;
 }
 
-.cb-container:active {
+#addToDo:active {
   opacity: 0.6;
 }
 
-.add {
-  margin: 4rem 0 2.5rem 0;
-  border-radius: 1rem;
+#clearToDo {
+  all: unset;
+  color: var(--blue);
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  background-image: linear-gradient(to right, var(--redeer), var(--red));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.4s;
 }
 
-.add .cb-container {
-  transition: background 0.3s ease;
+#clearToDo:hover {
+  opacity: 0.9;
 }
 
-.add .txt-container {
-  flex: 1;
+#clearToDo:active {
+  opacity: 0.6;
 }
 
-.add .txt-container #inputId {
+main {
+  all: unset;
+  flex: 1 1 0%;
+  max-width: 800px;
   width: 100%;
-  padding: 0.7rem 0;
-  color: var(--clr-gb-1);
+  margin: 0 auto;
 }
 
-.add .txt-container #inputId::placeholder {
-  color: var(--clr-gb-5);
-  font-weight: var(--fw-normal);
+.task-list {
+  padding: 1rem;
 }
 
-.toDoList > * {
-  transition: 0.4s ease;
+.task-list h2 {
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+  color: var(--albastru);
 }
-
-.toDoList .toDo {
-  cursor: move;
-}
-
-.toDoList .toDo:first-child {
-  border-radius: 0.5rem 0.5rem 0 0;
-}
-
-.toDoList > * + * {
-  border-top: 0.2rem solid var(--clr-gb-6);
-}
-
-textarea {
-  flex: 1;
-  color: var(--clr-gb-2);
-}
-
-textarea:hover {
-  color: var(--clr-gb-1);
-}
-
-/* .todoList .toDo.checked .checkbox {
-  text-decoration: line-through;
-  color: var(--clr-gb-3);
-  text-decoration-color: var(--clr-gb-3);
-} */
 
 #listaParinteId .toDo {
   all: unset;
   display: flex;
   /* justify-content: space-between; */
-  background-color: var(--clr-card-bg);
-  padding: 1.5rem;
+  background-color: var(--background2);
+  opacity: 0.7;
+  padding: 1rem;
   border-radius: 1rem;
   margin-bottom: 1rem;
   line-height: 1.5;
@@ -210,9 +165,9 @@ textarea:hover {
   font-size: 2rem;
   padding-left: 0px;
   font: normal normal normal 14px/1 FontAwesome;
-  font-size: 2rem;
+  font-size: inherit;
+  height: 1rem;
   vertical-align: middle;
-  color: var(--clr-gb-2);
 }
 
 .toDo input {
@@ -227,16 +182,12 @@ textarea:hover {
   all: unset;
   /* display: block; */
   margin-right: 1rem;
-  color: var(--clr-gb-2);
-  font-size: 2rem;
+  color: var(--albastru);
+  font-size: 1.125rem;
   vertical-align: middle;
   width: 100%;
   height: 33px;
   outline: none;
-}
-
-.toDo textarea:hover {
-  color: var(--clr-gb-1);
 }
 
 #listaParinteId .toDo .actions {
@@ -253,15 +204,10 @@ textarea:hover {
   all: unset;
   cursor: pointer;
   margin: 0 0.5rem;
-  font-size: 2rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
   transition: 0.4s;
-  color: var(--clr-gb-2);
-}
-
-.toDo .actions button:hover {
-  color: var(--clr-gb-1);
 }
 
 .editContent {
@@ -272,65 +218,29 @@ textarea:hover {
 .cancelEditBtn {
   all: unset;
   cursor: pointer;
+  display: inline-block;
   margin: 0 0.5rem;
-  font-size: 2rem;
+  font-size: 1.125rem;
   font-weight: 700;
   text-transform: uppercase;
   transition: 0.4s;
-  color: var(--clr-gb-2);
 }
 
-.saveEditBtn:hover,
-.cancelEditBtn:hover {
-  color: var(--clr-gb-1);
-}
-
-/* Contorizare */
-.stat {
-  border-radius: 0 0 0.5rem 0.5rem;
-  /* border-top: 0.2rem solid var(--clr-gb-6); */
-  font-size: calc(var(--base-font) - 0.3rem);
-  display: flex;
+.notificationBox {
+  flex: 1 1 0%;
+  background-color: var(--darker);
+  padding: 0.5rem;
+  position: fixed;
+  bottom: 0;
+  right: 0;
   border-radius: 1rem;
-  grid-template-columns: 1fr 1fr 1fr;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  display: none;
 }
 
-.stat * {
-  color: var(--clr-gb-4);
-}
-
-.stats {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
-.stats li {
-  display: flex;
-}
-
-.stats span {
-  padding: 0.25rem 0.25rem;
-}
-
-.stats span:first-child {
-  color: var(--clr-gb-2);
-  /* background-color: var(--clr-gb-4); */
-  opacity: 0.8;
-  border-radius: 0rem;
-}
-
-.stats span:first-child:hover {
-  color: var(--clr-gb-1);
-}
-
-.stats span:nth-child(2) {
-  /* background-color: var(--blueer); */
-  color: var(--albastru);
-  opacity: 0.8;
-  border-radius: 0rem;
-  font-weight: 800;
-}
+/* Pop-up */
 
 .confirmationDialog {
   z-index: 9999;
@@ -478,16 +388,56 @@ textarea:hover {
   cursor: pointer;
 }
 
-.notificationBox {
-  flex: 1 1 0%;
-  background-color: var(--darker);
-  padding: 0.5rem;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  border-radius: 1rem;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-  font-size: 1.25rem;
-  display: none;
+.container {
+  padding: 0 1.5rem;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.stats {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.stats li {
+  display: flex;
+}
+
+.stats span {
+  padding: 0.25rem 0.5rem;
+}
+
+.stats span:first-child {
+  background-color: var(--background2);
+  color: var(--albastru);
+  opacity: 0.8;
+  border-radius: 0rem;
+}
+
+.stats span:nth-child(2) {
+  background-color: var(--blueer);
+  color: var(--albastru);
+  opacity: 0.8;
+  border-radius: 0rem;
+  font-weight: 800;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.editBtn {
+  visibility: visible;
+}
+
+.completed {
+  text-decoration: line-through;
 }
