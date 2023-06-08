@@ -108,7 +108,7 @@ header.card h1 {
 .cb-container {
   all: unset;
   color: var(--blue);
-  font-size: 1.25rem;
+  font-size: 2rem;
   font-weight: 700;
   cursor: pointer;
   margin-right: 1rem;
@@ -128,7 +128,7 @@ header.card h1 {
 
 .add {
   margin: 4rem 0 2.5rem 0;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
 }
 
 .add .cb-container {
@@ -173,4 +173,102 @@ textarea {
 
 textarea:hover {
   color: var(--clr-gb-1);
+}
+
+/* .todoList .toDo.checked .checkbox {
+  text-decoration: line-through;
+  color: var(--clr-gb-3);
+  text-decoration-color: var(--clr-gb-3);
+} */
+
+#listaParinteId .toDo {
+  all: unset;
+  display: flex;
+  /* justify-content: space-between; */
+  background-color: var(--clr-card-bg);
+  opacity: 0.7;
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  align-items: center;
+  gap: 5px;
+}
+
+/* #listaParinteId .content {
+  all: unset;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--background2);
+  opacity: 0.7;
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+} */
+
+.toDo span {
+  margin-right: 1rem;
+  font-size: 2rem;
+  padding-left: 0px;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 2rem;
+  vertical-align: middle;
+  color: var(--clr-gb-2);
+}
+
+.toDo input {
+  margin-right: 1rem;
+  font-size: 2.5rem;
+  transform: scale(1.7);
+  padding-left: 0px;
+  vertical-align: middle;
+}
+
+.toDo textarea {
+  all: unset;
+  /* display: block; */
+  margin-right: 1rem;
+  color: var(--clr-gb-2);
+  font-size: 2rem;
+  vertical-align: middle;
+  width: 100%;
+  height: 33px;
+  outline: none;
+}
+
+#listaParinteId .toDo .actions {
+  all: unset;
+  display: flex;
+  /* margin-left: 20rem; */
+}
+
+#listaParinteId .actions {
+  margin: 0 40rem;
+}
+
+.toDo .actions button {
+  all: unset;
+  cursor: pointer;
+  margin: 0 0.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: 0.4s;
+  color: var(--clr-gb-2);
+}
+
+.editContent {
+  display: none;
+}
+
+.saveEditBtn,
+.cancelEditBtn {
+  all: unset;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: 0.4s;
 }
