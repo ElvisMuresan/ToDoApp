@@ -71,7 +71,7 @@ function deleteAllToDoListeners() {
     setTimeout(() => (notificationElement.style.display = "none"), 6000);
   } else {
     confirmDeleteHeaderAll.innerText = `Are you sure you want to delete all?`;
-    confirmDeleteMessageAll.innerText = `Once you delete all the items, there is no going back. Please be certain.`;
+    // confirmDeleteMessageAll.innerText = `Once you delete all the items, there is no going back. Please be certain.`;
     confirmationPopUpAll.classList.add("PopUpAll-open");
   }
 }
@@ -99,6 +99,9 @@ confirmDeleteAll.addEventListener("click", () => {
 function activateEditListeners() {
   let actions = document.getElementById("actions");
   let removeEdit = document.getElementById("removeEdit");
+  let removeUp = document.getElementById("removeUp");
+  let removeDown = document.getElementById("removeDown");
+  let removeDelete = document.getElementById("removeDelete");
   let checkbox = document.querySelectorAll(".toDo input");
   let deleteBtn = document.querySelectorAll(".deleteBtn");
   let upBtn = document.querySelectorAll(".upBtn");
@@ -109,6 +112,9 @@ function activateEditListeners() {
   editBtn.forEach((eB, i) => {
     eB.addEventListener("click", () => {
       actions.removeChild(removeEdit);
+      actions.removeChild(removeUp);
+      actions.removeChild(removeDown);
+      actions.removeChild(removeDelete);
       clearToDos.disabled = true;
       addTask.disabled = true;
       editContent[i].style.display = "flex";
@@ -119,7 +125,7 @@ function activateEditListeners() {
         content[i].value.length
       );
       //clearToDos.classList.add("disabled");
-      //addTask.classList.add("disabled");
+      addTask.classList.add("disabled");
       checkbox.forEach((cB) => {
         cB.classList.add("disabled");
       });
@@ -306,10 +312,10 @@ function renderToDo(toDoCounter, todoChecked, todoTextDecoration, todoText) {
             <input type="checkbox" class="checkbox" ${todoChecked}>
             <textarea  disabled style="text-decoration: ${todoTextDecoration};">${todoText}</textarea>
             <div id="actions" class="actions">
-              <button><i class=" fa fa-arrow-up upBtn"></i></button>
-              <button><i class=" fa fa-arrow-down downBtn"></i></  button>
+              <button id="removeUp"><i class=" fa fa-arrow-up upBtn"></i></button>
+              <button id="removeDown"><i class=" fa fa-arrow-down downBtn"></i></  button>
               <button id="removeEdit" ><i class="fas fa-edit editBtn"></i></button>
-              <button><i class=" fas fa-trash deleteBtn"></i></button>
+              <button id="removeDelete"><i class=" fas fa-trash deleteBtn"></i></button>
             </div>
             <div class="editContent">
               <button class="saveEditBtn">Save</button>
