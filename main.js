@@ -362,7 +362,7 @@ function initializeCounter() {
  */
 function showNotification(inputValue) {
   let notificationConfig = {
-    style: "display: block; color: rgb(128, 230, 230)",
+    style: "display: block; color: var(--clr-gb-2)",
     text: "To do succesfully added!",
   };
 
