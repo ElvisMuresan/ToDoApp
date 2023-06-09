@@ -98,6 +98,7 @@ confirmDeleteAll.addEventListener("click", () => {
 
 function activateEditListeners() {
   let actions = document.getElementById("actions");
+  let removeActions = document.getElementById("removeActions");
   let removeEdit = document.getElementById("removeEdit");
   let removeUp = document.getElementById("removeUp");
   let removeDown = document.getElementById("removeDown");
@@ -111,10 +112,9 @@ function activateEditListeners() {
   let content = document.querySelectorAll(".toDo textarea");
   editBtn.forEach((eB, i) => {
     eB.addEventListener("click", () => {
-      actions.removeChild(removeEdit);
-      actions.removeChild(removeUp);
-      actions.removeChild(removeDown);
-      actions.removeChild(removeDelete);
+      if (removeActions) {
+        actions.removeChild(removeActions);
+      }
       clearToDos.disabled = true;
       addTask.disabled = true;
       editContent[i].style.display = "flex";
@@ -312,10 +312,12 @@ function renderToDo(toDoCounter, todoChecked, todoTextDecoration, todoText) {
             <input type="checkbox" class="checkbox" ${todoChecked}>
             <textarea  disabled style="text-decoration: ${todoTextDecoration};">${todoText}</textarea>
             <div id="actions" class="actions">
-              <button id="removeUp"><i class=" fa fa-arrow-up upBtn"></i></button>
-              <button id="removeDown"><i class=" fa fa-arrow-down downBtn"></i></  button>
-              <button id="removeEdit" ><i class="fas fa-edit editBtn"></i></button>
-              <button id="removeDelete"><i class=" fas fa-trash deleteBtn"></i></button>
+              <div id="removeActions">
+                <button id="removeUp"><i class=" fa fa-arrow-up upBtn"></i></button>
+                <button id="removeDown"><i class=" fa fa-arrow-down downBtn"></i></  button>
+                <button id="removeEdit" ><i class="fas fa-edit editBtn"></i></button>
+                <button id="removeDelete"><i class=" fas fa-trash deleteBtn"></i></button>
+              </div>
             </div>
             <div class="editContent">
               <button class="saveEditBtn">Save</button>

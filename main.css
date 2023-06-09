@@ -245,6 +245,12 @@ textarea:hover {
   /* margin-left: 20rem; */
 }
 
+#listaParinteId .toDo .actions #removeActions {
+  all: unset;
+  display: flex;
+  /* margin-left: 20rem; */
+}
+
 #listaParinteId .actions {
   margin: 0 40rem;
 }
