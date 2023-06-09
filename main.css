@@ -497,3 +497,13 @@ textarea:hover {
   font-size: 1.25rem;
   display: none;
 }
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+toDo textarea.smallerText {
+  font-size: 12px;
+}
