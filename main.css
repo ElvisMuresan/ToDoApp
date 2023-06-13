@@ -30,6 +30,8 @@
   --background2: rgba(216, 224, 220, 0.3);
   --red: #b41105;
   --redeer: #fa1403;
+  --notification-info: #009a9a;
+  --notification-warn: #963634;
 }
 
 /* RESETS */
@@ -496,6 +498,9 @@ textarea:hover {
   margin-bottom: 1rem;
   font-size: 1.25rem;
   display: none;
+  padding: 1.5rem;
+  font-weight: 900;
+  background-color: #009a9a;
 }
 
 .disabled {

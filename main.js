@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function deleteAllToDoListeners() {
   if (storedTodos.length === 0) {
     let notificationConfig = {
-      style: "display: block; color: red",
+      style: NOTIFICATION_WARN_STYLE,
       text: "The toDo list is empty. Please insert a toDo!",
     };
     notificationElement.style = notificationConfig.style;
@@ -227,7 +227,7 @@ function activateUpListeners() {
         renderToDos();
       } else {
         let notificationConfig = {
-          style: "display: block; color: red",
+          style: NOTIFICATION_WARN_STYLE,
           text: "Cannot be moved up!",
         };
         notificationElement.style = notificationConfig.style;
@@ -250,8 +250,8 @@ function activateDownListeners() {
         renderToDos();
       } else {
         let notificationConfig = {
-          style: "display: block; color: red",
-          text: "Cannot be moved done!",
+          style: NOTIFICATION_WARN_STYLE,
+          text: "Cannot be moved down!",
         };
         notificationElement.style = notificationConfig.style;
         notificationElement.innerText = notificationConfig.text;
@@ -362,17 +362,26 @@ function initializeCounter() {
 }
 
 /**
+ * Notification config for info & warn
+ */
+const NOTIFICATION_INFO_STYLE =
+  "display: block; background-color: var(--notification-info); color: var(--clr-gb-2)";
+
+const NOTIFICATION_WARN_STYLE =
+  "display: block; background-color: var(--notification-warn); color: var(--clr-gb-2)";
+
+/**
  * Show notification
  */
 function showNotification(inputValue) {
   let notificationConfig = {
-    style: "display: block; color: var(--clr-gb-2)",
+    style: NOTIFICATION_INFO_STYLE,
     text: "To do succesfully added!",
   };
 
   if (!inputValue) {
     notificationConfig = {
-      style: "display: block; color: red",
+      style: NOTIFICATION_WARN_STYLE,
       text: "Please insert a task!",
     };
   }
