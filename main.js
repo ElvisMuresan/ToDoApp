@@ -365,7 +365,7 @@ function initializeCounter() {
  * Notification config for info & warn
  */
 const NOTIFICATION_INFO_STYLE =
-  "display: block; background-color: var(--notification-info); color: var(--clr-gb-2)";
+  "display: block; background-color: var(--clr-pink); color: var(--clr-gb-2)";
 
 const NOTIFICATION_WARN_STYLE =
   "display: block; background-color: var(--notification-warn); color: var(--clr-gb-2)";
