@@ -215,68 +215,68 @@ function activateCheckListeners() {
   });
 }
 
-function activateUpListeners() {
-  let upBtn = document.querySelectorAll(".upBtn");
-  upBtn.forEach((uB, i) => {
-    uB.addEventListener("click", () => {
-      if (i > 0) {
-        let contentUp = storedTodos[i];
-        storedTodos[i] = storedTodos[i - 1];
-        storedTodos[i - 1] = contentUp;
-        localStorage.setItem("toDos", JSON.stringify(storedTodos));
-        renderToDos();
-      } else {
-        let notificationConfig = {
-          style: NOTIFICATION_WARN_STYLE,
-          text: "Cannot be moved up!",
-        };
-        notificationElement.style = notificationConfig.style;
-        notificationElement.innerText = notificationConfig.text;
-        setTimeout(() => (notificationElement.style.display = "none"), 6000);
-      }
-    });
-  });
-}
+// function activateUpListeners() {
+//   let upBtn = document.querySelectorAll(".upBtn");
+//   upBtn.forEach((uB, i) => {
+//     uB.addEventListener("click", () => {
+//       if (i > 0) {
+//         let contentUp = storedTodos[i];
+//         storedTodos[i] = storedTodos[i - 1];
+//         storedTodos[i - 1] = contentUp;
+//         localStorage.setItem("toDos", JSON.stringify(storedTodos));
+//         renderToDos();
+//       } else {
+//         let notificationConfig = {
+//           style: NOTIFICATION_WARN_STYLE,
+//           text: "Cannot be moved up!",
+//         };
+//         notificationElement.style = notificationConfig.style;
+//         notificationElement.innerText = notificationConfig.text;
+//         setTimeout(() => (notificationElement.style.display = "none"), 6000);
+//       }
+//     });
+//   });
+// }
 
-function activateDownListeners() {
-  let downBtn = document.querySelectorAll(".downBtn");
-  downBtn.forEach((dB, i) => {
-    dB.addEventListener("click", () => {
-      if (i < storedTodos.length - 1) {
-        let contentDown = storedTodos[i];
-        storedTodos[i] = storedTodos[i + 1];
-        storedTodos[i + 1] = contentDown;
-        localStorage.setItem("toDos", JSON.stringify(storedTodos));
-        renderToDos();
-      } else {
-        let notificationConfig = {
-          style: NOTIFICATION_WARN_STYLE,
-          text: "Cannot be moved down!",
-        };
-        notificationElement.style = notificationConfig.style;
-        notificationElement.innerText = notificationConfig.text;
-        setTimeout(() => (notificationElement.style.display = "none"), 6000);
-      }
-    });
-  });
-}
+// function activateDownListeners() {
+//   let downBtn = document.querySelectorAll(".downBtn");
+//   downBtn.forEach((dB, i) => {
+//     dB.addEventListener("click", () => {
+//       if (i < storedTodos.length - 1) {
+//         let contentDown = storedTodos[i];
+//         storedTodos[i] = storedTodos[i + 1];
+//         storedTodos[i + 1] = contentDown;
+//         localStorage.setItem("toDos", JSON.stringify(storedTodos));
+//         renderToDos();
+//       } else {
+//         let notificationConfig = {
+//           style: NOTIFICATION_WARN_STYLE,
+//           text: "Cannot be moved down!",
+//         };
+//         notificationElement.style = notificationConfig.style;
+//         notificationElement.innerText = notificationConfig.text;
+//         setTimeout(() => (notificationElement.style.display = "none"), 6000);
+//       }
+//     });
+//   });
+// }
 
-function activateCountListeners() {
-  let checkboxes = document.querySelectorAll(".toDo input");
-  checkboxes.forEach((cB, i) => {
-    cB.addEventListener("click", () => {
-      if (cB.checked && storedTodos[i].checked) {
-        completedCount++;
-      } else {
-        completedCount--;
-      }
-      completedTasks.textContent = completedCount;
-      remainingTasks.textContent = storedTodos.length - completedCount;
-    });
-  });
-  //remainingTasks.textContent = storedTodos.length;
-  totalTasks.textContent = storedTodos.length;
-}
+// function activateCountListeners() {
+//   let checkboxes = document.querySelectorAll(".toDo input");
+//   checkboxes.forEach((cB, i) => {
+//     cB.addEventListener("click", () => {
+//       if (cB.checked && storedTodos[i].checked) {
+//         completedCount++;
+//       } else {
+//         completedCount--;
+//       }
+//       completedTasks.textContent = completedCount;
+//       remainingTasks.textContent = storedTodos.length - completedCount;
+//     });
+//   });
+//   //remainingTasks.textContent = storedTodos.length;
+//   totalTasks.textContent = storedTodos.length;
+// }
 
 function deleteToDo(i) {
   console.log("callDeleteToDo:", i);
@@ -306,7 +306,6 @@ function checkedToDo(checked, i) {
 
 function renderToDo(toDoCounter, todoChecked, todoTextDecoration, todoText) {
   return `<div class="toDo">
-            <span class="counter">${toDoCounter}</span>
             <input type="checkbox" class="checkbox" ${todoChecked}>
             <textarea  disabled style="text-decoration: ${todoTextDecoration};">${todoText}</textarea>
             <div id="actions" class="actions">
@@ -347,8 +346,8 @@ function initializeListeners() {
   activateSaveListeners();
   activateCancelListeners();
   activateDeleteListeners();
-  activateUpListeners();
-  activateDownListeners();
+  //activateUpListeners();
+  //activateDownListeners();
 }
 
 function initializeCounter() {
