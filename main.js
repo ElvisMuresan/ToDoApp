@@ -215,6 +215,65 @@ function activateCheckListeners() {
   });
 }
 
+function activateDragListeners() {
+  let toDos = document.querySelectorAll(".toDo");
+  let dragSrcEl = null;
+
+  function handleDragStart(e) {
+    dragSrcEl = this;
+    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setData("text/html", this.innerHTML);
+    this.classList.add("dragging");
+  }
+
+  function handleDragEnter(e) {
+    e.preventDefault();
+    this.classList.add("over");
+  }
+
+  function handleDragLeave() {
+    this.classList.remove("over");
+  }
+
+  function handleDragOver(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    return false;
+  }
+
+  function handleDrop(e) {
+    if (dragSrcEl !== this) {
+      dragSrcEl.innerHTML = this.innerHTML;
+      this.innerHTML = e.dataTransfer.getData("text/html");
+      const newOrder = Array.from(document.querySelectorAll(".toDo")).map(
+        (todo) => {
+          const isChecked = todo.querySelector(".checkbox").checked;
+          const textDecoration = isChecked ? "line-through" : "none";
+          const text = todo.querySelector("textarea").value;
+          return { text, checked: isChecked };
+        }
+      );
+      storedTodos = newOrder;
+      localStorage.setItem("toDos", JSON.stringify(storedTodos));
+    }
+    return false;
+  }
+
+  function handleDragEnd() {
+    toDos.forEach((toDo) => toDo.classList.remove("over", "dragging"));
+  }
+
+  toDos.forEach((toDo) => {
+    toDo.addEventListener("dragstart", handleDragStart, false);
+    toDo.addEventListener("dragenter", handleDragEnter, false);
+    toDo.addEventListener("dragleave", handleDragLeave, false);
+    toDo.addEventListener("dragover", handleDragOver, false);
+    toDo.addEventListener("drop", handleDrop, false);
+    toDo.addEventListener("dragend", handleDragEnd, false);
+    renderToDo();
+  });
+}
+
 // function activateUpListeners() {
 //   let upBtn = document.querySelectorAll(".upBtn");
 //   upBtn.forEach((uB, i) => {
@@ -305,7 +364,7 @@ function checkedToDo(checked, i) {
 }
 
 function renderToDo(toDoCounter, todoChecked, todoTextDecoration, todoText) {
-  return `<div class="toDo">
+  return `<div class="toDo" draggable="true">
             <input type="checkbox" class="checkbox" ${todoChecked}>
             <textarea  disabled style="text-decoration: ${todoTextDecoration};">${todoText}</textarea>
             <div id="actions" class="actions">
@@ -346,6 +405,7 @@ function initializeListeners() {
   activateSaveListeners();
   activateCancelListeners();
   activateDeleteListeners();
+  activateDragListeners();
   //activateUpListeners();
   //activateDownListeners();
 }

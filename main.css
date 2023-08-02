@@ -499,6 +499,14 @@ textarea:hover {
   cursor: not-allowed;
 }
 
-toDo textarea.smallerText {
+.toDo textarea.smallerText {
   font-size: 12px;
+}
+
+.toDo.dragging {
+  opacity: 0.6;
+}
+
+.toDo.over {
+  border: 2px dashed #ccc;
 }
