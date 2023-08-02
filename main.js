@@ -97,13 +97,13 @@ confirmDeleteAll.addEventListener("click", () => {
 });
 
 function activateEditListeners() {
-  let checkbox = document.querySelectorAll(".toDo input");
+  let checkbox = document.querySelectorAll(".checkbox");
   let deleteBtn = document.querySelectorAll(".deleteBtn");
   let upBtn = document.querySelectorAll(".upBtn");
   let downBtn = document.querySelectorAll(".downBtn");
   let editBtn = document.querySelectorAll(".editBtn");
   let editContent = document.querySelectorAll(".editContent");
-  let content = document.querySelectorAll(".toDo textarea");
+  let content = document.querySelectorAll(".title");
   editBtn.forEach((eB, i) => {
     eB.addEventListener("click", () => {
       //content.addEventListener("keyup", () => {
@@ -146,13 +146,13 @@ function activateEditListeners() {
 
 function activateSaveListeners() {
   let editBtn = document.querySelectorAll(".editBtn");
-  let checkbox = document.querySelectorAll(".toDo input");
+  let checkbox = document.querySelectorAll(".checkbox");
   let deleteBtn = document.querySelectorAll(".deleteBtn");
   let upBtn = document.querySelectorAll(".upBtn");
   let downBtn = document.querySelectorAll(".downBtn");
   let saveEditBtn = document.querySelectorAll(".saveEditBtn");
   let editContent = document.querySelectorAll(".editContent");
-  let content = document.querySelectorAll(".toDo textarea");
+  let content = document.querySelectorAll(".title");
   saveEditBtn.forEach((sB, i) => {
     sB.addEventListener("click", () => {
       updateToDo(content[i].value, i);
@@ -188,7 +188,7 @@ function activateSaveListeners() {
 function activateCancelListeners() {
   let cancelEditBtn = document.querySelectorAll(".cancelEditBtn");
   let editContent = document.querySelectorAll(".editContent");
-  let content = document.querySelectorAll(".toDo textarea");
+  let content = document.querySelectorAll(".title");
   cancelEditBtn.forEach((cb, i) => {
     cb.addEventListener("click", () => {
       renderToDos();
@@ -201,8 +201,8 @@ function activateCancelListeners() {
 }
 
 function activateCheckListeners() {
-  let checkbox = document.querySelectorAll(".toDo input");
-  let content = document.querySelectorAll(".toDo textarea");
+  let checkbox = document.querySelectorAll(".checkbox");
+  let content = document.querySelectorAll(".title");
   checkbox.forEach((cB, i) => {
     cB.addEventListener("click", () => {
       if (cB.checked) {
@@ -249,12 +249,13 @@ function activateDragListeners() {
         (todo) => {
           const isChecked = todo.querySelector(".checkbox").checked;
           const textDecoration = isChecked ? "line-through" : "none";
-          const text = todo.querySelector("textarea").value;
+          const text = todo.querySelector(".title").value;
           return { text, checked: isChecked };
         }
       );
       storedTodos = newOrder;
       localStorage.setItem("toDos", JSON.stringify(storedTodos));
+      initializeListeners();
     }
     return false;
   }
@@ -321,7 +322,7 @@ function activateDragListeners() {
 // }
 
 // function activateCountListeners() {
-//   let checkboxes = document.querySelectorAll(".toDo input");
+//   let checkboxes = document.querySelectorAll(".checkbox");
 //   checkboxes.forEach((cB, i) => {
 //     cB.addEventListener("click", () => {
 //       if (cB.checked && storedTodos[i].checked) {
@@ -363,21 +364,32 @@ function checkedToDo(checked, i) {
   initializeCounter();
 }
 
-function renderToDo(toDoCounter, todoChecked, todoTextDecoration, todoText) {
+function renderToDo(
+  toDoCounter,
+  todoChecked,
+  todoTextDecoration,
+  todoText,
+  todoDescription
+) {
   return `<div class="toDo" draggable="true">
-            <input type="checkbox" class="checkbox" ${todoChecked}>
-            <textarea  disabled style="text-decoration: ${todoTextDecoration};">${todoText}</textarea>
-            <div id="actions" class="actions">
-                <button id="removeUp"><i class=" fa fa-arrow-up upBtn"></i></button>
-                <button id="removeDown"><i class=" fa fa-arrow-down downBtn"></i></  button>
-                <button id="removeEdit" ><i class="fas fa-edit editBtn"></i></button>
-                <button id="removeDelete"><i class=" fas fa-trash deleteBtn"></i></button>
+            <div class="title-container">
+              <input type="checkbox" class="checkbox" ${todoChecked}>
+              <textarea class="title" disabled style="text-decoration: ${todoTextDecoration};">${todoText}</textarea>
+                <div id="actions" class="actions">
+                  <button id="removeUp"><i class=" fa fa-arrow-up upBtn"></i></button>
+                  <button id="removeDown"><i class=" fa fa-arrow-down downBtn"></i></  button>
+                  <button id="removeEdit" ><i class="fas fa-edit editBtn"></i></button>
+                  <button id="removeDelete"><i class=" fas fa-trash deleteBtn"></i></button>
+                </div>
+                <div class="editContent">
+                  <button class="saveEditBtn">Save</button>
+                  <button class="cancelEditBtn">Cancel</button>
+                </div>
             </div>
-            <div class="editContent">
-              <button class="saveEditBtn">Save</button>
-              <button class="cancelEditBtn">Cancel</button>
+            <div class="description-container">
+                <input type="text" class="description" placeholder="Description..."${todoDescription}">
             </div>
-        </div>`;
+          </div>`;
 }
 
 function renderToDos() {

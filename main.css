@@ -188,12 +188,19 @@ textarea:hover {
   display: flex;
   /* justify-content: space-between; */
   background-color: var(--clr-card-bg);
-  padding: 1.5rem;
+  padding: 3.5rem;
   border-radius: 1rem;
   margin-bottom: 1rem;
   line-height: 1.5;
   align-items: center;
   gap: 5px;
+}
+
+.title-container {
+  display: flex;
+}
+.description-container {
+  flex-direction: column;
 }
 
 /* #listaParinteId .content {
@@ -207,7 +214,7 @@ textarea:hover {
   margin-bottom: 1rem;
 } */
 
-.toDo input {
+.checkbox {
   margin-right: 1rem;
   font-size: 2.5rem;
   transform: scale(1.7);
@@ -499,7 +506,7 @@ textarea:hover {
   cursor: not-allowed;
 }
 
-.toDo textarea.smallerText {
+toDo textarea.smallerText {
   font-size: 12px;
 }
 
@@ -509,4 +516,13 @@ textarea:hover {
 
 .toDo.over {
   border: 2px dashed #ccc;
+}
+
+.description-container {
+  display: flex;
+  align-items: center;
+}
+
+.description {
+  margin-left: 10px;
 }
