@@ -15,7 +15,8 @@ const notificationElement = document.getElementById("notification");
 const totalTasks = document.getElementById("total-tasks");
 const completedTasks = document.getElementById("completed-tasks");
 const remainingTasks = document.getElementById("remaining-tasks");
-const toDo = document.querySelector("#inputId");
+const todoTitle = document.querySelector("#titleId");
+const todoDescription = document.querySelector("#inputId");
 
 // globals
 let clearToDos = document.getElementById("clearToDo");
@@ -28,7 +29,7 @@ let counterDisplayToDo = storedTodos.length + 1;
 
 document.querySelector("#addToDo").addEventListener("click", () => {
   event.preventDefault();
-  createToDo(toDo);
+  createToDo(todoTitle, todoDescription);
 });
 
 document.querySelector("#clearToDo").addEventListener("click", () => {
@@ -81,7 +82,7 @@ function activateDeleteListeners() {
   deleteBtn.forEach((dB, i) => {
     dB.addEventListener("click", () => {
       indexToDoToDelete = i;
-      confirmDeleteHeader.innerText = `Are you sure you want to delete "${storedTodos[i].text}"?`;
+      confirmDeleteHeader.innerText = `Are you sure you want to delete "${storedTodos[i].title}"?`;
       confirmationPopUp.classList.add("PopUp-open");
     });
   });
@@ -104,6 +105,8 @@ function activateEditListeners() {
   let editBtn = document.querySelectorAll(".editBtn");
   let editContent = document.querySelectorAll(".editContent");
   let content = document.querySelectorAll(".title");
+  let description = document.querySelector(".description");
+
   editBtn.forEach((eB, i) => {
     eB.addEventListener("click", () => {
       //content.addEventListener("keyup", () => {
@@ -117,6 +120,7 @@ function activateEditListeners() {
       addTask.disabled = true;
       editContent[i].style.display = "flex";
       content[i].disabled = false;
+      description[i].disabled = false;
       content[i].focus();
       content[i].setSelectionRange(
         content[i].value.length,
@@ -153,9 +157,10 @@ function activateSaveListeners() {
   let saveEditBtn = document.querySelectorAll(".saveEditBtn");
   let editContent = document.querySelectorAll(".editContent");
   let content = document.querySelectorAll(".title");
+  let description = document.querySelector(".description");
   saveEditBtn.forEach((sB, i) => {
     sB.addEventListener("click", () => {
-      updateToDo(content[i].value, i);
+      updateToDo(content[i].value, description[i].value, i);
       renderToDos();
       editContent[i].style.display = "none";
       content[i].disabled = true;
@@ -248,7 +253,7 @@ function activateDragListeners() {
       const newOrder = Array.from(document.querySelectorAll(".toDo")).map(
         (todo) => {
           const isChecked = todo.querySelector(".checkbox").checked;
-          const textDecoration = isChecked ? "line-through" : "none";
+          const titleDecoration = isChecked ? "line-through" : "none";
           const text = todo.querySelector(".title").value;
           return { text, checked: isChecked };
         }
@@ -261,16 +266,18 @@ function activateDragListeners() {
   }
 
   function handleDragEnd() {
-    toDos.forEach((toDo) => toDo.classList.remove("over", "dragging"));
+    toDos.forEach((todoTitle) =>
+      todoTitle.classList.remove("over", "dragging")
+    );
   }
 
-  toDos.forEach((toDo) => {
-    toDo.addEventListener("dragstart", handleDragStart, false);
-    toDo.addEventListener("dragenter", handleDragEnter, false);
-    toDo.addEventListener("dragleave", handleDragLeave, false);
-    toDo.addEventListener("dragover", handleDragOver, false);
-    toDo.addEventListener("drop", handleDrop, false);
-    toDo.addEventListener("dragend", handleDragEnd, false);
+  toDos.forEach((todoTitle) => {
+    todoTitle.addEventListener("dragstart", handleDragStart, false);
+    todoTitle.addEventListener("dragenter", handleDragEnter, false);
+    todoTitle.addEventListener("dragleave", handleDragLeave, false);
+    todoTitle.addEventListener("dragover", handleDragOver, false);
+    todoTitle.addEventListener("drop", handleDrop, false);
+    todoTitle.addEventListener("dragend", handleDragEnd, false);
     renderToDo();
   });
 }
@@ -353,8 +360,9 @@ function deleteAllToDo(i) {
   renderToDos();
 }
 
-function updateToDo(text, i) {
-  storedTodos[i].text = text;
+function updateToDo(title, description, i) {
+  storedTodos[i].title = title;
+  storedTodos[i].description = description;
   localStorage.setItem("toDos", JSON.stringify(storedTodos));
 }
 
@@ -367,14 +375,15 @@ function checkedToDo(checked, i) {
 function renderToDo(
   toDoCounter,
   todoChecked,
-  todoTextDecoration,
-  todoText,
+  todoTitleDecoration,
+  todoTitle,
   todoDescription
 ) {
   return `<div class="toDo" draggable="true">
             <div class="title-container">
               <input type="checkbox" class="checkbox" ${todoChecked}>
-              <textarea class="title" disabled style="text-decoration: ${todoTextDecoration};">${todoText}</textarea>
+              <textarea class="title" disabled style="text-decoration: ${todoTitleDecoration};">${todoTitle}</textarea>
+              <textarea class="description" disabled placeholder="Description...">${todoDescription}</textarea>
                 <div id="actions" class="actions">
                   <button id="removeUp"><i class=" fa fa-arrow-up upBtn"></i></button>
                   <button id="removeDown"><i class=" fa fa-arrow-down downBtn"></i></  button>
@@ -386,9 +395,7 @@ function renderToDo(
                   <button class="cancelEditBtn">Cancel</button>
                 </div>
             </div>
-            <div class="description-container">
-                <input type="text" class="description" placeholder="Description..."${todoDescription}">
-            </div>
+            
           </div>`;
 }
 
@@ -397,12 +404,15 @@ function renderToDos() {
   for (let i = 0; i < storedTodos.length; i++) {
     const todo = storedTodos[i];
     const isChecked = todo.checked ? "checked" : "";
-    const textDecoration = todo.checked ? "line-through" : "none";
+    const titleDecoration = todo.checked ? "line-through" : "none";
+    //const descriptionDecoration = todo.checked ? "line-through" : "none";
     toDos += renderToDo(
       counterStoredTodos + i,
       isChecked,
-      textDecoration,
-      storedTodos[i].text
+      titleDecoration,
+      storedTodos[i].title,
+      //descriptionDecoration,
+      storedTodos[i].description
     );
   }
   completedTasks.textContent = completedCount;
@@ -463,26 +473,27 @@ function showNotification(inputValue) {
 }
 
 // Create the ToDos
-function createToDo(toDo) {
+function createToDo(todoTitle, todoDescription) {
   // showNotification
-  showNotification(toDo.value);
+  showNotification(todoTitle.value);
 
   // validate input
-  if (toDo.value === "") {
-    // return if no input value
-    return;
-  }
 
   // store in local storage
   //storedTodos.push(toDo.value);
-  storedTodos.push({ text: toDo.value, checked: false });
+  storedTodos.push({
+    title: todoTitle.value,
+    description: todoDescription.value,
+    checked: false,
+  });
   localStorage.setItem("toDos", JSON.stringify(storedTodos));
 
   //counterDisplayToDo++;
 
   renderToDos();
   // clean input field
-  toDo.value = "";
+  todoTitle.value = "";
+  todoDescription.value = "";
 }
 
 // Display date

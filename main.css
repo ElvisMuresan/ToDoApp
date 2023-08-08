@@ -140,13 +140,24 @@ header.card h1 {
 .add .txt-container {
   flex: 1;
 }
+.add .txt-container #titleId {
+  width: 100%;
+  padding: 0.7rem 0;
+  color: var(--clr-gb-1);
+  border: 2px solid var(--clr-gb-2);
+}
 
 .add .txt-container #inputId {
   width: 100%;
   padding: 0.7rem 0;
   color: var(--clr-gb-1);
+  border: 2px solid var(--clr-gb-2);
 }
 
+.add .txt-container #titleId::placeholder {
+  color: var(--clr-gb-5);
+  font-weight: var(--fw-normal);
+}
 .add .txt-container #inputId::placeholder {
   color: var(--clr-gb-5);
   font-weight: var(--fw-normal);
@@ -185,10 +196,10 @@ textarea:hover {
 
 #listaParinteId .toDo {
   all: unset;
-  display: flex;
+  display: block;
   /* justify-content: space-between; */
   background-color: var(--clr-card-bg);
-  padding: 3.5rem;
+  padding: 2rem;
   border-radius: 1rem;
   margin-bottom: 1rem;
   line-height: 1.5;
@@ -198,9 +209,6 @@ textarea:hover {
 
 .title-container {
   display: flex;
-}
-.description-container {
-  flex-direction: column;
 }
 
 /* #listaParinteId .content {
@@ -520,9 +528,21 @@ toDo textarea.smallerText {
 
 .description-container {
   display: flex;
-  align-items: center;
+  /* margin-right: 1rem; */
+  margin-left: 2.2rem;
+  color: var(--clr-gb-2);
+  font-size: 1.5rem;
+  vertical-align: middle;
+  width: 95%;
+  height: 33px;
+  outline: none;
 }
 
-.description {
-  margin-left: 10px;
+.description-container input {
+  /* display: block; */
+  color: var(--clr-gb-2);
+  width: 95%;
+  height: 33px;
+  outline: none;
+  /* border: 2px solid var(--clr-gb-2); */
 }
