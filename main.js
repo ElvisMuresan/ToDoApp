@@ -105,7 +105,7 @@ function activateEditListeners() {
   let editBtn = document.querySelectorAll(".editBtn");
   let editContent = document.querySelectorAll(".editContent");
   let content = document.querySelectorAll(".title");
-  let description = document.querySelector(".description");
+  let description = document.querySelectorAll(".description");
 
   editBtn.forEach((eB, i) => {
     eB.addEventListener("click", () => {
@@ -157,7 +157,7 @@ function activateSaveListeners() {
   let saveEditBtn = document.querySelectorAll(".saveEditBtn");
   let editContent = document.querySelectorAll(".editContent");
   let content = document.querySelectorAll(".title");
-  let description = document.querySelector(".description");
+  let description = document.querySelectorAll(".description");
   saveEditBtn.forEach((sB, i) => {
     sB.addEventListener("click", () => {
       updateToDo(content[i].value, description[i].value, i);
@@ -363,6 +363,7 @@ function updateToDo(title, description, i) {
   storedTodos[i].title = title;
   storedTodos[i].description = description;
   localStorage.setItem("toDos", JSON.stringify(storedTodos));
+  console.log(storedTodos[i].title);
 }
 
 function checkedToDo(checked, i) {
@@ -469,7 +470,6 @@ function showNotification(inputValue) {
   notificationElement.style = notificationConfig.style;
   notificationElement.innerText = notificationConfig.text;
   setTimeout(() => (notificationElement.style.display = "none"), 4000);
-  console.log(inputValue);
 }
 
 // Create the ToDos
