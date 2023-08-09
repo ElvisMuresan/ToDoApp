@@ -208,12 +208,15 @@ function activateCancelListeners() {
 function activateCheckListeners() {
   let checkbox = document.querySelectorAll(".checkbox");
   let content = document.querySelectorAll(".title");
+  let description = document.querySelectorAll(".description");
   checkbox.forEach((cB, i) => {
     cB.addEventListener("click", () => {
       if (cB.checked) {
         content[i].style.textDecoration = "line-through";
+        description[i].style.textDecoration = "line-through";
       } else {
         content[i].style.textDecoration = "none";
+        description[i].style.textDecoration = "none";
       }
       checkedToDo(cB.checked, i);
     });
