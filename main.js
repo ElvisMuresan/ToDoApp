@@ -346,7 +346,6 @@ function activateDragListeners() {
 // }
 
 function deleteToDo(i) {
-  console.log("callDeleteToDo:", i);
   storedTodos.splice(i, 1);
   localStorage.setItem("toDos", JSON.stringify(storedTodos));
   counterDisplayToDo = storedTodos.length + 1;
@@ -470,6 +469,7 @@ function showNotification(inputValue) {
   notificationElement.style = notificationConfig.style;
   notificationElement.innerText = notificationConfig.text;
   setTimeout(() => (notificationElement.style.display = "none"), 4000);
+  console.log(inputValue);
 }
 
 // Create the ToDos
@@ -478,6 +478,10 @@ function createToDo(todoTitle, todoDescription) {
   showNotification(todoTitle.value);
 
   // validate input
+  if (todoTitle.value === "") {
+    // return if no input value
+    return;
+  }
 
   // store in local storage
   //storedTodos.push(toDo.value);
