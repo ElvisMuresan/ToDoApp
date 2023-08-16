@@ -147,6 +147,10 @@ header.card h1 {
   border: 2px solid var(--clr-gb-2);
 }
 
+.txt-container input {
+  margin-bottom: 10px;
+}
+
 .add .txt-container #inputId {
   width: 100%;
   padding: 0.7rem 0;
@@ -233,7 +237,7 @@ textarea:hover {
 .toDo textarea {
   all: unset;
   /* display: block; */
-  margin-right: 1rem;
+  margin-right: 3rem;
   color: var(--clr-gb-2);
   font-size: 2rem;
   vertical-align: middle;
@@ -244,6 +248,10 @@ textarea:hover {
 
 .toDo textarea:hover {
   color: var(--clr-gb-1);
+}
+
+.title-description {
+  display: block;
 }
 
 #listaParinteId .toDo .actions {

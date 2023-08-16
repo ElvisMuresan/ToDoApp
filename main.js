@@ -383,16 +383,18 @@ function renderToDo(
   todoDescription
 ) {
   return `<div class="toDo" draggable="true">
-            <div class="title-container">
-              <input type="checkbox" class="checkbox" ${todoChecked}>
-              <textarea class="title" disabled style="text-decoration: ${todoTitleDecoration};">${todoTitle}</textarea>
-              <textarea class="description" disabled placeholder="Description...">${todoDescription}</textarea>
-                <div id="actions" class="actions">
-                  <button id="removeUp"><i class=" fa fa-arrow-up upBtn"></i></button>
-                  <button id="removeDown"><i class=" fa fa-arrow-down downBtn"></i></  button>
-                  <button id="removeEdit" ><i class="fas fa-edit editBtn"></i></button>
-                  <button id="removeDelete"><i class=" fas fa-trash deleteBtn"></i></button>
+              <div class="title-container">
+                <input type="checkbox" class="checkbox" ${todoChecked}>
+                <div class="title-description">
+                  <textarea class="title" disabled style="text-decoration: ${todoTitleDecoration};">${todoTitle}</textarea>
+                  <textarea class="description" disabled placeholder="Description...">${todoDescription}</textarea>
                 </div>
+                  <div id="actions" class="actions">
+                    <button id="removeUp"><i class=" fa fa-arrow-up upBtn"></i></button>
+                    <button id="removeDown"><i class=" fa fa-arrow-down downBtn"></i></  button>
+                    <button id="removeEdit" ><i class="fas fa-edit editBtn"></i></button>
+                    <button id="removeDelete"><i class=" fas fa-trash deleteBtn"></i></button>
+              </div>
                 <div class="editContent">
                   <button class="saveEditBtn">Save</button>
                   <button class="cancelEditBtn">Cancel</button>
