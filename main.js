@@ -223,113 +223,113 @@ function activateCheckListeners() {
   });
 }
 
-function activateDragListeners() {
-  let toDos = document.querySelectorAll(".toDo");
-  let dragSrcEl = null;
+// function activateDragListeners() {
+//   let toDos = document.querySelectorAll(".toDo");
+//   let dragSrcEl = null;
 
-  function handleDragStart(e) {
-    dragSrcEl = this;
-    e.dataTransfer.effectAllowed = "move";
-    e.dataTransfer.setData("text/html", this.innerHTML);
-    this.classList.add("dragging");
-  }
+//   function handleDragStart(e) {
+//     dragSrcEl = this;
+//     e.dataTransfer.effectAllowed = "move";
+//     e.dataTransfer.setData("text/html", this.innerHTML);
+//     this.classList.add("dragging");
+//   }
 
-  function handleDragEnter(e) {
-    e.preventDefault();
-    this.classList.add("over");
-  }
+//   function handleDragEnter(e) {
+//     e.preventDefault();
+//     this.classList.add("over");
+//   }
 
-  function handleDragLeave() {
-    this.classList.remove("over");
-  }
+//   function handleDragLeave() {
+//     this.classList.remove("over");
+//   }
 
-  function handleDragOver(e) {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = "move";
-    return false;
-  }
+//   function handleDragOver(e) {
+//     e.preventDefault();
+//     e.dataTransfer.dropEffect = "move";
+//     return false;
+//   }
 
-  function handleDrop(e) {
-    if (dragSrcEl !== this) {
-      dragSrcEl.innerHTML = this.innerHTML;
-      this.innerHTML = e.dataTransfer.getData("text/html");
-      const newOrder = Array.from(document.querySelectorAll(".toDo")).map(
-        (todo) => {
-          const isChecked = todo.querySelector(".checkbox").checked;
-          const titleDecoration = isChecked ? "line-through" : "none";
-          const text = todo.querySelector(".title").value;
-          return { text, checked: isChecked };
-        }
-      );
-      storedTodos = newOrder;
-      localStorage.setItem("toDos", JSON.stringify(storedTodos));
-      initializeListeners();
-    }
-    return false;
-  }
+//   function handleDrop(e) {
+//     if (dragSrcEl !== this) {
+//       dragSrcEl.innerHTML = this.innerHTML;
+//       this.innerHTML = e.dataTransfer.getData("text/html");
+//       const newOrder = Array.from(document.querySelectorAll(".toDo")).map(
+//         (todo) => {
+//           const isChecked = todo.querySelector(".checkbox").checked;
+//           const titleDecoration = isChecked ? "line-through" : "none";
+//           const text = todo.querySelector(".title").value;
+//           return { text, checked: isChecked };
+//         }
+//       );
+//       storedTodos = newOrder;
+//       localStorage.setItem("toDos", JSON.stringify(storedTodos));
+//       initializeListeners();
+//     }
+//     return false;
+//   }
 
-  function handleDragEnd() {
-    toDos.forEach((todoTitle) =>
-      todoTitle.classList.remove("over", "dragging")
-    );
-  }
+//   function handleDragEnd() {
+//     toDos.forEach((todoTitle) =>
+//       todoTitle.classList.remove("over", "dragging")
+//     );
+//   }
 
-  toDos.forEach((todoTitle) => {
-    todoTitle.addEventListener("dragstart", handleDragStart, false);
-    todoTitle.addEventListener("dragenter", handleDragEnter, false);
-    todoTitle.addEventListener("dragleave", handleDragLeave, false);
-    todoTitle.addEventListener("dragover", handleDragOver, false);
-    todoTitle.addEventListener("drop", handleDrop, false);
-    todoTitle.addEventListener("dragend", handleDragEnd, false);
-    renderToDo();
+//   toDos.forEach((todoTitle) => {
+//     todoTitle.addEventListener("dragstart", handleDragStart, false);
+//     todoTitle.addEventListener("dragenter", handleDragEnter, false);
+//     todoTitle.addEventListener("dragleave", handleDragLeave, false);
+//     todoTitle.addEventListener("dragover", handleDragOver, false);
+//     todoTitle.addEventListener("drop", handleDrop, false);
+//     todoTitle.addEventListener("dragend", handleDragEnd, false);
+//     renderToDo();
+//   });
+// }
+
+function activateUpListeners() {
+  let upBtn = document.querySelectorAll(".upBtn");
+  upBtn.forEach((uB, i) => {
+    uB.addEventListener("click", () => {
+      if (i > 0) {
+        let contentUp = storedTodos[i];
+        storedTodos[i] = storedTodos[i - 1];
+        storedTodos[i - 1] = contentUp;
+        localStorage.setItem("toDos", JSON.stringify(storedTodos));
+        renderToDos();
+      } else {
+        let notificationConfig = {
+          style: NOTIFICATION_WARN_STYLE,
+          text: "Cannot be moved up!",
+        };
+        notificationElement.style = notificationConfig.style;
+        notificationElement.innerText = notificationConfig.text;
+        setTimeout(() => (notificationElement.style.display = "none"), 6000);
+      }
+    });
   });
 }
 
-// function activateUpListeners() {
-//   let upBtn = document.querySelectorAll(".upBtn");
-//   upBtn.forEach((uB, i) => {
-//     uB.addEventListener("click", () => {
-//       if (i > 0) {
-//         let contentUp = storedTodos[i];
-//         storedTodos[i] = storedTodos[i - 1];
-//         storedTodos[i - 1] = contentUp;
-//         localStorage.setItem("toDos", JSON.stringify(storedTodos));
-//         renderToDos();
-//       } else {
-//         let notificationConfig = {
-//           style: NOTIFICATION_WARN_STYLE,
-//           text: "Cannot be moved up!",
-//         };
-//         notificationElement.style = notificationConfig.style;
-//         notificationElement.innerText = notificationConfig.text;
-//         setTimeout(() => (notificationElement.style.display = "none"), 6000);
-//       }
-//     });
-//   });
-// }
-
-// function activateDownListeners() {
-//   let downBtn = document.querySelectorAll(".downBtn");
-//   downBtn.forEach((dB, i) => {
-//     dB.addEventListener("click", () => {
-//       if (i < storedTodos.length - 1) {
-//         let contentDown = storedTodos[i];
-//         storedTodos[i] = storedTodos[i + 1];
-//         storedTodos[i + 1] = contentDown;
-//         localStorage.setItem("toDos", JSON.stringify(storedTodos));
-//         renderToDos();
-//       } else {
-//         let notificationConfig = {
-//           style: NOTIFICATION_WARN_STYLE,
-//           text: "Cannot be moved down!",
-//         };
-//         notificationElement.style = notificationConfig.style;
-//         notificationElement.innerText = notificationConfig.text;
-//         setTimeout(() => (notificationElement.style.display = "none"), 6000);
-//       }
-//     });
-//   });
-// }
+function activateDownListeners() {
+  let downBtn = document.querySelectorAll(".downBtn");
+  downBtn.forEach((dB, i) => {
+    dB.addEventListener("click", () => {
+      if (i < storedTodos.length - 1) {
+        let contentDown = storedTodos[i];
+        storedTodos[i] = storedTodos[i + 1];
+        storedTodos[i + 1] = contentDown;
+        localStorage.setItem("toDos", JSON.stringify(storedTodos));
+        renderToDos();
+      } else {
+        let notificationConfig = {
+          style: NOTIFICATION_WARN_STYLE,
+          text: "Cannot be moved down!",
+        };
+        notificationElement.style = notificationConfig.style;
+        notificationElement.innerText = notificationConfig.text;
+        setTimeout(() => (notificationElement.style.display = "none"), 6000);
+      }
+    });
+  });
+}
 
 // function activateCountListeners() {
 //   let checkboxes = document.querySelectorAll(".checkbox");
@@ -432,9 +432,9 @@ function initializeListeners() {
   activateSaveListeners();
   activateCancelListeners();
   activateDeleteListeners();
-  activateDragListeners();
-  //activateUpListeners();
-  //activateDownListeners();
+  //activateDragListeners();
+  activateUpListeners();
+  activateDownListeners();
 }
 
 function initializeCounter() {
