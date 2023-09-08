@@ -17,6 +17,7 @@ const completedTasks = document.getElementById("completed-tasks");
 const remainingTasks = document.getElementById("remaining-tasks");
 const todoTitle = document.querySelector("#titleId");
 const todoDescription = document.querySelector("#inputId");
+const apiUrl = "http://localhost:4000/save";
 
 // globals
 let clearToDos = document.getElementById("clearToDo");
@@ -348,14 +349,37 @@ function activateDownListeners() {
 //   totalTasks.textContent = storedTodos.length;
 // }
 
-function deleteToDo(i) {
+async function deleteToDo(i) {
+  // try {
+  //   const response = await fetch("${apiUrl}/${storedTodos[i]._id", {
+  //     method: "DELETE",
+  //   });
+  //   if (!response.ok) {
+  //     throw new Error("Eroare la stergerea toDo");
+  //   }
+  //   renderToDos();
+  // } catch (error) {
+  //   console.error("Eroare la stergerea ToDo:", error);
+  // }
   storedTodos.splice(i, 1);
   localStorage.setItem("toDos", JSON.stringify(storedTodos));
   counterDisplayToDo = storedTodos.length + 1;
   renderToDos();
 }
 
-function deleteAllToDo(i) {
+async function deleteAllToDo(i) {
+  // try {
+  //   const response = await fetch("${apiUrl}/${storedTodos", {
+  //     method: "DELETE",
+  //   });
+  //   if (!response.ok) {
+  //     throw new Error("Eroare la stergerea toDo");
+  //   }
+  //   renderToDos();
+  // } catch (error) {
+  //   console.error("Eroare la stergerea ToDo:", error);
+  // }
+
   storedTodos.splice(i, storedTodos.length);
   localStorage.setItem("toDos", JSON.stringify(storedTodos));
   counterDisplayToDo = storedTodos.length + 1;
@@ -478,7 +502,7 @@ function showNotification(inputValue) {
 }
 
 // Create the ToDos
-function createToDo(todoTitle, todoDescription) {
+async function createToDo(todoTitle, todoDescription) {
   // showNotification
   showNotification(todoTitle.value);
 
@@ -487,7 +511,28 @@ function createToDo(todoTitle, todoDescription) {
     // return if no input value
     return;
   }
+  // try {
+  //   const response = await fetch(apiUrl, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       title: todoTitle.value,
+  //       description: todoDescription.value,
+  //     }),
+  //   });
 
+  //   if (!response.ok) {
+  //     throw new Error("Eroarea la adaugarea ToDo");
+  //   }
+  //   renderToDos();
+  //   // clean input field
+  //   todoTitle.value = "";
+  //   todoDescription.value = "";
+  // } catch (error) {
+  //   console.error("Eroare la adaugarea ToDo", error);
+  // }
   // store in local storage
   //storedTodos.push(toDo.value);
   storedTodos.push({
@@ -496,13 +541,12 @@ function createToDo(todoTitle, todoDescription) {
     checked: false,
   });
   localStorage.setItem("toDos", JSON.stringify(storedTodos));
-
-  //counterDisplayToDo++;
-
   renderToDos();
   // clean input field
   todoTitle.value = "";
   todoDescription.value = "";
+
+  //counterDisplayToDo++;
 }
 
 // Display date
