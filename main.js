@@ -17,7 +17,6 @@ const completedTasks = document.getElementById("completed-tasks");
 const remainingTasks = document.getElementById("remaining-tasks");
 const todoTitle = document.querySelector("#titleId");
 const todoDescription = document.querySelector("#inputId");
-const apiUrl = "http://localhost:4000/save";
 
 // globals
 let clearToDos = document.getElementById("clearToDo");
@@ -399,6 +398,27 @@ function checkedToDo(checked, i) {
   initializeCounter();
 }
 
+async function AddToDo() {
+  const apiUrl = "http://localhost:4000";
+  try {
+    const response = await fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Eroare la obtinerea ToDo-urilor");
+    }
+    const data = await response.json();
+    storedTodos = data;
+    renderToDos();
+  } catch (error) {
+    console.error("Eroare la obtinerea ToDo-urilor", error);
+  }
+}
+
 function renderToDo(
   toDoCounter,
   todoChecked,
@@ -503,6 +523,7 @@ function showNotification(inputValue) {
 
 // Create the ToDos
 async function createToDo(todoTitle, todoDescription) {
+  const apiUrl = "http://localhost:4000/save";
   // showNotification
   showNotification(todoTitle.value);
 
@@ -511,40 +532,42 @@ async function createToDo(todoTitle, todoDescription) {
     // return if no input value
     return;
   }
-  // try {
-  //   const response = await fetch(apiUrl, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       title: todoTitle.value,
-  //       description: todoDescription.value,
-  //     }),
-  //   });
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: todoTitle.value,
+        description: todoDescription.value,
+      }),
+    });
 
-  //   if (!response.ok) {
-  //     throw new Error("Eroarea la adaugarea ToDo");
-  //   }
-  //   renderToDos();
-  //   // clean input field
-  //   todoTitle.value = "";
-  //   todoDescription.value = "";
-  // } catch (error) {
-  //   console.error("Eroare la adaugarea ToDo", error);
-  // }
+    if (!response.ok) {
+      throw new Error("Eroarea la adaugarea ToDo");
+    }
+    AddToDo();
+    //renderToDos();
+    // clean input field
+    todoTitle.value = "";
+    todoDescription.value = "";
+  } catch (error) {
+    console.error("Eroare la adaugarea ToDo", error);
+  }
+
   // store in local storage
   //storedTodos.push(toDo.value);
-  storedTodos.push({
-    title: todoTitle.value,
-    description: todoDescription.value,
-    checked: false,
-  });
-  localStorage.setItem("toDos", JSON.stringify(storedTodos));
-  renderToDos();
-  // clean input field
-  todoTitle.value = "";
-  todoDescription.value = "";
+  // storedTodos.push({
+  //   title: todoTitle.value,
+  //   description: todoDescription.value,
+  //   checked: false,
+  // });
+  // localStorage.setItem("toDos", JSON.stringify(storedTodos));
+  // renderToDos();
+  // // clean input field
+  // todoTitle.value = "";
+  // todoDescription.value = "";
 
   //counterDisplayToDo++;
 }
