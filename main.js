@@ -23,7 +23,8 @@ let clearToDos = document.getElementById("clearToDo");
 let addTask = document.getElementById("addToDo");
 let counterStoredTodos = 1;
 let completedCount = 0;
-let indexToDoToDelete = undefined;
+let idToDoToDelete = undefined;
+let newToDoId = null;
 let storedTodos = JSON.parse(localStorage.getItem("toDos")) || [];
 let counterDisplayToDo = storedTodos.length + 1;
 
@@ -80,8 +81,11 @@ function deleteAllToDoListeners() {
 function activateDeleteListeners() {
   let deleteBtn = document.querySelectorAll(".deleteBtn");
   deleteBtn.forEach((dB, i) => {
-    dB.addEventListener("click", () => {
-      indexToDoToDelete = i;
+    dB.addEventListener("click", (event) => {
+      console.log("event:", dB);
+      idToDoToDelete = storedTodos[i]._id;
+      console.log("idToDoDelete:", idToDoToDelete);
+      console.log("storedTodos[i]._id:", storedTodos[i]._id);
       confirmDeleteHeader.innerText = `Are you sure you want to delete "${storedTodos[i].title}"?`;
       confirmationPopUp.classList.add("PopUp-open");
     });
@@ -89,7 +93,9 @@ function activateDeleteListeners() {
 }
 
 confirmButton.addEventListener("click", () => {
-  deleteToDo(indexToDoToDelete);
+  console.log("idToDoDelete:", idToDoToDelete);
+  // console.log("storedTodos[i]._id:", storedTodos[i]._id);
+  deleteToDo(idToDoToDelete);
   confirmationPopUp.classList.remove("PopUp-open");
 });
 confirmDeleteAll.addEventListener("click", () => {
@@ -348,27 +354,30 @@ function activateDownListeners() {
 //   totalTasks.textContent = storedTodos.length;
 // }
 
-async function deleteToDo(i) {
-  // try {
-  //   const response = await fetch("${apiUrl}/${storedTodos[i]._id", {
-  //     method: "DELETE",
-  //   });
-  //   if (!response.ok) {
-  //     throw new Error("Eroare la stergerea toDo");
-  //   }
-  //   renderToDos();
-  // } catch (error) {
-  //   console.error("Eroare la stergerea ToDo:", error);
-  // }
-  storedTodos.splice(i, 1);
-  localStorage.setItem("toDos", JSON.stringify(storedTodos));
-  counterDisplayToDo = storedTodos.length + 1;
-  renderToDos();
+console.log("ToDoId:", newToDoId);
+async function deleteToDo(idToDoToDelete) {
+  const apiUrl = `http://localhost:4000/delete/${idToDoToDelete}`;
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+    });
+    if (!response.ok) {
+      throw new Error("Eroare la stergerea toDo");
+    }
+    AddToDo();
+    renderToDos();
+  } catch (error) {
+    console.error("Eroare la stergerea ToDo:", error);
+  }
+  // storedTodos.splice(i, 1);
+  // localStorage.setItem("toDos", JSON.stringify(storedTodos));
+  // counterDisplayToDo = storedTodos.length + 1;
+  // renderToDos();
 }
 
 async function deleteAllToDo(i) {
   // try {
-  //   const response = await fetch("${apiUrl}/${storedTodos", {
+  //   const response = await fetch("${apiUrl}/${storedTodos}", {
   //     method: "DELETE",
   //   });
   //   if (!response.ok) {
@@ -389,7 +398,6 @@ function updateToDo(title, description, i) {
   storedTodos[i].title = title;
   storedTodos[i].description = description;
   localStorage.setItem("toDos", JSON.stringify(storedTodos));
-  console.log(storedTodos[i].title);
 }
 
 function checkedToDo(checked, i) {
@@ -413,6 +421,7 @@ async function AddToDo() {
     }
     const data = await response.json();
     storedTodos = data;
+    console.log("data:", data);
     renderToDos();
   } catch (error) {
     console.error("Eroare la obtinerea ToDo-urilor", error);
@@ -423,6 +432,7 @@ function renderToDo(
   toDoCounter,
   todoChecked,
   todoTitleDecoration,
+  todoId,
   todoTitle,
   todoDescription
 ) {
@@ -459,10 +469,11 @@ function renderToDos() {
       counterStoredTodos + i,
       isChecked,
       titleDecoration,
+      storedTodos[i]._id,
       storedTodos[i].title,
-      //descriptionDecoration,
       storedTodos[i].description
     );
+    console.log("storedTodos:", storedTodos[i]._id);
   }
   completedTasks.textContent = completedCount;
   document.querySelector(".toDoList").innerHTML = toDos;
@@ -547,11 +558,14 @@ async function createToDo(todoTitle, todoDescription) {
     if (!response.ok) {
       throw new Error("Eroarea la adaugarea ToDo");
     }
+    const newToDo = await response.json();
+    newToDoId = newToDo._id;
+    console.log("ToDo:", newToDo);
     AddToDo();
-    //renderToDos();
     // clean input field
     todoTitle.value = "";
     todoDescription.value = "";
+    return newToDoId;
   } catch (error) {
     console.error("Eroare la adaugarea ToDo", error);
   }
@@ -571,6 +585,7 @@ async function createToDo(todoTitle, todoDescription) {
 
   //counterDisplayToDo++;
 }
+console.log("ToDoId:", newToDoId);
 
 // Display date
 function displayDate() {
@@ -580,8 +595,9 @@ function displayDate() {
   document.querySelector("#date").innerHTML = date;
   //date.getDate() + " " + date.getMonth() + 1 + " " + date.getFullYear();
 }
-
 window.onload = function () {
   displayDate();
-  renderToDos();
+  //renderToDos();
+  AddToDo();
+  console.log("indexToDelete:", idToDoToDelete);
 };
