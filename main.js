@@ -24,6 +24,7 @@ let addTask = document.getElementById("addToDo");
 let counterStoredTodos = 1;
 let completedCount = 0;
 let idToDoToDelete = undefined;
+let allIdToDoToDelete = undefined;
 let newToDoId = null;
 let storedTodos = JSON.parse(localStorage.getItem("toDos")) || [];
 let counterDisplayToDo = storedTodos.length + 1;
@@ -73,7 +74,6 @@ function deleteAllToDoListeners() {
     setTimeout(() => (notificationElement.style.display = "none"), 6000);
   } else {
     confirmDeleteHeaderAll.innerText = `Are you sure you want to delete all?`;
-    // confirmDeleteMessageAll.innerText = `Once you delete all the items, there is no going back. Please be certain.`;
     confirmationPopUpAll.classList.add("PopUpAll-open");
   }
 }
@@ -86,6 +86,7 @@ function activateDeleteListeners() {
       idToDoToDelete = storedTodos[i]._id;
       console.log("idToDoDelete:", idToDoToDelete);
       console.log("storedTodos[i]._id:", storedTodos[i]._id);
+      console.log("allIdToDos:", storedTodos._id);
       confirmDeleteHeader.innerText = `Are you sure you want to delete "${storedTodos[i].title}"?`;
       confirmationPopUp.classList.add("PopUp-open");
     });
@@ -93,8 +94,6 @@ function activateDeleteListeners() {
 }
 
 confirmButton.addEventListener("click", () => {
-  console.log("idToDoDelete:", idToDoToDelete);
-  // console.log("storedTodos[i]._id:", storedTodos[i]._id);
   deleteToDo(idToDoToDelete);
   confirmationPopUp.classList.remove("PopUp-open");
 });
@@ -115,13 +114,6 @@ function activateEditListeners() {
 
   editBtn.forEach((eB, i) => {
     eB.addEventListener("click", () => {
-      //content.addEventListener("keyup", () => {
-      // if (content.value.length > 10) {
-      //   content.classList.add("smallerText");
-      // } else {
-      //   content.classList.remove("smallerText");
-      // }
-      //});
       clearToDos.disabled = true;
       addTask.disabled = true;
       editContent[i].style.display = "flex";
@@ -132,8 +124,6 @@ function activateEditListeners() {
         content[i].value.length,
         content[i].value.length
       );
-      //clearToDos.classList.add("disabled");
-      //addTask.classList.add("disabled");
       checkbox.forEach((cB) => {
         cB.classList.add("disabled");
       });
@@ -149,7 +139,6 @@ function activateEditListeners() {
       downBtn.forEach((dB) => {
         dB.classList.add("disabled");
       });
-      //eB.style.visibility = "hidden";
     });
   });
 }
@@ -172,11 +161,6 @@ function activateSaveListeners() {
       content[i].disabled = true;
       clearToDos.disabled = false;
       addTask.disabled = false;
-      //clearToDos.classList.remove("disabled");
-      //addTask.classList.remove("disabled");
-      editBtn.forEach((eB) => {
-        //eB.style.visibility = "visible";
-      });
       checkbox.forEach((cB) => {
         cB.classList.remove("disabled");
       });
@@ -337,24 +321,6 @@ function activateDownListeners() {
   });
 }
 
-// function activateCountListeners() {
-//   let checkboxes = document.querySelectorAll(".checkbox");
-//   checkboxes.forEach((cB, i) => {
-//     cB.addEventListener("click", () => {
-//       if (cB.checked && storedTodos[i].checked) {
-//         completedCount++;
-//       } else {
-//         completedCount--;
-//       }
-//       completedTasks.textContent = completedCount;
-//       remainingTasks.textContent = storedTodos.length - completedCount;
-//     });
-//   });
-//   //remainingTasks.textContent = storedTodos.length;
-//   totalTasks.textContent = storedTodos.length;
-// }
-
-console.log("ToDoId:", newToDoId);
 async function deleteToDo(idToDoToDelete) {
   const apiUrl = `http://localhost:4000/delete/${idToDoToDelete}`;
   try {
@@ -364,34 +330,34 @@ async function deleteToDo(idToDoToDelete) {
     if (!response.ok) {
       throw new Error("Eroare la stergerea toDo");
     }
-    AddToDo();
-    renderToDos();
+    getAllTodos();
+    //renderToDos();
   } catch (error) {
     console.error("Eroare la stergerea ToDo:", error);
   }
-  // storedTodos.splice(i, 1);
+}
+
+async function deleteAllToDo() {
+  const apiUrl = `http://localhost:4000/delete`;
+  try {
+    const response = await fetch(apiUrl, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Eroare la stergerea toDo-urilor");
+    }
+    getAllTodos();
+  } catch (error) {
+    console.error("Eroare la stergerea ToDo:", error);
+  }
+
+  // storedTodos.splice(i, storedTodos.length);
   // localStorage.setItem("toDos", JSON.stringify(storedTodos));
   // counterDisplayToDo = storedTodos.length + 1;
   // renderToDos();
-}
-
-async function deleteAllToDo(i) {
-  // try {
-  //   const response = await fetch("${apiUrl}/${storedTodos}", {
-  //     method: "DELETE",
-  //   });
-  //   if (!response.ok) {
-  //     throw new Error("Eroare la stergerea toDo");
-  //   }
-  //   renderToDos();
-  // } catch (error) {
-  //   console.error("Eroare la stergerea ToDo:", error);
-  // }
-
-  storedTodos.splice(i, storedTodos.length);
-  localStorage.setItem("toDos", JSON.stringify(storedTodos));
-  counterDisplayToDo = storedTodos.length + 1;
-  renderToDos();
 }
 
 function updateToDo(title, description, i) {
@@ -406,7 +372,7 @@ function checkedToDo(checked, i) {
   initializeCounter();
 }
 
-async function AddToDo() {
+async function getAllTodos() {
   const apiUrl = "http://localhost:4000";
   try {
     const response = await fetch(apiUrl, {
@@ -561,7 +527,7 @@ async function createToDo(todoTitle, todoDescription) {
     const newToDo = await response.json();
     newToDoId = newToDo._id;
     console.log("ToDo:", newToDo);
-    AddToDo();
+    getAllTodos();
     // clean input field
     todoTitle.value = "";
     todoDescription.value = "";
@@ -598,6 +564,6 @@ function displayDate() {
 window.onload = function () {
   displayDate();
   //renderToDos();
-  AddToDo();
+  getAllTodos();
   console.log("indexToDelete:", idToDoToDelete);
 };
