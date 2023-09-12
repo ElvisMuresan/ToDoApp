@@ -25,6 +25,7 @@ let counterStoredTodos = 1;
 let completedCount = 0;
 let idToDoToDelete = undefined;
 let allIdToDoToDelete = undefined;
+let idToDoToEdit = undefined;
 let newToDoId = null;
 let storedTodos = JSON.parse(localStorage.getItem("toDos")) || [];
 let counterDisplayToDo = storedTodos.length + 1;
@@ -82,11 +83,11 @@ function activateDeleteListeners() {
   let deleteBtn = document.querySelectorAll(".deleteBtn");
   deleteBtn.forEach((dB, i) => {
     dB.addEventListener("click", (event) => {
-      console.log("event:", dB);
+      //console.log("event:", dB);
       idToDoToDelete = storedTodos[i]._id;
       console.log("idToDoDelete:", idToDoToDelete);
       console.log("storedTodos[i]._id:", storedTodos[i]._id);
-      console.log("allIdToDos:", storedTodos._id);
+      //console.log("allIdToDos:", storedTodos._id);
       confirmDeleteHeader.innerText = `Are you sure you want to delete "${storedTodos[i].title}"?`;
       confirmationPopUp.classList.add("PopUp-open");
     });
@@ -114,6 +115,9 @@ function activateEditListeners() {
 
   editBtn.forEach((eB, i) => {
     eB.addEventListener("click", () => {
+      idToDoToEdit = storedTodos[i]._id;
+      console.log("id:", idToDoToEdit);
+      console.log("storedTodos[i]._idEdit:", storedTodos[i]._id);
       clearToDos.disabled = true;
       addTask.disabled = true;
       editContent[i].style.display = "flex";
@@ -155,8 +159,11 @@ function activateSaveListeners() {
   let description = document.querySelectorAll(".description");
   saveEditBtn.forEach((sB, i) => {
     sB.addEventListener("click", () => {
-      updateToDo(content[i].value, description[i].value, i);
-      renderToDos();
+      console.log("titlu:", content[i].value);
+      const updatedTitle = content[i].value;
+      const updatedDescription = description[i].value;
+      updateToDo(idToDoToEdit, updatedTitle, updatedDescription);
+      //renderToDos();
       editContent[i].style.display = "none";
       content[i].disabled = true;
       clearToDos.disabled = false;
@@ -360,11 +367,32 @@ async function deleteAllToDo() {
   // renderToDos();
 }
 
-function updateToDo(title, description, i) {
-  storedTodos[i].title = title;
-  storedTodos[i].description = description;
-  localStorage.setItem("toDos", JSON.stringify(storedTodos));
+async function updateToDo(idToDoToEdit, updatedTitle, updatedDescription) {
+  const apiUrl = `http://localhost:4000/update/${idToDoToEdit}`;
+  try {
+    console.log("updatedTitle:", updatedTitle);
+    console.log("updatedDescription:", updatedDescription);
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: updatedTitle,
+        description: updatedDescription,
+      }),
+    });
+    if (!response.ok) {
+      throw new Error("Eroare la actualizarea ToDo-ului");
+    }
+    getAllTodos();
+  } catch (error) {
+    console.error("Eroare la actualizarea ToDo:", error);
+  }
 }
+// storedTodos[i].title = title;
+// storedTodos[i].description = description;
+// localStorage.setItem("toDos", JSON.stringify(storedTodos));
 
 function checkedToDo(checked, i) {
   storedTodos[i].checked = checked;
@@ -387,7 +415,7 @@ async function getAllTodos() {
     }
     const data = await response.json();
     storedTodos = data;
-    console.log("data:", data);
+    //("data:", data);
     renderToDos();
   } catch (error) {
     console.error("Eroare la obtinerea ToDo-urilor", error);
@@ -439,7 +467,7 @@ function renderToDos() {
       storedTodos[i].title,
       storedTodos[i].description
     );
-    console.log("storedTodos:", storedTodos[i]._id);
+    //console.log("storedTodos:", storedTodos[i]._id);
   }
   completedTasks.textContent = completedCount;
   document.querySelector(".toDoList").innerHTML = toDos;
@@ -526,7 +554,7 @@ async function createToDo(todoTitle, todoDescription) {
     }
     const newToDo = await response.json();
     newToDoId = newToDo._id;
-    console.log("ToDo:", newToDo);
+    //console.log("ToDo:", newToDo);
     getAllTodos();
     // clean input field
     todoTitle.value = "";
@@ -551,7 +579,7 @@ async function createToDo(todoTitle, todoDescription) {
 
   //counterDisplayToDo++;
 }
-console.log("ToDoId:", newToDoId);
+//console.log("ToDoId:", newToDoId);
 
 // Display date
 function displayDate() {
@@ -565,5 +593,5 @@ window.onload = function () {
   displayDate();
   //renderToDos();
   getAllTodos();
-  console.log("indexToDelete:", idToDoToDelete);
+  //("indexToDelete:", idToDoToDelete);
 };
