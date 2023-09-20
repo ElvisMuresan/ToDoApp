@@ -327,8 +327,8 @@ function activateDownListeners() {
   });
 }
 
-async function deleteToDo(idToDoToDelete) {
-  const apiUrl = `http://localhost:4000/delete/${idToDoToDelete}`;
+async function deleteToDo(idToDo) {
+  const apiUrl = `http://localhost:4000/delete/${idToDo}`;
   try {
     const response = await fetch(apiUrl, {
       method: "POST",
@@ -366,8 +366,8 @@ async function deleteAllToDo() {
   // renderToDos();
 }
 
-async function updateToDo(idToDoToEdit, updatedTitle, updatedDescription) {
-  const apiUrl = `http://localhost:4000/update/${idToDoToEdit}`;
+async function updateToDo(idToDo, updatedTitle, updatedDescription) {
+  const apiUrl = `http://localhost:4000/update/${idToDo}`;
   try {
     console.log("updatedTitle:", updatedTitle);
     console.log("updatedDescription:", updatedDescription);
