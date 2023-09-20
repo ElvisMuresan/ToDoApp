@@ -207,14 +207,14 @@ function activateCheckListeners() {
   let description = document.querySelectorAll(".description");
   checkbox.forEach((cB, i) => {
     cB.addEventListener("click", () => {
+      idToDo = storedTodos[i]._id;
       if (cB.checked) {
         content[i].style.textDecoration = "line-through";
         description[i].style.textDecoration = "line-through";
       } else {
-        content[i].style.textDecoration = "none";
         description[i].style.textDecoration = "none";
       }
-      checkedToDo(cB.checked, i);
+      checkedToDo(idToDo, cB.checked);
     });
   });
 }
@@ -367,6 +367,7 @@ async function deleteAllToDo() {
 }
 
 async function updateToDo(idToDo, updatedTitle, updatedDescription) {
+  console.log("id:", idToDo);
   const apiUrl = `http://localhost:4000/update/${idToDo}`;
   try {
     console.log("updatedTitle:", updatedTitle);
@@ -393,11 +394,30 @@ async function updateToDo(idToDo, updatedTitle, updatedDescription) {
 // storedTodos[i].description = description;
 // localStorage.setItem("toDos", JSON.stringify(storedTodos));
 
-function checkedToDo(checked, i) {
-  storedTodos[i].checked = checked;
-  localStorage.setItem("toDos", JSON.stringify(storedTodos));
-  initializeCounter();
+async function checkedToDo(idToDo, checked) {
+  console.log("id:", idToDo);
+  const apiUrl = `http://localhost:4000/check/${idToDo}`;
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        checked: checked,
+      }),
+    });
+    if (!response.ok) {
+      throw new Error("Eroare la actualizarea ToDo-ului");
+    }
+    getAllTodos();
+  } catch (error) {
+    console.error("Eroare la actualizarea ToDo:", error);
+  }
 }
+// storedTodos[i].checked = checked;
+// localStorage.setItem("toDos", JSON.stringify(storedTodos));
+// initializeCounter();
 
 async function getAllTodos() {
   const apiUrl = "http://localhost:4000";
@@ -434,7 +454,7 @@ function renderToDo(
                 <input type="checkbox" class="checkbox" ${todoChecked}>
                 <div class="title-description">
                   <textarea class="title" disabled style="text-decoration: ${todoTitleDecoration};">${todoTitle}</textarea>
-                  <textarea class="description" disabled placeholder="Description...">${todoDescription}</textarea>
+                  <textarea class="description" disabled style="text-decoration: ${todoTitleDecoration};">${todoDescription}</textarea>
                 </div>
                   <div id="actions" class="actions">
                     <button id="removeUp"><i class=" fa fa-arrow-up upBtn"></i></button>
@@ -456,12 +476,13 @@ function renderToDos() {
   for (let i = 0; i < storedTodos.length; i++) {
     const todo = storedTodos[i];
     const isChecked = todo.checked ? "checked" : "";
-    const titleDecoration = todo.checked ? "line-through" : "none";
-    //const descriptionDecoration = todo.checked ? "line-through" : "none";
+    //const titleDecoration = todo.checked ? "line-through" : "none";
+    const descriptionDecoration = todo.checked ? "line-through" : "none";
     toDos += renderToDo(
       counterStoredTodos + i,
       isChecked,
-      titleDecoration,
+      //titleDecoration,
+      descriptionDecoration,
       storedTodos[i]._id,
       storedTodos[i].title,
       storedTodos[i].description
