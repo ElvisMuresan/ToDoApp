@@ -23,9 +23,8 @@ let clearToDos = document.getElementById("clearToDo");
 let addTask = document.getElementById("addToDo");
 let counterStoredTodos = 1;
 let completedCount = 0;
-let idToDoToDelete = undefined;
+let idToDo = undefined;
 let allIdToDoToDelete = undefined;
-let idToDoToEdit = undefined;
 let newToDoId = null;
 let storedTodos = JSON.parse(localStorage.getItem("toDos")) || [];
 let counterDisplayToDo = storedTodos.length + 1;
@@ -84,8 +83,8 @@ function activateDeleteListeners() {
   deleteBtn.forEach((dB, i) => {
     dB.addEventListener("click", (event) => {
       //console.log("event:", dB);
-      idToDoToDelete = storedTodos[i]._id;
-      console.log("idToDoDelete:", idToDoToDelete);
+      idToDo = storedTodos[i]._id;
+      console.log("idToDoDelete:", idToDo);
       console.log("storedTodos[i]._id:", storedTodos[i]._id);
       //console.log("allIdToDos:", storedTodos._id);
       confirmDeleteHeader.innerText = `Are you sure you want to delete "${storedTodos[i].title}"?`;
@@ -95,7 +94,7 @@ function activateDeleteListeners() {
 }
 
 confirmButton.addEventListener("click", () => {
-  deleteToDo(idToDoToDelete);
+  deleteToDo(idToDo);
   confirmationPopUp.classList.remove("PopUp-open");
 });
 confirmDeleteAll.addEventListener("click", () => {
@@ -115,8 +114,8 @@ function activateEditListeners() {
 
   editBtn.forEach((eB, i) => {
     eB.addEventListener("click", () => {
-      idToDoToEdit = storedTodos[i]._id;
-      console.log("id:", idToDoToEdit);
+      idToDo = storedTodos[i]._id;
+      console.log("id:", idToDo);
       console.log("storedTodos[i]._idEdit:", storedTodos[i]._id);
       clearToDos.disabled = true;
       addTask.disabled = true;
@@ -162,7 +161,7 @@ function activateSaveListeners() {
       console.log("titlu:", content[i].value);
       const updatedTitle = content[i].value;
       const updatedDescription = description[i].value;
-      updateToDo(idToDoToEdit, updatedTitle, updatedDescription);
+      updateToDo(idToDo, updatedTitle, updatedDescription);
       //renderToDos();
       editContent[i].style.display = "none";
       content[i].disabled = true;
