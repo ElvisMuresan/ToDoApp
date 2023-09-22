@@ -82,11 +82,7 @@ function activateDeleteListeners() {
   let deleteBtn = document.querySelectorAll(".deleteBtn");
   deleteBtn.forEach((dB, i) => {
     dB.addEventListener("click", (event) => {
-      //console.log("event:", dB);
       idToDo = storedTodos[i]._id;
-      console.log("idToDoDelete:", idToDo);
-      console.log("storedTodos[i]._id:", storedTodos[i]._id);
-      //console.log("allIdToDos:", storedTodos._id);
       confirmDeleteHeader.innerText = `Are you sure you want to delete "${storedTodos[i].title}"?`;
       confirmationPopUp.classList.add("PopUp-open");
     });
@@ -115,8 +111,6 @@ function activateEditListeners() {
   editBtn.forEach((eB, i) => {
     eB.addEventListener("click", () => {
       idToDo = storedTodos[i]._id;
-      console.log("id:", idToDo);
-      console.log("storedTodos[i]._idEdit:", storedTodos[i]._id);
       clearToDos.disabled = true;
       addTask.disabled = true;
       editContent[i].style.display = "flex";
@@ -158,11 +152,9 @@ function activateSaveListeners() {
   let description = document.querySelectorAll(".description");
   saveEditBtn.forEach((sB, i) => {
     sB.addEventListener("click", () => {
-      console.log("titlu:", content[i].value);
       const updatedTitle = content[i].value;
       const updatedDescription = description[i].value;
       updateToDo(idToDo, updatedTitle, updatedDescription);
-      //renderToDos();
       editContent[i].style.display = "none";
       content[i].disabled = true;
       clearToDos.disabled = false;
@@ -337,7 +329,6 @@ async function deleteToDo(idToDo) {
       throw new Error("Eroare la stergerea toDo");
     }
     getAllTodos();
-    //renderToDos();
   } catch (error) {
     console.error("Eroare la stergerea ToDo:", error);
   }
@@ -359,19 +350,11 @@ async function deleteAllToDo() {
   } catch (error) {
     console.error("Eroare la stergerea ToDo:", error);
   }
-
-  // storedTodos.splice(i, storedTodos.length);
-  // localStorage.setItem("toDos", JSON.stringify(storedTodos));
-  // counterDisplayToDo = storedTodos.length + 1;
-  // renderToDos();
 }
 
 async function updateToDo(idToDo, updatedTitle, updatedDescription) {
-  console.log("id:", idToDo);
   const apiUrl = `http://localhost:4000/update/${idToDo}`;
   try {
-    console.log("updatedTitle:", updatedTitle);
-    console.log("updatedDescription:", updatedDescription);
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: {
@@ -390,12 +373,8 @@ async function updateToDo(idToDo, updatedTitle, updatedDescription) {
     console.error("Eroare la actualizarea ToDo:", error);
   }
 }
-// storedTodos[i].title = title;
-// storedTodos[i].description = description;
-// localStorage.setItem("toDos", JSON.stringify(storedTodos));
 
 async function checkedToDo(idToDo, checked) {
-  console.log("id:", idToDo);
   const apiUrl = `http://localhost:4000/check/${idToDo}`;
   try {
     const response = await fetch(apiUrl, {
@@ -415,9 +394,6 @@ async function checkedToDo(idToDo, checked) {
     console.error("Eroare la actualizarea ToDo:", error);
   }
 }
-// storedTodos[i].checked = checked;
-// localStorage.setItem("toDos", JSON.stringify(storedTodos));
-// initializeCounter();
 
 async function getAllTodos() {
   const apiUrl = "http://localhost:4000";
@@ -487,7 +463,6 @@ function renderToDos() {
       storedTodos[i].title,
       storedTodos[i].description
     );
-    //console.log("storedTodos:", storedTodos[i]._id);
   }
   completedTasks.textContent = completedCount;
   document.querySelector(".toDoList").innerHTML = toDos;
@@ -554,7 +529,6 @@ async function createToDo(todoTitle, todoDescription) {
 
   // validate input
   if (todoTitle.value === "") {
-    // return if no input value
     return;
   }
   try {
@@ -574,32 +548,15 @@ async function createToDo(todoTitle, todoDescription) {
     }
     const newToDo = await response.json();
     newToDoId = newToDo._id;
-    //console.log("ToDo:", newToDo);
     getAllTodos();
-    // clean input field
+
     todoTitle.value = "";
     todoDescription.value = "";
     return newToDoId;
   } catch (error) {
     console.error("Eroare la adaugarea ToDo", error);
   }
-
-  // store in local storage
-  //storedTodos.push(toDo.value);
-  // storedTodos.push({
-  //   title: todoTitle.value,
-  //   description: todoDescription.value,
-  //   checked: false,
-  // });
-  // localStorage.setItem("toDos", JSON.stringify(storedTodos));
-  // renderToDos();
-  // // clean input field
-  // todoTitle.value = "";
-  // todoDescription.value = "";
-
-  //counterDisplayToDo++;
 }
-//console.log("ToDoId:", newToDoId);
 
 // Display date
 function displayDate() {
@@ -607,11 +564,8 @@ function displayDate() {
   date = date.toString().split(" ");
   date = date[1] + " " + date[2] + " " + date[3];
   document.querySelector("#date").innerHTML = date;
-  //date.getDate() + " " + date.getMonth() + 1 + " " + date.getFullYear();
 }
 window.onload = function () {
   displayDate();
-  //renderToDos();
   getAllTodos();
-  //("indexToDelete:", idToDoToDelete);
 };
