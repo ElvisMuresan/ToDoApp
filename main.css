@@ -63,8 +63,8 @@ img {
 body {
   font: var(--fw-normal) var(--base-font) var(--ff-sans);
   background: var(--clr-page-bg) var(--img-bg) no-repeat 0% 0% / 100vw 30rem;
-  padding-top: 8rem;
-  width: min(85%, 74rem);
+  padding-top: 9.1rem;
+  width: min(85%, 94rem);
   margin: auto;
 }
 
@@ -101,7 +101,7 @@ header.card {
 }
 
 header.card h1 {
-  color: var(--clr-white);
+  color: var(--clr-gb-1);
   letter-spacing: 1.3rem;
   font-weight: 700;
   font-size: calc(var(--base-font) * 2);
@@ -138,32 +138,41 @@ header.card h1 {
 }
 
 .add .txt-container {
+  display: block;
+  align-items: center; /* Centrează elementele pe axa orizontală */
   flex: 1;
+  gap: 10px;
 }
 .add .txt-container #titleId {
   width: 100%;
+  font-size: 2rem;
+  margin-left: 30px;
   padding: 0.7rem 0;
+  vertical-align: middle;
   color: var(--clr-gb-1);
-  border: 2px solid var(--clr-gb-2);
+  /* border: 2px solid var(--clr-gb-2); */
 }
 
 .txt-container input {
-  margin-bottom: 10px;
+  margin-bottom: 2px;
 }
 
 .add .txt-container #inputId {
   width: 100%;
+  font-size: 2rem;
+  margin-left: 30px;
   padding: 0.7rem 0;
+  vertical-align: middle;
   color: var(--clr-gb-1);
-  border: 2px solid var(--clr-gb-2);
+  /* border: 2px solid var(--clr-gb-2); */
 }
 
 .add .txt-container #titleId::placeholder {
-  color: var(--clr-gb-5);
+  color: var(--clr-gb-2);
   font-weight: var(--fw-normal);
 }
 .add .txt-container #inputId::placeholder {
-  color: var(--clr-gb-5);
+  color: var(--clr-gb-2);
   font-weight: var(--fw-normal);
 }
 
@@ -227,7 +236,7 @@ textarea:hover {
 } */
 
 .checkbox {
-  margin-right: 1rem;
+  margin-right: 2rem;
   font-size: 2.5rem;
   transform: scale(1.7);
   padding-left: 0px;
@@ -237,7 +246,7 @@ textarea:hover {
 .toDo textarea {
   all: unset;
   /* display: block; */
-  margin-right: 3rem;
+  margin-right: 12rem;
   color: var(--clr-gb-2);
   font-size: 2rem;
   vertical-align: middle;
