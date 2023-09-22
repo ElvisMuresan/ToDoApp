@@ -320,7 +320,7 @@ function activateDownListeners() {
 }
 
 async function deleteToDo(idToDo) {
-  const apiUrl = `http://localhost:4000/delete/${idToDo}`;
+  const apiUrl = `https://todoapp-backend-kbsb.onrender.com/delete/${idToDo}`;
   try {
     const response = await fetch(apiUrl, {
       method: "POST",
@@ -335,7 +335,7 @@ async function deleteToDo(idToDo) {
 }
 
 async function deleteAllToDo() {
-  const apiUrl = `http://localhost:4000/delete`;
+  const apiUrl = `https://todoapp-backend-kbsb.onrender.com/delete`;
   try {
     const response = await fetch(apiUrl, {
       method: "DELETE",
@@ -353,7 +353,7 @@ async function deleteAllToDo() {
 }
 
 async function updateToDo(idToDo, updatedTitle, updatedDescription) {
-  const apiUrl = `http://localhost:4000/update/${idToDo}`;
+  const apiUrl = `https://todoapp-backend-kbsb.onrender.com/update/${idToDo}`;
   try {
     const response = await fetch(apiUrl, {
       method: "POST",
@@ -375,7 +375,7 @@ async function updateToDo(idToDo, updatedTitle, updatedDescription) {
 }
 
 async function checkedToDo(idToDo, checked) {
-  const apiUrl = `http://localhost:4000/check/${idToDo}`;
+  const apiUrl = `https://todoapp-backend-kbsb.onrender.com/check/${idToDo}`;
   try {
     const response = await fetch(apiUrl, {
       method: "POST",
@@ -396,7 +396,7 @@ async function checkedToDo(idToDo, checked) {
 }
 
 async function getAllTodos() {
-  const apiUrl = "http://localhost:4000";
+  const apiUrl = "https://todoapp-backend-kbsb.onrender.com";
   try {
     const response = await fetch(apiUrl, {
       method: "GET",
@@ -523,7 +523,7 @@ function showNotification(inputValue) {
 
 // Create the ToDos
 async function createToDo(todoTitle, todoDescription) {
-  const apiUrl = "http://localhost:4000/save";
+  const apiUrl = "https://todoapp-backend-kbsb.onrender.com/save";
   // showNotification
   showNotification(todoTitle.value);
 
