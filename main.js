@@ -300,12 +300,9 @@ function activateDownListeners() {
   let downBtn = document.querySelectorAll(".downBtn");
   downBtn.forEach((dB, i) => {
     dB.addEventListener("click", () => {
+      idToDo = storedTodos[i]._id;
       if (i < storedTodos.length - 1) {
-        let contentDown = storedTodos[i];
-        storedTodos[i] = storedTodos[i + 1];
-        storedTodos[i + 1] = contentDown;
-        localStorage.setItem("toDos", JSON.stringify(storedTodos));
-        renderToDos();
+        moveToDoDown(idToDo);
       } else {
         let notificationConfig = {
           style: NOTIFICATION_WARN_STYLE,
@@ -435,6 +432,26 @@ async function moveToDoUp(idToDo) {
     getAllTodos();
   } catch (error) {
     console.error("Eroare la mutarea ToDo-urilui in sus", error);
+  }
+}
+
+async function moveToDoDown(idToDo) {
+  const apiUrl = `https://todoapp-backend-kbsb.onrender.com/moveDown/${idToDo}`;
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({}),
+    });
+
+    if (!response.ok) {
+      throw new Error("Eroare la mutarea ToDo-urilui in jos");
+    }
+    getAllTodos();
+  } catch (error) {
+    console.error("Eroare la mutarea ToDo-urilui in jos", error);
   }
 }
 
