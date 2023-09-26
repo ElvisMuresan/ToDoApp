@@ -22,6 +22,7 @@ const todoDescription = document.querySelector("#inputId");
 let clearToDos = document.getElementById("clearToDo");
 let addTask = document.getElementById("addToDo");
 let counterStoredTodos = 1;
+let position = 0;
 let completedCount = 0;
 let idToDo = undefined;
 let allIdToDoToDelete = undefined;
@@ -31,7 +32,9 @@ let counterDisplayToDo = storedTodos.length + 1;
 
 document.querySelector("#addToDo").addEventListener("click", () => {
   event.preventDefault();
-  createToDo(todoTitle, todoDescription);
+  createToDo(position, todoTitle, todoDescription);
+  position++;
+  console.log("position:", position);
 });
 
 document.querySelector("#clearToDo").addEventListener("click", () => {
@@ -277,12 +280,9 @@ function activateUpListeners() {
   let upBtn = document.querySelectorAll(".upBtn");
   upBtn.forEach((uB, i) => {
     uB.addEventListener("click", () => {
+      idToDo = storedTodos[i]._id;
       if (i > 0) {
-        let contentUp = storedTodos[i];
-        storedTodos[i] = storedTodos[i - 1];
-        storedTodos[i - 1] = contentUp;
-        localStorage.setItem("toDos", JSON.stringify(storedTodos));
-        renderToDos();
+        moveToDoUp(idToDo);
       } else {
         let notificationConfig = {
           style: NOTIFICATION_WARN_STYLE,
@@ -329,6 +329,7 @@ async function deleteToDo(idToDo) {
       throw new Error("Eroare la stergerea toDo");
     }
     getAllTodos();
+    position = position - 1;
   } catch (error) {
     console.error("Eroare la stergerea ToDo:", error);
   }
@@ -410,15 +411,34 @@ async function getAllTodos() {
     }
     const data = await response.json();
     storedTodos = data;
-    //("data:", data);
+    position = storedTodos.length;
     renderToDos();
   } catch (error) {
     console.error("Eroare la obtinerea ToDo-urilor", error);
   }
 }
 
+async function moveToDoUp(idToDo) {
+  const apiUrl = `https://todoapp-backend-kbsb.onrender.com/moveUp/${idToDo}`;
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({}),
+    });
+
+    if (!response.ok) {
+      throw new Error("Eroare la mutarea ToDo-urilui in sus");
+    }
+    getAllTodos();
+  } catch (error) {
+    console.error("Eroare la mutarea ToDo-urilui in sus", error);
+  }
+}
+
 function renderToDo(
-  toDoCounter,
   todoChecked,
   todoTitleDecoration,
   todoId,
@@ -455,7 +475,6 @@ function renderToDos() {
     //const titleDecoration = todo.checked ? "line-through" : "none";
     const descriptionDecoration = todo.checked ? "line-through" : "none";
     toDos += renderToDo(
-      counterStoredTodos + i,
       isChecked,
       //titleDecoration,
       descriptionDecoration,
@@ -522,7 +541,7 @@ function showNotification(inputValue) {
 }
 
 // Create the ToDos
-async function createToDo(todoTitle, todoDescription) {
+async function createToDo(position, todoTitle, todoDescription) {
   const apiUrl = "https://todoapp-backend-kbsb.onrender.com/save";
   // showNotification
   showNotification(todoTitle.value);
@@ -538,6 +557,7 @@ async function createToDo(todoTitle, todoDescription) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        position: position,
         title: todoTitle.value,
         description: todoDescription.value,
       }),
@@ -552,6 +572,7 @@ async function createToDo(todoTitle, todoDescription) {
 
     todoTitle.value = "";
     todoDescription.value = "";
+    //position++;
     return newToDoId;
   } catch (error) {
     console.error("Eroare la adaugarea ToDo", error);
