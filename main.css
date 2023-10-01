@@ -582,7 +582,7 @@ toDo textarea.smallerText {
 
 @media (min-width: 375px) {
   .stat {
-    font-size: calc(var(--base-font) - 0.4rem);
+    font-size: calc(var(--base-font) - 0.7rem);
   }
 }
 
