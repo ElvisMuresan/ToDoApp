@@ -592,7 +592,7 @@ toDo textarea.smallerText {
   }
 
   .stat {
-    font-size: calc(var(--base-font) - 0.5rem);
+    font-size: calc(var(--base-font) - 0.6rem);
   }
 
   .stat.cb-container {
@@ -659,5 +659,11 @@ toDo textarea.smallerText {
   .cancelEditBtn {
     font-size: 2rem;
     margin-left: -5rem;
+  }
+}
+
+@media (max-width: 348px) {
+  .stat {
+    font-size: calc(var(--base-font) - 0.8rem);
   }
 }
