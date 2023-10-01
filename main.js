@@ -117,6 +117,7 @@ function activateEditListeners() {
       clearToDos.disabled = true;
       addTask.disabled = true;
       editContent[i].style.display = "flex";
+
       content[i].disabled = false;
       description[i].disabled = false;
       content[i].focus();
@@ -129,15 +130,19 @@ function activateEditListeners() {
       });
       editBtn.forEach((eB) => {
         eB.classList.add("disabled");
+        eB.classList.add("button-hidden");
       });
       deleteBtn.forEach((dB) => {
         dB.classList.add("disabled");
+        dB.classList.add("button-hidden");
       });
       upBtn.forEach((uB) => {
         uB.classList.add("disabled");
+        uB.classList.add("button-hidden");
       });
       downBtn.forEach((dB) => {
         dB.classList.add("disabled");
+        dB.classList.add("button-hidden");
       });
     });
   });
@@ -167,15 +172,19 @@ function activateSaveListeners() {
       });
       editBtn.forEach((eB) => {
         eB.classList.remove("disabled");
+        eB.classList.remove("button-hidden");
       });
       deleteBtn.forEach((dB) => {
         dB.classList.remove("disabled");
+        dB.classList.remove("button-hidden");
       });
       upBtn.forEach((uB) => {
         uB.classList.remove("disabled");
+        uB.classList.remove("button-hidden");
       });
       downBtn.forEach((dB) => {
         dB.classList.remove("disabled");
+        dB.classList.remove("button-hidden");
       });
     });
   });

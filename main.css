@@ -322,6 +322,7 @@ textarea:hover {
   font-size: calc(var(--base-font) - 0.3rem);
   display: flex;
   border-radius: 1rem;
+  padding: 2rem;
   grid-template-columns: 1fr 1fr 1fr;
 }
 
@@ -562,4 +563,111 @@ toDo textarea.smallerText {
   height: 33px;
   outline: none;
   /* border: 2px solid var(--clr-gb-2); */
+}
+@media (max-width: 768px) {
+  body {
+    /* Stiluri pentru telefoane mobile */
+    padding-top: 4rem; /* Ajustați spațiul de sus */
+  }
+
+  .add {
+    margin: 2rem 0; /* Ajustați marginile pentru formular */
+  }
+
+  .add .txt-container #titleId,
+  .add .txt-container #inputId {
+    margin-left: 0; /* Eliminați spațiul stânga pentru input-uri */
+  }
+
+  .txt-container input[type="text"] {
+    width: 100%; /* Asigurați-vă că input-urile ocupă întreaga lățime */
+  }
+
+  .cb-container {
+    font-size: 1.8rem; /* Reduți dimensiunea butonului pentru mobile */
+  }
+
+  .description-container {
+    margin-left: 1rem; /* Ajustați spațiul stânga pentru descriere pe mobile */
+  }
+
+  .description-container input {
+    width: 90%; /* Asigurați-vă că input-ul de descriere ocupă întreaga lățime */
+  }
+}
+/* Stilurile CSS existente */
+
+/* Adăugați un media query pentru iPhone SE (320px) */
+@media (max-width: 375px) {
+  body {
+    /* Stiluri pentru iPhone SE */
+    padding-top: 13rem; /* Ajustați spațiul de sus */
+  }
+
+  .stat {
+    font-size: calc(var(--base-font) - 0.5rem);
+  }
+
+  .stat.cb-container {
+    font-size: 1.2rem;
+  }
+
+  .stats {
+    gap: 0;
+    margin-left: -1rem;
+  }
+
+  .card {
+    gap: 1rem;
+    margin-bottom: 1.8rem;
+  }
+  .toDoList {
+    margin-bottom: 2rem;
+  }
+
+  header.card h1 {
+    letter-spacing: 0.1rem;
+    font-size: calc(var(--base-font) * 1.9);
+    margin-left: 1rem;
+  }
+  .add {
+    margin: 1rem 0; /* Ajustați marginile pentru formular */
+  }
+
+  .add .txt-container #titleId,
+  .add .txt-container #inputId {
+    margin-left: 0; /* Eliminați spațiul stânga pentru input-uri */
+  }
+
+  .txt-container input[type="text"] {
+    width: 100%; /* Asigurați-vă că input-urile ocupă întreaga lățime */
+  }
+
+  .cb-container {
+    font-size: 1.6rem; /* Reduți dimensiunea butonului pentru iPhone SE */
+  }
+
+  .description-container {
+    margin-left: 0.5rem; /* Ajustați spațiul stânga pentru descriere pe iPhone SE */
+  }
+
+  .description-container input {
+    width: 90%; /* Asigurați-vă că input-ul de descriere ocupă o lățime mai mare */
+  }
+}
+
+@media (max-width: 600px) {
+  .actions .button-hidden {
+    display: none;
+  }
+
+  .saveEditBtn {
+    margin-right: 5.5rem;
+  }
+
+  .saveEditBtn,
+  .cancelEditBtn {
+    font-size: 2rem;
+    margin-left: -5rem;
+  }
 }
