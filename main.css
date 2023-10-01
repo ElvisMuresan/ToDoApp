@@ -201,16 +201,9 @@ textarea:hover {
   color: var(--clr-gb-1);
 }
 
-/* .todoList .toDo.checked .checkbox {
-  text-decoration: line-through;
-  color: var(--clr-gb-3);
-  text-decoration-color: var(--clr-gb-3);
-} */
-
 #listaParinteId .toDo {
   all: unset;
   display: block;
-  /* justify-content: space-between; */
   background-color: var(--clr-card-bg);
   padding: 2rem;
   border-radius: 1rem;
@@ -224,17 +217,6 @@ textarea:hover {
   display: flex;
 }
 
-/* #listaParinteId .content {
-  all: unset;
-  display: flex;
-  justify-content: space-between;
-  background-color: var(--background2);
-  opacity: 0.7;
-  padding: 1rem;
-  border-radius: 1rem;
-  margin-bottom: 1rem;
-} */
-
 .checkbox {
   margin-right: 2rem;
   font-size: 2.5rem;
@@ -245,7 +227,6 @@ textarea:hover {
 
 .toDo textarea {
   all: unset;
-  /* display: block; */
   margin-right: 12rem;
   color: var(--clr-gb-2);
   font-size: 2rem;
@@ -315,10 +296,8 @@ textarea:hover {
   color: var(--clr-gb-1);
 }
 
-/* Contorizare */
 .stat {
   border-radius: 0 0 0.5rem 0.5rem;
-  /* border-top: 0.2rem solid var(--clr-gb-6); */
   font-size: calc(var(--base-font) - 0.3rem);
   display: flex;
   border-radius: 1rem;
@@ -346,7 +325,6 @@ textarea:hover {
 
 .stats span:first-child {
   color: var(--clr-gb-2);
-  /* background-color: var(--clr-gb-4); */
   opacity: 0.8;
   border-radius: 0rem;
 }
@@ -356,7 +334,6 @@ textarea:hover {
 }
 
 .stats span:nth-child(2) {
-  /* background-color: var(--blueer); */
   color: var(--albastru);
   opacity: 0.8;
   border-radius: 0rem;
@@ -477,10 +454,6 @@ textarea:hover {
   padding-right: 0.3em;
 }
 
-/* .PopUp-content {
-  padding: 1em;
-} */
-
 .PopUp-footerAll {
   padding: 1em;
   display: flex;
@@ -546,7 +519,6 @@ toDo textarea.smallerText {
 
 .description-container {
   display: flex;
-  /* margin-right: 1rem; */
   margin-left: 2.2rem;
   color: var(--clr-gb-2);
   font-size: 1.5rem;
@@ -557,51 +529,66 @@ toDo textarea.smallerText {
 }
 
 .description-container input {
-  /* display: block; */
   color: var(--clr-gb-2);
   width: 95%;
   height: 33px;
   outline: none;
-  /* border: 2px solid var(--clr-gb-2); */
 }
+
 @media (max-width: 768px) {
   body {
-    /* Stiluri pentru telefoane mobile */
-    padding-top: 4rem; /* Ajustați spațiul de sus */
+    padding-top: 4rem;
   }
 
   .add {
-    margin: 2rem 0; /* Ajustați marginile pentru formular */
+    margin: 2rem 0;
   }
 
   .add .txt-container #titleId,
   .add .txt-container #inputId {
-    margin-left: 0; /* Eliminați spațiul stânga pentru input-uri */
+    margin-left: 0;
   }
 
   .txt-container input[type="text"] {
-    width: 100%; /* Asigurați-vă că input-urile ocupă întreaga lățime */
+    width: 100%;
   }
 
   .cb-container {
-    font-size: 1.8rem; /* Reduți dimensiunea butonului pentru mobile */
+    font-size: 1.8rem;
   }
 
   .description-container {
-    margin-left: 1rem; /* Ajustați spațiul stânga pentru descriere pe mobile */
+    margin-left: 1rem;
   }
 
   .description-container input {
-    width: 90%; /* Asigurați-vă că input-ul de descriere ocupă întreaga lățime */
+    width: 90%;
   }
 }
-/* Stilurile CSS existente */
 
-/* Adăugați un media query pentru iPhone SE (320px) */
+@media (max-width: 627px) {
+  header.card h1 {
+    letter-spacing: 0.1rem;
+    font-size: calc(var(--base-font) * 1.9);
+    /* margin-left: 1rem; */
+  }
+}
+
+@media (max-width: 627px) {
+  .stat {
+    font-size: calc(var(--base-font) - 0.4rem);
+  }
+}
+
+@media (min-width: 375px) {
+  .stat {
+    font-size: calc(var(--base-font) - 0.4rem);
+  }
+}
+
 @media (max-width: 375px) {
   body {
-    /* Stiluri pentru iPhone SE */
-    padding-top: 13rem; /* Ajustați spațiul de sus */
+    padding-top: 13rem;
   }
 
   .stat {
@@ -628,31 +615,34 @@ toDo textarea.smallerText {
   header.card h1 {
     letter-spacing: 0.1rem;
     font-size: calc(var(--base-font) * 1.9);
-    margin-left: 1rem;
+    /* margin-left: 1rem; */
   }
   .add {
-    margin: 1rem 0; /* Ajustați marginile pentru formular */
+    margin: 1rem 0;
   }
 
   .add .txt-container #titleId,
   .add .txt-container #inputId {
-    margin-left: 0; /* Eliminați spațiul stânga pentru input-uri */
+    margin-left: 0;
   }
 
   .txt-container input[type="text"] {
-    width: 100%; /* Asigurați-vă că input-urile ocupă întreaga lățime */
+    width: 100%;
   }
 
   .cb-container {
-    font-size: 1.6rem; /* Reduți dimensiunea butonului pentru iPhone SE */
+    font-size: 1.6rem;
+  }
+  .add .cb-container {
+    font-size: 1.8rem;
   }
 
   .description-container {
-    margin-left: 0.5rem; /* Ajustați spațiul stânga pentru descriere pe iPhone SE */
+    margin-left: 0.5rem;
   }
 
   .description-container input {
-    width: 90%; /* Asigurați-vă că input-ul de descriere ocupă o lățime mai mare */
+    width: 90%;
   }
 }
 
