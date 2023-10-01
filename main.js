@@ -483,8 +483,8 @@ function renderToDo(
               <div class="title-container">
                 <input type="checkbox" class="checkbox" ${todoChecked}>
                 <div class="title-description">
-                  <textarea class="title" disabled style="text-decoration: ${todoTitleDecoration};">${todoTitle}</textarea>
-                  <textarea class="description" disabled style="text-decoration: ${todoTitleDecoration};">${todoDescription}</textarea>
+                  <textarea class="title" disabled style="text-decoration: ${todoTitleDecoration}; font-weight: bold">${todoTitle}</textarea>
+                  <textarea class="description" disabled style="text-decoration: ${todoTitleDecoration}; font-size: 1.8rem;">${todoDescription}</textarea>
                 </div>
                   <div id="actions" class="actions">
                     <button id="removeUp"><i class=" fa fa-arrow-up upBtn"></i></button>
@@ -493,8 +493,8 @@ function renderToDo(
                     <button id="removeDelete"><i class=" fas fa-trash deleteBtn"></i></button>
               </div>
                 <div class="editContent">
-                  <button class="saveEditBtn">Save</button>
-                  <button class="cancelEditBtn">Cancel</button>
+                  <button  style="color: green" class="saveEditBtn">Save</button>
+                  <button style="color: rgb(167, 50, 50)" class="cancelEditBtn">Cancel</button>
                 </div>
             </div>
             

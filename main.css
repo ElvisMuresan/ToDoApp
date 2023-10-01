@@ -229,7 +229,7 @@ textarea:hover {
   all: unset;
   margin-right: 12rem;
   color: var(--clr-gb-2);
-  font-size: 2rem;
+  font-size: 2.2rem;
   vertical-align: middle;
   width: 100%;
   height: 33px;
@@ -586,6 +586,12 @@ toDo textarea.smallerText {
   }
 }
 
+@media (min-width: 768px) {
+  .stat {
+    font-size: calc(var(--base-font) - 0.4rem);
+  }
+}
+
 @media (max-width: 375px) {
   body {
     padding-top: 13rem;
@@ -643,6 +649,11 @@ toDo textarea.smallerText {
 
   .description-container input {
     width: 90%;
+  }
+}
+@media (max-width: 500px) {
+  .toDo textarea {
+    font-size: 1.8rem;
   }
 }
 
