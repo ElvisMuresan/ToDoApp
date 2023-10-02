@@ -27,6 +27,7 @@ let completedCount = 0;
 let idToDo = undefined;
 let allIdToDoToDelete = undefined;
 let newToDoId = null;
+//let isEditing = false;
 let storedTodos = JSON.parse(localStorage.getItem("toDos")) || [];
 let counterDisplayToDo = storedTodos.length + 1;
 
@@ -113,11 +114,11 @@ function activateEditListeners() {
 
   editBtn.forEach((eB, i) => {
     eB.addEventListener("click", () => {
+      //isEditing = !isEditing;
       idToDo = storedTodos[i]._id;
       clearToDos.disabled = true;
       addTask.disabled = true;
       editContent[i].style.display = "flex";
-
       content[i].disabled = false;
       description[i].disabled = false;
       content[i].focus();
@@ -479,12 +480,14 @@ function renderToDo(
   todoTitle,
   todoDescription
 ) {
+  //const hasDescription = todoDescription !== "";
   return `<div class="toDo" draggable="true">
               <div class="title-container">
                 <input type="checkbox" class="checkbox" ${todoChecked}>
                 <div class="title-description">
                   <textarea class="title" disabled style="text-decoration: ${todoTitleDecoration}; font-weight: bold">${todoTitle}</textarea>
                   <textarea class="description" disabled style="text-decoration: ${todoTitleDecoration}; font-size: 1.8rem;">${todoDescription}</textarea>
+
                 </div>
                   <div id="actions" class="actions">
                     <button id="removeUp"><i class=" fa fa-arrow-up upBtn"></i></button>
@@ -585,6 +588,8 @@ async function createToDo(position, todoTitle, todoDescription) {
   if (todoTitle.value === "") {
     return;
   }
+
+  const descriptionValue = todoDescription.value.trim() || "";
   try {
     const response = await fetch(apiUrl, {
       method: "POST",
@@ -594,7 +599,7 @@ async function createToDo(position, todoTitle, todoDescription) {
       body: JSON.stringify({
         position: position,
         title: todoTitle.value,
-        description: todoDescription.value,
+        description: descriptionValue,
       }),
     });
 

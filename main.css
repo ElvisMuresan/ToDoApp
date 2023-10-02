@@ -236,9 +236,9 @@ textarea:hover {
   outline: none;
 }
 
-.toDo textarea:hover {
+/* .toDo textarea:hover {
   color: var(--clr-gb-1);
-}
+} */
 
 .title-description {
   display: block;
