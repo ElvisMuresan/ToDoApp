@@ -575,6 +575,10 @@ toDo textarea.smallerText {
     max-width: 400px;
     max-height: 380px;
   }
+
+  .checkbox {
+    transform: scale(2.7);
+  }
 }
 
 @media (max-width: 627px) {
