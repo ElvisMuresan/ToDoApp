@@ -21,6 +21,11 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css"
+    />
+
     <link rel="stylesheet" href="main.css" />
   </head>
 
@@ -68,13 +73,26 @@
         <section>
           <header class="PopUp-header">
             <span onclick="Cancel()">&times;</span>
+            <div
+              class="swal2-icon swal2-warning swal2-icon-show"
+              style="
+                display: flex;
+                color: rgb(167, 50, 50);
+                border-color: rgb(167, 50, 50);
+              "
+            >
+              <div class="swal2-icon-content">!</div>
+            </div>
             <h2 id="confirmDeleteHeader"></h2>
+            <h3>You won't be able to revert this!</h3>
             <p id="confirmDeleteMessage"></p>
           </header>
 
           <footer class="PopUp-footer">
-            <button class="PopUp-cancel" onclick="Cancel()">Cancel</button>
-            <button id="PopUp-confirm" class="PopUp-confirm">Confirm</button>
+            <button class="PopUp-cancel" onclick="Cancel()">No, cancel</button>
+            <button id="PopUp-confirm" class="PopUp-confirm">
+              Yes, delete it!
+            </button>
           </footer>
         </section>
       </div>
@@ -85,14 +103,25 @@
         <section>
           <header class="PopUp-headerAll">
             <span onclick="Cancel()">&times;</span>
+            <div
+              class="swal2-icon swal2-warning swal2-icon-show"
+              style="
+                display: flex;
+                color: rgb(167, 50, 50);
+                border-color: rgb(167, 50, 50);
+              "
+            >
+              <div class="swal2-icon-content">!</div>
+            </div>
             <h2 id="confirmDeleteHeaderAll"></h2>
+            <h3>You won't be able to revert this!</h3>
             <p id="confirmDeleteMessageAll"></p>
           </header>
 
           <footer class="PopUp-footerAll">
-            <button class="PopUp-cancel" onclick="Cancel()">Cancel</button>
+            <button class="PopUp-cancel" onclick="Cancel()">No, cancel</button>
             <button id="PopUp-deleteAll" class="PopUp-deleteAll">
-              Delete all
+              Yes, delete it!
             </button>
           </footer>
         </section>
@@ -101,6 +130,7 @@
 
     <div id="notification" class="notificationBox" />
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js"></script>
     <script src="main.js"></script>
   </body>
 </html>

@@ -71,7 +71,7 @@ function deleteAllToDoListeners() {
   if (storedTodos.length === 0) {
     let notificationConfig = {
       style: NOTIFICATION_WARN_STYLE,
-      text: "The toDo list is empty. Please insert a toDo!",
+      text: "Please insert a task!",
     };
     notificationElement.style = notificationConfig.style;
     notificationElement.innerText = notificationConfig.text;
@@ -96,10 +96,24 @@ function activateDeleteListeners() {
 confirmButton.addEventListener("click", () => {
   deleteToDo(idToDo);
   confirmationPopUp.classList.remove("PopUp-open");
+  let notificationConfig = {
+    style: NOTIFICATION_INFO_STYLE,
+    text: "✔️ Your task has been deleted!",
+  };
+  notificationElement.style = notificationConfig.style;
+  notificationElement.innerText = notificationConfig.text;
+  setTimeout(() => (notificationElement.style.display = "none"), 6000);
 });
 confirmDeleteAll.addEventListener("click", () => {
   deleteAllToDo();
   confirmationPopUpAll.classList.remove("PopUpAll-open");
+  let notificationConfig = {
+    style: NOTIFICATION_INFO_STYLE,
+    text: "✔️ All your tasks have been deleted!",
+  };
+  notificationElement.style = notificationConfig.style;
+  notificationElement.innerText = notificationConfig.text;
+  setTimeout(() => (notificationElement.style.display = "none"), 6000);
 });
 
 function activateEditListeners() {
@@ -125,6 +139,10 @@ function activateEditListeners() {
       content[i].setSelectionRange(
         content[i].value.length,
         content[i].value.length
+      );
+      description[i].setSelectionRange(
+        description[i].value.length,
+        description[i].value.length
       );
       checkbox.forEach((cB) => {
         cB.classList.add("disabled");
@@ -562,7 +580,7 @@ const NOTIFICATION_WARN_STYLE =
 function showNotification(inputValue) {
   let notificationConfig = {
     style: NOTIFICATION_INFO_STYLE,
-    text: "To do succesfully added!",
+    text: "Task succesfully added!",
   };
 
   if (!inputValue) {

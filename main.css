@@ -358,7 +358,7 @@ textarea:hover {
 }
 
 .PopUp {
-  max-width: 700px;
+  max-width: 500px;
   max-height: 400px;
   background-color: rgba(245, 238, 238, 0.938);
   border-radius: 3px;
@@ -372,6 +372,12 @@ textarea:hover {
 
 .PopUp-header h2 {
   margin: 1em;
+  text-align: center;
+}
+
+.PopUp-header h3 {
+  margin: 1em;
+  text-align: center;
 }
 
 .PopUp-header span {
@@ -387,7 +393,7 @@ textarea:hover {
 .PopUp-footer {
   padding: 1em;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .PopUp-cancel {
@@ -395,7 +401,7 @@ textarea:hover {
   padding: 0.5em 1em;
   border: none;
   color: white;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgb(167, 50, 50);
   border-radius: 3px;
   margin-left: 0.5em;
   cursor: default;
@@ -406,7 +412,7 @@ textarea:hover {
   padding: 0.5em 1em;
   border: none;
   color: white;
-  background-color: tomato;
+  background-color: green;
   border-radius: 3px;
   margin-left: 0.5em;
   cursor: pointer;
@@ -446,6 +452,12 @@ textarea:hover {
 
 .PopUp-headerAll h2 {
   margin: 1em;
+  text-align: center;
+}
+
+.PopUp-headerAll h3 {
+  margin: 1em;
+  text-align: center;
 }
 
 .PopUp-headerAll span {
@@ -457,18 +469,7 @@ textarea:hover {
 .PopUp-footerAll {
   padding: 1em;
   display: flex;
-  justify-content: flex-end;
-}
-
-.PopUp-cancel {
-  text-transform: uppercase;
-  padding: 0.5em 1em;
-  border: none;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 3px;
-  margin-left: 0.5em;
-  cursor: default;
+  justify-content: center;
 }
 
 .PopUp-deleteAll {
@@ -476,7 +477,7 @@ textarea:hover {
   padding: 0.5em 1em;
   border: none;
   color: white;
-  background-color: tomato;
+  background-color: green;
   border-radius: 3px;
   margin-left: 0.5em;
   cursor: pointer;
@@ -564,19 +565,37 @@ toDo textarea.smallerText {
   .description-container input {
     width: 90%;
   }
+
+  .PopUp {
+    max-width: 400px;
+    max-height: 380px;
+  }
+
+  .PopUpAll {
+    max-width: 400px;
+    max-height: 380px;
+  }
 }
 
 @media (max-width: 627px) {
   header.card h1 {
     letter-spacing: 0.1rem;
     font-size: calc(var(--base-font) * 1.9);
-    /* margin-left: 1rem; */
+  }
+  .stat {
+    font-size: calc(var(--base-font) - 0.4rem);
   }
 }
 
-@media (max-width: 627px) {
-  .stat {
-    font-size: calc(var(--base-font) - 0.4rem);
+@media (max-width: 385px) {
+  .PopUp {
+    max-width: 300px;
+    max-height: 450px;
+  }
+
+  .PopUpAll {
+    max-width: 300px;
+    max-height: 450px;
   }
 }
 
