@@ -578,9 +578,10 @@ textarea:hover {
     max-height: 380px;
   }
 
-  /* .checkbox {
-    transform: scale(2.7);
-  } */
+  .checkbox {
+    width: 1em;
+    height: 2.5em;
+  }
 }
 
 @media (max-width: 627px) {
@@ -590,6 +591,11 @@ textarea:hover {
   }
   .stat {
     font-size: calc(var(--base-font) - 0.4rem);
+  }
+
+  .checkbox {
+    width: 1.5em;
+    height: 2.5em;
   }
 }
 
@@ -602,6 +608,11 @@ textarea:hover {
   .PopUpAll {
     max-width: 300px;
     max-height: 450px;
+  }
+
+  .checkbox {
+    width: 3.5em;
+    height: 2.5em;
   }
 }
 
