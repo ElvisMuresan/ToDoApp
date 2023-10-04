@@ -630,6 +630,8 @@ async function createToDo(position, todoTitle, todoDescription) {
 
     todoTitle.value = "";
     todoDescription.value = "";
+    todoTitle.focus();
+
     //position++;
     return newToDoId;
   } catch (error) {

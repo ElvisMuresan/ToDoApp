@@ -501,12 +501,12 @@ textarea:hover {
 }
 
 .disabled {
-  opacity: 0.5;
+  opacity: 0.2;
   pointer-events: none;
-  cursor: not-allowed;
+  cursor: not-allowed !important;
 }
 
-toDo textarea.smallerText {
+.toDo textarea.smallerText {
   font-size: 12px;
 }
 
@@ -576,9 +576,9 @@ toDo textarea.smallerText {
     max-height: 380px;
   }
 
-  .checkbox {
+  /* .checkbox {
     transform: scale(2.7);
-  }
+  } */
 }
 
 @media (max-width: 627px) {
