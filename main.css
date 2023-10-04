@@ -579,7 +579,7 @@ textarea:hover {
   }
 
   .checkbox {
-    width: 1em;
+    width: 0.8em;
     height: 2.5em;
   }
 }
@@ -594,7 +594,7 @@ textarea:hover {
   }
 
   .checkbox {
-    width: 1.5em;
+    width: 1.3em;
     height: 2.5em;
   }
 }
@@ -611,7 +611,7 @@ textarea:hover {
   }
 
   .checkbox {
-    width: 3.5em;
+    width: 3.3em;
     height: 2.5em;
   }
 }
