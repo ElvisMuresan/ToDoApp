@@ -223,6 +223,8 @@ textarea:hover {
   transform: scale(1.7);
   padding-left: 0px;
   vertical-align: middle;
+  width: 0.5em;
+  height: 2.5em;
 }
 
 .toDo textarea {
