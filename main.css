@@ -539,10 +539,6 @@ textarea:hover {
 }
 
 @media (max-width: 768px) {
-  body {
-    padding-top: 4rem;
-  }
-
   .add {
     margin: 2rem 0;
   }
