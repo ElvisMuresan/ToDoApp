@@ -107,6 +107,11 @@ header.card h1 {
   font-size: calc(var(--base-font) * 2);
 }
 
+#loginButton,
+#signUpButton {
+  letter-spacing: normal;
+}
+
 .cb-container {
   all: unset;
   color: var(--blue);
@@ -605,6 +610,7 @@ textarea:hover {
     letter-spacing: 0.1rem;
     font-size: calc(var(--base-font) * 1.9);
   }
+
   .stat {
     font-size: calc(var(--base-font) - 0.4rem);
   }

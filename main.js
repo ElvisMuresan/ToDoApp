@@ -18,7 +18,7 @@ const remainingTasks = document.getElementById("remaining-tasks");
 const todoTitle = document.querySelector("#titleId");
 const todoDescription = document.querySelector("#inputId");
 const loginButton = document.getElementById("loginButton");
-const signInButton = document.getElementById("signInButton");
+const signUpButton = document.getElementById("signUpButton");
 
 // globals
 let clearToDos = document.getElementById("clearToDo");
@@ -37,8 +37,8 @@ loginButton.addEventListener("click", function () {
   window.location.href = "logIn.html";
 });
 
-signInButton.addEventListener("click", function () {
-  window.location.href = "signIn.html";
+signUpButton.addEventListener("click", function () {
+  window.location.href = "signUp.html";
 });
 
 document.querySelector("#addToDo").addEventListener("click", () => {
