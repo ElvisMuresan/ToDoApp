@@ -538,6 +538,26 @@ textarea:hover {
   outline: none;
 }
 
+.card button {
+  all: unset;
+  color: var(--blue);
+  font-size: 2rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-right: 1rem;
+  background-image: linear-gradient(to right, var(--clr-gb-2), var(--clr-gb-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.4s;
+}
+
+.card button:hover {
+  background-image: linear-gradient(to right, var(--clr-gb-1), var(--clr-gb-1));
+}
+.btn {
+  background-image: linear-gradient(to right, var(--clr-gb-2), var(--clr-gb-2));
+}
+
 @media (max-width: 768px) {
   .add {
     margin: 2rem 0;

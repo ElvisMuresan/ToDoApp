@@ -17,6 +17,8 @@ const completedTasks = document.getElementById("completed-tasks");
 const remainingTasks = document.getElementById("remaining-tasks");
 const todoTitle = document.querySelector("#titleId");
 const todoDescription = document.querySelector("#inputId");
+const loginButton = document.getElementById("loginButton");
+const signInButton = document.getElementById("signInButton");
 
 // globals
 let clearToDos = document.getElementById("clearToDo");
@@ -30,6 +32,14 @@ let newToDoId = null;
 //let isEditing = false;
 let storedTodos = JSON.parse(localStorage.getItem("toDos")) || [];
 let counterDisplayToDo = storedTodos.length + 1;
+
+loginButton.addEventListener("click", function () {
+  window.location.href = "logIn.html";
+});
+
+signInButton.addEventListener("click", function () {
+  window.location.href = "signIn.html";
+});
 
 document.querySelector("#addToDo").addEventListener("click", () => {
   event.preventDefault();
