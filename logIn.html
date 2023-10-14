@@ -39,7 +39,7 @@
   <body>
     <div>
       <div class="">
-        <form action="/auth/login" method="post">
+        <form method="post">
           <h3 class="">Log In</h3>
           <div class="">
             <label for="login-email" class="form-label">Email address</label>
@@ -62,7 +62,9 @@
               required
             />
           </div>
-          <button type="submit" class="btn purple__btn">Submit</button>
+          <button type="submit" id="submit-login" class="btn purple__btn">
+            Submit
+          </button>
         </form>
       </div>
 
@@ -92,6 +94,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js"></script>
-    <script src="main.js"></script>
+    <script src="login.js"></script>
   </body>
 </html>

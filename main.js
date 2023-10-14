@@ -17,12 +17,10 @@ const completedTasks = document.getElementById("completed-tasks");
 const remainingTasks = document.getElementById("remaining-tasks");
 const todoTitle = document.querySelector("#titleId");
 const todoDescription = document.querySelector("#inputId");
-const loginButton = document.getElementById("loginButton");
-const signUpButton = document.getElementById("signUpButton");
+const clearToDos = document.getElementById("clearToDo");
+const addTask = document.getElementById("addToDo");
 
 // globals
-let clearToDos = document.getElementById("clearToDo");
-let addTask = document.getElementById("addToDo");
 let counterStoredTodos = 1;
 let position = 0;
 let completedCount = 0;
@@ -33,12 +31,14 @@ let newToDoId = null;
 let storedTodos = JSON.parse(localStorage.getItem("toDos")) || [];
 let counterDisplayToDo = storedTodos.length + 1;
 
-loginButton.addEventListener("click", function () {
-  window.location.href = "logIn.html";
-});
+window.addEventListener("DOMContentLoaded", function () {
+  loginButton.addEventListener("click", function () {
+    window.location.href = "logIn.html";
+  });
 
-signUpButton.addEventListener("click", function () {
-  window.location.href = "signUp.html";
+  signUpButton.addEventListener("click", function () {
+    window.location.href = "signUp.html";
+  });
 });
 
 document.querySelector("#addToDo").addEventListener("click", () => {
@@ -66,9 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelector(".PopUp")
     .addEventListener("click", (e) => e.stopPropagation());
-});
-
-document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("confirmationDialogAll")
     .addEventListener("click", Cancel);
