@@ -19,6 +19,8 @@ const todoTitle = document.querySelector("#titleId");
 const todoDescription = document.querySelector("#inputId");
 const clearToDos = document.getElementById("clearToDo");
 const addTask = document.getElementById("addToDo");
+const loginButton = document.getElementById("loginButton");
+const signUpButton = document.getElementById("signUpButton");
 
 // globals
 let counterStoredTodos = 1;
