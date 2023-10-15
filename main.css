@@ -108,8 +108,13 @@ header.card h1 {
 }
 
 #loginButton,
-#signUpButton {
+#signUpButton,
+#logOutButton {
   letter-spacing: normal;
+}
+
+#logOutButton {
+  margin-right: 3.4rem;
 }
 
 .cb-container {

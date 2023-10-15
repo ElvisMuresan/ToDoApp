@@ -1,6 +1,7 @@
 const submitSignUp = document.getElementById("submit-signUp");
 const emailSignUp = document.getElementById("signUp-email");
 const passSignUp = document.getElementById("signUp-password");
+const logOut = document.getElementById("logOut-button");
 
 const notificationElement = document.getElementById("notification");
 const NOTIFICATION_INFO_STYLE =
@@ -44,6 +45,7 @@ async function SignUpAuth(emailSignUp, passSignUp) {
     });
 
     if (response.ok) {
+      localStorage.setItem("isLoggedIn", "true");
       window.location.href = "index.html";
     } else if (response.status === 400) {
       const data = await response.json();

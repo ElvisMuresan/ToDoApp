@@ -20,6 +20,7 @@ const todoDescription = document.querySelector("#inputId");
 const clearToDos = document.getElementById("clearToDo");
 const addTask = document.getElementById("addToDo");
 const loginButton = document.getElementById("loginButton");
+const logOutButton = document.getElementById("logOutButton");
 const signUpButton = document.getElementById("signUpButton");
 
 // globals
@@ -41,6 +42,36 @@ window.addEventListener("DOMContentLoaded", function () {
   signUpButton.addEventListener("click", function () {
     window.location.href = "signUp.html";
   });
+
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  if (isLoggedIn === "true") {
+    logOutButton.style.display = "block";
+    loginButton.style.display = "none";
+    signUpButton.style.display = "none";
+  } else {
+    logOutButton.style.display = "none";
+    loginButton.style.display = "block";
+    signUpButton.style.display = "block";
+  }
+  console.log(isLoggedIn);
+});
+
+logOutButton.addEventListener("click", async () => {
+  const apiUrl = `http://localhost:4000/logout`;
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: "GET",
+    });
+
+    if (response.ok) {
+      window.location.href = "index.html";
+    } else {
+      console.log("Eroare la Log Out");
+    }
+  } catch (error) {
+    console.error("Eroare la Log Out", error);
+  }
 });
 
 document.querySelector("#addToDo").addEventListener("click", () => {
