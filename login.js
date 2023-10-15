@@ -1,5 +1,3 @@
-const loginButton = document.getElementById("loginButton");
-const signUpButton = document.getElementById("signUpButton");
 const submitLogin = document.getElementById("submit-login");
 const emailLogin = document.getElementById("login-email");
 const passLogin = document.getElementById("login-password");
