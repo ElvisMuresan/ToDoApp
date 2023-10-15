@@ -30,6 +30,6 @@ async function loginAuth(emailLogin, passLogin) {
       console.log("Eroare la autentificare.");
     }
   } catch (error) {
-    console.error("Eroare la mutarea ToDo-urilui in jos", error);
+    console.error("Eroare la autentificare", error);
   }
 }
