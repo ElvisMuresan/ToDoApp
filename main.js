@@ -65,7 +65,7 @@ logOutButton.addEventListener("click", async () => {
     });
 
     if (response.ok) {
-      window.location.href = "index.html";
+      window.location.href = "/signUp.html";
     } else {
       console.log("Eroare la Log Out");
     }
