@@ -46,7 +46,7 @@ async function SignUpAuth(emailSignUp, passSignUp) {
 
     if (response.ok) {
       localStorage.setItem("isLoggedIn", "true");
-      window.location.href = "index.html";
+      window.location.href = "toDoList.html";
     } else if (response.status === 400) {
       const data = await response.json();
       let notificationConfig = {

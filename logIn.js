@@ -32,12 +32,12 @@ async function loginAuth(emailLogin, passLogin) {
     });
 
     if (response.ok) {
-      window.location.href = "index.html";
+      window.location.href = "toDoList.html";
     } else if (response.status === 401) {
       const data = await response.json();
       let notificationConfig = {
         style: NOTIFICATION_WARN_STYLE,
-        text: "User doesn't exists! Please sign Up first",
+        text: "Invalid credentials. Please check your password or email.",
       };
       notificationElement.style = notificationConfig.style;
       notificationElement.innerText = notificationConfig.text;
