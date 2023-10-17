@@ -1,6 +1,8 @@
 const submitLogin = document.getElementById("submit-login");
 const emailLogin = document.getElementById("login-email");
 const passLogin = document.getElementById("login-password");
+const urlParams = new URLSearchParams(window.location.search);
+const logoutSuccess = urlParams.get("logoutSuccess");
 
 const notificationElement = document.getElementById("notification");
 const NOTIFICATION_INFO_STYLE =
@@ -14,6 +16,16 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
     loginAuth(emailLogin, passLogin);
   });
+  if (logoutSuccess === "true") {
+    let notificationConfig = {
+      style: NOTIFICATION_INFO_STYLE,
+      text: "User log Out succesfully!",
+    };
+
+    notificationElement.style = notificationConfig.style;
+    notificationElement.innerText = notificationConfig.text;
+    setTimeout(() => (notificationElement.style.display = "none"), 6000);
+  }
 });
 
 async function loginAuth(emailLogin, passLogin) {
