@@ -180,3 +180,12 @@ body {
   -webkit-background-clip: text;
   color: transparent;
 }
+
+.separator-line {
+  flex: 1;
+  height: 1px;
+  background-color: var(--light);
+  margin: 0 10px;
+  transform: translateY(-50%);
+  top: 0%;
+}
