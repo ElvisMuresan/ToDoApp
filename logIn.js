@@ -16,17 +16,17 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
     loginAuth(emailLogin, passLogin);
   });
-  if (logoutSuccess === "true") {
-    let notificationConfig = {
-      style: NOTIFICATION_INFO_STYLE,
-      text: "User log Out succesfully!",
-    };
-
-    notificationElement.style = notificationConfig.style;
-    notificationElement.innerText = notificationConfig.text;
-    setTimeout(() => (notificationElement.style.display = "none"), 6000);
-  }
 });
+// if (logoutSuccess === "true") {
+//   let notificationConfig = {
+//     style: NOTIFICATION_INFO_STYLE,
+//     text: "User log out succesfully!",
+//   };
+
+//   notificationElement.style = notificationConfig.style;
+//   notificationElement.innerText = notificationConfig.text;
+//   setTimeout(() => (notificationElement.style.display = "none"), 6000);
+// }
 
 async function loginAuth(emailLogin, passLogin) {
   //const apiUrl = `https://todoapp-backend-kbsb.onrender.com/login`;
