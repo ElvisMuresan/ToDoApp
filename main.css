@@ -107,9 +107,11 @@ header.card h1 {
   font-size: calc(var(--base-font) * 2);
 }
 
-#loginButton,
-#signUpButton,
 #logOutButton {
+  letter-spacing: normal;
+}
+
+.account {
   letter-spacing: normal;
 }
 

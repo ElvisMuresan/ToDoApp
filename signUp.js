@@ -1,6 +1,7 @@
 const submitSignUp = document.getElementById("submit-signUp");
 const emailSignUp = document.getElementById("signUp-email");
 const passSignUp = document.getElementById("signUp-password");
+const confirmPass = document.getElementById("signUp-confirmPassword");
 const logOut = document.getElementById("logOut-button");
 
 const notificationElement = document.getElementById("notification");
@@ -15,8 +16,12 @@ document.addEventListener("DOMContentLoaded", () => {
     .querySelector("#submit-signUp")
     .addEventListener("click", (event) => {
       event.preventDefault();
-      if (emailSignUp.checkValidity() && passSignUp.checkValidity()) {
-        SignUpAuth(emailSignUp, passSignUp);
+      if (
+        emailSignUp.checkValidity() &&
+        passSignUp.checkValidity() &&
+        confirmPass.checkValidity()
+      ) {
+        SignUpAuth(emailSignUp, passSignUp, confirmPass);
       } else {
         let notificationConfig = {
           style: NOTIFICATION_WARN_STYLE,
@@ -29,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-async function SignUpAuth(emailSignUp, passSignUp) {
+async function SignUpAuth(emailSignUp, passSignUp, confirmPass) {
   //const apiUrl = `https://todoapp-backend-kbsb.onrender.com/signUp`;
   const apiUrl = `http://localhost:4000/signUp`;
   try {
@@ -41,6 +46,7 @@ async function SignUpAuth(emailSignUp, passSignUp) {
       body: JSON.stringify({
         email: emailSignUp.value,
         password: passSignUp.value,
+        confirmPassword: confirmPass.value,
       }),
     });
 
