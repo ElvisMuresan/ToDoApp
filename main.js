@@ -19,9 +19,7 @@ const todoTitle = document.querySelector("#titleId");
 const todoDescription = document.querySelector("#inputId");
 const clearToDos = document.getElementById("clearToDo");
 const addTask = document.getElementById("addToDo");
-const loginButton = document.getElementById("loginButton");
 const logOutButton = document.getElementById("logOutButton");
-const signUpButton = document.getElementById("signUpButton");
 
 // globals
 let counterStoredTodos = 1;
@@ -33,28 +31,6 @@ let newToDoId = null;
 //let isEditing = false;
 let storedTodos = JSON.parse(localStorage.getItem("toDos")) || [];
 let counterDisplayToDo = storedTodos.length + 1;
-
-window.addEventListener("DOMContentLoaded", function () {
-  loginButton.addEventListener("click", function () {
-    window.location.href = "logIn.html";
-  });
-
-  signUpButton.addEventListener("click", function () {
-    window.location.href = "signUp.html";
-  });
-
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
-  if (isLoggedIn === "true") {
-    logOutButton.style.display = "block";
-    loginButton.style.display = "none";
-    signUpButton.style.display = "none";
-  } else {
-    logOutButton.style.display = "none";
-    loginButton.style.display = "block";
-    signUpButton.style.display = "block";
-  }
-  console.log(isLoggedIn);
-});
 
 logOutButton.addEventListener("click", async () => {
   const apiUrl = `http://localhost:4000/logout`;
