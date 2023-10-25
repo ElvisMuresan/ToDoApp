@@ -29,8 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
 // }
 
 async function loginAuth(emailLogin, passLogin) {
-  const apiUrl = `https://todoapp-backend-kbsb.onrender.com/login`;
-  // const apiUrl = `http://localhost:4000/logIn`;
+  // const apiUrl = `https://todoapp-backend-kbsb.onrender.com/login`;
+  const apiUrl = `http://localhost:4000/logIn`;
   try {
     const response = await fetch(apiUrl, {
       method: "POST",
